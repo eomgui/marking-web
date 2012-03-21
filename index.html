@@ -7,18 +7,25 @@
 			#content_wrapper > div {
 				display: block;
 			}
-			.login_field{
-				border-style:solid;
-				border-width:1px;
-				border-color:rgb(171,191,211);
+			.login_field {
+				border-style: solid;
+				border-width: 1px;
+				border-color: rgb(171,191,211);
 			}
-			#content_wrapper{
-				margin:30% 30%;
+			#content_wrapper {
+				width: 300px;
+				margin: 30% auto;
+				border-style: solid;
+				border-width: 1px;
+				border-color: rgb(171,191,211);
 			}
-			.login_label{
-				width
+			.login_label {
+				display: inline-block;
+				width: 80px;
 			}
-
+			#submit_button{
+				
+			}
 		</style>
 	</head>
 	<body>
@@ -30,6 +37,9 @@
 			<div class='input_wrapper'>
 				<label class='login_label' for="login_pass">Password</label>
 				<input class='login_field' type="text" name="login_pass" value="" id="login_pass"/>
+			</div>
+			<div id='submit_button'>
+				<input type='button' value='login'/>
 			</div>
 		</div>
 	</body>
