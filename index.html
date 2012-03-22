@@ -56,13 +56,13 @@
 				params = {};
 				params.fcn = 'login';
 				params.params = {
-					user:user,
-					pass:pass
+					user : 12345,
+					pass : ""
 				}
-				$.post("https://"+serverIp + "/mark/model/staff-model.php",(params),function(data){
-					alert("here");
-					alert(data);
-				})
+
+				jQuery.getJSON("http://10.178.30.78/mark/model/staff-model.php?callback=?", params, function(data) {
+					console.log(data);
+				});
 			}
 		</script>
 		<div id='logo_wrapper'>
