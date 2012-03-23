@@ -46,7 +46,7 @@
 				text-align: center;
 				margin-right: auto;
 				margin-left: auto;
-				margin-top: 20%;
+				margin-top: 50px;
 			}
 			#error_msg {
 				display: none;
@@ -67,43 +67,32 @@
 	<body>
 		<script type='text/javascript'>
 			function login(user, pass) {
-				console.log(user.charAt(0).toString().toUpperCase());
-
+				$("#error_msg").hide();
 				if(user.length == 6) {
 					if(user.charAt(0).toString().toUpperCase() == 'C') {
-						console.log(parseInt(user.slice(1)));
+						user = parseInt(user.slice(1));
 						params = {};
 						params.fcn = 'login';
 						params.params = {
 							user : user,
 							pass : pass
 						}
-						return user;
-						// jQuery.getJSON("https://10.178.30.78/mark/model/staff-model.php?callback=?", params, function(data) {
-						// console.log(data);
-						// });
+						jQuery.getJSON("http://192.168.192.35/mark/model/staff-model.php?callback=?", params, function(data) {
+							if(!data[0]) {
+								$("#error_text").html(data[1][0]);
+								$("#error_msg").show();
+							}else{
+								//reroute to new page
+							}
+						});
 					} else {
-						$("#error_msg").html("Error: Username must start with C");
+						$("#error_text").html("Error: Username must start with C");
 						$("#error_msg").show();
-						throw "initial letter error";
-						params = {};
-						params.fcn = 'login';
-						params.params = {
-							user : user,
-							pass : pass
-						}
 					}
 				} else {
-					$("#error_msg").html("Error: Username must have 6 characters");
-
+					$("#error_text").html("Error: Username must have 6 characters");
 					$("#error_msg").show();
-					throw "length error";
-					console.log("username")
-
 				}
-
-				return user;
-
 			}
 		</script>
 		<div id='logo_wrapper'>
@@ -123,7 +112,7 @@
 				<input class='login_field' type="text" name="login_pass" value="" id="login_pass"/>
 			</div>
 			<div id='submit_button'>
-				<input type='button' value='Login' onclick='login("12345","")'/>
+				<input type='button' value='Login' onclick='login($("#login_user").val(),$("#login_pass").val())'/>
 			</div>
 		</div>
 	</body>
