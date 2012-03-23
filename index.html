@@ -53,23 +53,44 @@
 	<body>
 		<script type='text/javascript'>
 			function login(user, pass) {
-				if(user.length == 6)
-				{
-					params = {};
-					params.fcn = 'login';
-					params.params = {
-						user : user,
-						pass : pass
+				console.log(user.charAt(0).toString().toUpperCase());
+
+				if(user.length == 6) {
+					if(user.charAt(0).toString().toUpperCase() == 'C') {
+						console.log(parseInt(user.slice(1)));
+						params = {};
+						params.fcn = 'login';
+						params.params = {
+							user : user,
+							pass : pass
+						}
+						return user;
+						// jQuery.getJSON("https://10.178.30.78/mark/model/staff-model.php?callback=?", params, function(data) {
+						// console.log(data);
+						// });
+					} else {
+						$("#error_msg").html("Error: Username must start with C");
+						$("#error_msg").show();
+						throw "initial letter error";
+						params = {};
+						params.fcn = 'login';
+						params.params = {
+							user : user,
+							pass : pass
+						}
 					}
-				}
-				else
-				{
+				} else {
 					$("#error_msg").html("Error: Username must have 6 characters");
+
 					$("#error_msg").show();
+					throw "length error";
 					console.log("username")
+
 				}
-			return user;
-		}
+
+				return user;
+
+			}
 		</script>
 		<div id='logo_wrapper'>
 			Logo Goes Here
