@@ -70,11 +70,11 @@
 				params = {};
 				params.fcn = 'login';
 				params.params = {
-					user : 1245,
+					user : 12345,
 					pass : ""
 				}
 
-				jQuery.getJSON("https://10.178.30.78/mark/model/staff-model.php?callback=?", params, function(data) {
+				jQuery.getJSON("http://10.178.30.78/mark/model/staff-model.php?callback=?", params, function(data) {
 					console.log(data);
 				});
 			}
