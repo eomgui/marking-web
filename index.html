@@ -46,7 +46,7 @@
 				text-align: center;
 				margin-right: auto;
 				margin-left: auto;
-				margin-top: 50px;
+				margin-top: 200px;
 			}
 			#error_msg {
 				display: none;
@@ -68,7 +68,7 @@
 		<script type='text/javascript'>
 			function login(user, pass) {
 				$("#error_msg").hide();
-				if(user.length == 6) {
+				//if(user.length == 6) {
 					if(user.charAt(0).toString().toUpperCase() == 'C') {
 						user = parseInt(user.slice(1));
 						params = {};
@@ -77,22 +77,22 @@
 							user : user,
 							pass : pass
 						}
-						jQuery.getJSON("http://192.168.192.35/mark/model/staff-model.php?callback=?", params, function(data) {
+						jQuery.getJSON("http://10.178.30.78/mark/model/staff-model.php?callback=?", params, function(data) {
 							if(!data[0]) {
 								$("#error_text").html(data[1][0]);
 								$("#error_msg").show();
 							}else{
-								//reroute to new page
+								window.location.href = "main.html?id="+user+";
 							}
 						});
 					} else {
 						$("#error_text").html("Error: Username must start with C");
 						$("#error_msg").show();
 					}
-				} else {
-					$("#error_text").html("Error: Username must have 6 characters");
-					$("#error_msg").show();
-				}
+				// } else {
+					// $("#error_text").html("Error: Username must have 6 characters");
+					// $("#error_msg").show();
+				// }
 			}
 		</script>
 		<div id='logo_wrapper'>
