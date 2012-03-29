@@ -3,8 +3,7 @@ function selectClasses(staffID)
 	params = {};
 	params.fcn = 'login';
 	params.params = {
-		user : user,
-		pass : pass
+		staffID : staffID
 	}
 	jQuery.getJSON("http://192.168.192.35/mark/model/classes-model.php?callback=?", params, function(data) {
 		if(!data[0]) {
