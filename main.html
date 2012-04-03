@@ -8,6 +8,24 @@
 	</head>
 	<body>
 		<style>
+			#student_list{
+				clear:both;
+				width:100%;
+			}
+			#entry{
+				margin-top:60px;
+				width:100%;
+			}
+			#students{
+				display:inline-block;
+				width:20%;
+			}
+			#student_search_field{
+				width:100%;
+			}
+			#options{
+				display:inline-block;
+			}
 			.menu_bkg{
 				position: static;
 				background-color: rgb(107,41,62);
@@ -191,10 +209,10 @@
 			}
 			ul.pureCssMenu span {
 				display: block;
-				background-image: url(./css/images/arrv_blue_2.gif);
+				background-image: url(./css/images/arrv_white_2.gif);
 				background-position: right center;
 				background-repeat: no-repeat;
-				padding-right: 8px;
+				padding-right: 12px;
 			}
 			ul.pureCssMenu li:hover > a > span {
 				background-image: url(./css/images/arrv_white_2.gif);
@@ -203,7 +221,7 @@
 				_background-image: url(./css/images/arrv_white_2.gif)
 			}
 			ul.pureCssMenu ul span, ul.pureCssMenu a:hover table span {
-				background-image: url(./css/images/arr_blue_2.gif)
+				background-image: url(./css/images/arr_white_2.gif)
 			}
 			ul.pureCssMenu ul li:hover > a span {
 				background-image: url(./css/images/arr_white_2.gif);
@@ -212,7 +230,7 @@
 				background-image: url(./css/images/arr_white_2.gif)
 			}
 			ul.pureCssMenu table a:hover table span {
-				background-image: url(./css/images/arr_blue_2.gif)
+				background-image: url(./css/images/arr_white_2.gif)
 			}
 		</style>
 		<!-- End PureCSSMenu.com STYLE -->
@@ -261,6 +279,23 @@
 						<a class = 'currentClassBar'>Logout</a>
 					</li>
 			</ul>
+		</div>
+		<div id = "entry">
+			<div id = 'students'>
+				<input type='text' id='student_search_field' value='search'/><br/>
+				<select id = 'student_list'multiple="6">
+					<option>123</option>
+					<option>123</option>
+					<option>123</option>
+					<option>123</option>
+					<option>123</option>
+					<option>123</option>
+					<option>123</option>
+				</select>
+			</div>
+			<div id = 'options'>
+				
+			</div>
 		</div>
 		<!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
 		<!-- End PureCSSMenu.com MENU -->
