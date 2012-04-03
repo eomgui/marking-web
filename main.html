@@ -8,6 +8,30 @@
 	</head>
 	<body>
 		<style>
+			.menu_bkg{
+				position: static;
+				background-color: rgb(107,41,62);
+				height:38px;
+				width:100%;
+			}
+			#spacer{
+				background-color: rgb(107,41,62);
+				width:100px;
+			}
+			#noclick{
+				cursor:default;
+				background-color: rgb(107,41,62); !important
+			}
+			#right{
+				float:right; !important;	
+			}
+
+			#noclick:hover{
+				
+			}
+			body{							
+				margin:0px;
+			}
 			#pcm {
 				display: none;
 			}
@@ -189,48 +213,55 @@
 			}
 			ul.pureCssMenu table a:hover table span {
 				background-image: url(./css/images/arr_blue_2.gif)
-			}
-			ul.pureCssMenu li a.pureCssMenui0 {
-				/*font:n;*/
-			}
-			ul.pureCssMenu li a.pureCssMenui0:hover {
-				/*font:o;*/
 			}
 		</style>
 		<!-- End PureCSSMenu.com STYLE -->
 		<!-- Start PureCSSMenu.com MENU -->
-		<ul class="pureCssMenu pureCssMenum">
-			<li class="pureCssMenui0">
-				<a class="logoBar">LogoGoesHere</a>
-			</li>
-			<li class="pureCssMenui0">
-				<a class="currentClassBar" href="#">Class 1</a>
-			</li>
-			<li class="pureCssMenui0">
-				<a class="selectClassBar" href="#"><span>Select A Class</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-				<ul class="pureCssMenum">
-					<li class="pureCssMenui">
-						<a class="pureCssMenui" href="#"><span>Semester 1</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul class="pureCssMenum">
-							<li class="pureCssMenui">
-								<a class="pureCssMenui" href="#">Class 1</a>
-							</li>
-						</ul>
-						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-					<li class="pureCssMenui">
-						<a class="pureCssMenui" href="#"><span>Semester 2</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-						<ul class="pureCssMenum">
-							<li class="pureCssMenui">
-								<a class="pureCssMenui" href="#">Class 2</a>
-							</li>
-						</ul>
-						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
+		<div class = 'menu_bkg'>
+			<ul class="pureCssMenu pureCssMenum">
+				<li class="pureCssMenui0">
+					<a class="logoBar" id='noclick'>LogoGoesHere</a>
+				</li>
+				<li class="pureCssMenui0">
+					<a id='noclick' class="currentClassBar" href="#">Class 1</a>
+				</li>
+				<li class="pureCssMenui0">
+					<a class="selectClassBar" href="#"><span>Select A Class</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<ul class="pureCssMenum">
+						<li class="pureCssMenui">
+							<a class="pureCssMenui" href="#"><span>Semester 1</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+							<ul class="pureCssMenum">
+								<li class="pureCssMenui">
+									<a class="pureCssMenui" href="#">Class 1</a>
+								</li>
+							</ul>
+							<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+						</li>
+						<li class="pureCssMenui">
+							<a class="pureCssMenui" href="#"><span>Semester 2</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+							<ul class="pureCssMenum">
+								<li class="pureCssMenui">
+									<a class="pureCssMenui" href="#">Class 2</a>
+								</li>
+							</ul>
+							<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+						</li>
+					</ul>
+					<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+				</li>
 				</ul>
-				<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-		</ul>
+				<ul class="pureCssMenu pureCssMenum" id ='right'>
+					<li class="pureCssMenui0" id='right'>				
+						<a class = 'currentClassBar'>Settings</a>
+					</li>
+					<li class="pureCssMenui0" id='right'>	
+						<a class = 'currentClassBar'>Help</a>
+					</li>
+					<li class="pureCssMenui0" id='right'>
+						<a class = 'currentClassBar'>Logout</a>
+					</li>
+			</ul>
+		</div>
 		<!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
 		<!-- End PureCSSMenu.com MENU -->
 		<!-- (c) 2009, PureCSSMenu.com -->
