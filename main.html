@@ -7,8 +7,10 @@
 		<script src="js/marking.js" type="text/javascript" charset="utf-8"></script>
 		<title>Marking Main</title>
 		<script type="text/javascript">
-			function selectClasses(staffID)
+			function selectClasses()
 			{
+				var url = window.location.toString();
+				var staffID = url.substring(url.length - 1);
 				params = {};
 				params.fcn = 'selectClasses';
 				params.params = {
@@ -19,7 +21,7 @@
 						$("#error_text").html(data[1][0]);
 						$("#error_msg").show();
 					}else{
-						
+						return data[1];
 					}
 				});
 			}
