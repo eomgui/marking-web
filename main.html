@@ -8,23 +8,54 @@
 	</head>
 	<body>
 		<style>
+			.fl_left{
+				margin-left:150px !important;
+			}
+			#std_title{
+				margin:7px 0px;
+				font-size:150%;
+				font-weight:normal;
+			}
+			.std_opt{
+				padding-top:5px !important;
+				padding-bottom:5px !important;
+			}
 			#student_list{
 				clear:both;
 				width:100%;
+				margin:0px;
+				border-style:solid;
+				border-width:1px;
+				border-color:rgb(179,121,142);
+				padding-top:3px;
+				padding-bottom:3px;
+				padding-left:5px;
+				min-height: 400px;
 			}
 			#entry{
 				margin-top:60px;
 				width:100%;
+				float:left;
 			}
 			#students{
+				float:left;
+				margin-right:30px;
+				margin-left:70px;
 				display:inline-block;
-				width:20%;
+				width:15%;
 			}
 			#student_search_field{
-				width:100%;
+				border-style:solid;
+				border-width:1px;
+				border-color:rgb(179,121,142);
+				color:gray;
+				width:80%;
+				margin:0px;
+				padding:5px 0px;
 			}
 			#options{
 				display:inline-block;
+				width:70%;
 			}
 			.menu_bkg{
 				position: static;
@@ -282,21 +313,53 @@
 		</div>
 		<div id = "entry">
 			<div id = 'students'>
-				<input type='text' id='student_search_field' value='search'/><br/>
+				<h1 id='std_title'>Students</h1>
+				<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/><br/>
 				<select id = 'student_list'multiple="6">
-					<option>123</option>
-					<option>123</option>
-					<option>123</option>
-					<option>123</option>
-					<option>123</option>
-					<option>123</option>
-					<option>123</option>
 				</select>
 			</div>
 			<div id = 'options'>
-				
+				<h1 id='std_title' class='fl_left'>Class 1</h1>
 			</div>
 		</div>
+		<script type="text/javascript" charset="utf-8">
+			// fix hilight color later
+			// $('select[id$=-status][id^=id_item-]').children().each(function (){    
+   			// colors = ['white', 'green', 'red', 'orange']
+    		// $(this).attr('style', 'background-color:' + colors[$(this).val()] + ';');
+			// });
+			// $('select[id$=-status][id^=id_item-]').change(function (){
+    		// $(this).attr('style', $(this).find('option:selected').attr('style'));
+			// }).change();
+			function clear(bar){
+				$("#"+bar).val("");
+			}
+			var students ={0:"Cassie Wei",1:"Aaron Shifman",2:"Steve Irvin"};
+			var students_deleted = {};
+			
+			function buildStudents(id){
+				for(student in students){
+					$("#"+id).append("<option class = 'std_opt'id='"+student+"'>"+students[student]+"</option>");
+				}
+			}
+			$(document).ready(function(){
+				buildStudents('student_list');
+			})
+			$("#student_search_field").keyup(function(){
+				$("#student_list").children().each(function(iter){
+					if($(this).html().toString().indexOf($("#student_search_field").val().toString()) == -1){
+						students_deleted[$(this).attr('id')] = $(this).val();
+						$(this).remove();
+					}
+				})
+				for(student in students_deleted){
+					if((students_deleted[student].indexOf($("#student_search_field").val().toString()) != -1)){
+						$("#student_list").append("<option class = 'std_opt' id='"+student+"'>"+students[student]+"</option>");
+						delete students_deleted[student];
+					}
+				}
+			})
+		</script>
 		<!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
 		<!-- End PureCSSMenu.com MENU -->
 		<!-- (c) 2009, PureCSSMenu.com -->
