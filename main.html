@@ -8,78 +8,107 @@
 	</head>
 	<body>
 		<style>
-			.fl_left{
-				margin-left:150px !important;
+			#student_wrapper{
+				float:left;
+				border-style: solid;
+				border-width: 1px;
+				border-color: rgb(179,121,142);
 			}
-			#std_title{
-				margin:7px 0px;
-				font-size:150%;
-				font-weight:normal;
+			body{
+				background-color:white
 			}
-			.std_opt{
-				padding-top:5px !important;
-				padding-bottom:5px !important;
+			a[type=unusual]{
+				padding-left:20px !important;
+				padding-right:20px !important;
 			}
-			#student_list{
-				clear:both;
-				width:100%;
-				margin:0px;
-				border-style:solid;
-				border-width:1px;
-				border-color:rgb(179,121,142);
-				padding-top:3px;
-				padding-bottom:3px;
-				padding-left:5px;
+			span[type=unusual]{
+				display: block;
+				background-image: url(./css/images/record_icon.png);
+				background-position: left center;
+				background-repeat: no-repeat;
+				padding:12px;
+				padding-left:35px;
+				background-size: 25px;
+			}
+			#main_content{
+				margin-top:70px;
+				padding-left:40%;
+			}
+			#main_content_wrapper {
+				float:left;
+			}
+			.fl_left {
+				margin-left: 150px !important;
+			}
+			.std_title {
+				margin: 7px 0px;
+				font-size: 150%;
+				font-weight: normal;
+			}
+			.std_opt {
+				padding-top: 5px !important;
+				padding-bottom: 5px !important;
+			}
+			#student_list {
+				clear: both;
+				width: 100%;
+				margin: 0px;
+				border-style: solid;
+				border-width: 1px;
+				border-color: white;
+				border-top-color: rgb(179,121,142);
+				border-top-style: solid;
+				border-top-width: 1px;
+				padding-top: 3px;
+				padding-bottom: 3px;
+				padding-left: 5px;
 				min-height: 400px;
-			}
-			#entry{
-				margin-top:60px;
-				width:100%;
-				float:left;
-			}
-			#students{
-				float:left;
-				margin-right:30px;
-				margin-left:70px;
-				display:inline-block;
-				width:15%;
-			}
-			#student_search_field{
-				border-style:solid;
-				border-width:1px;
-				border-color:rgb(179,121,142);
-				color:gray;
-				width:80%;
-				margin:0px;
-				padding:5px 0px;
-			}
-			#options{
-				display:inline-block;
-				width:70%;
-			}
-			.menu_bkg{
-				position: static;
-				background-color: rgb(107,41,62);
-				height:38px;
-				width:100%;
-			}
-			#spacer{
-				background-color: rgb(107,41,62);
-				width:100px;
-			}
-			#noclick{
-				cursor:default;
-				background-color: rgb(107,41,62); !important
-			}
-			#right{
-				float:right; !important;	
-			}
-
-			#noclick:hover{
 				
 			}
-			body{							
-				margin:0px;
+			#entry {
+				margin-top: 60px;
+				width: 100%;
+				float: left;
+			}
+			#students {
+				float: left;
+				margin-right: 30px;
+				margin-left: 70px;
+				display: inline-block;
+				width: 15%;
+			}
+			#student_search_field {
+				border-style: solid;
+				border-width: 1px;
+				border-color: white;
+				color: gray;
+				width: 80%;
+				margin: 0px;
+				padding: 5px 5px;
+			}
+			#options {
+				display: inline-block;
+				width: 70%;
+			}
+			.menu_bkg {
+				position: static;
+				background-color: rgb(107,41,62);
+				height: 38px;
+				width: 100%;
+			}
+			#spacer {
+				background-color: rgb(107,41,62);
+				width: 100px;
+			}
+			.noclick {
+				cursor: default !important;
+				background-color: rgb(107,41,62) !important;
+			}
+			#right {
+				float: right !important;
+			}
+			body {
+				margin: 0px;
 			}
 			#pcm {
 				display: none;
@@ -207,81 +236,25 @@
 				width: 16px;
 				height: 16px;
 			}
-			ul.pureCssMenu ul img {
-				width: 16px;
-				height: 16px;
-			}
-			ul.pureCssMenu img.over {
-				display: none
-			}
-			ul.pureCssMenu li.dis a:hover img.over {
-				display: none !important
-			}
-			ul.pureCssMenu li.dis a:hover img.def {
-				display: inline !important
-			}
-			ul.pureCssMenu li:hover > a img.def {
-				display: none
-			}
-			ul.pureCssMenu li:hover > a img.over {
-				display: inline
-			}
-			ul.pureCssMenu a:hover img.over, ul.pureCssMenu a:hover ul img.def, ul.pureCssMenu a:hover a:hover ul img.def, ul.pureCssMenu a:hover a:hover img.over, ul.pureCssMenu a:hover a:hover a:hover img.over {
-				display: inline
-			}
-			ul.pureCssMenu a:hover img.def, ul.pureCssMenu a:hover ul img.over, ul.pureCssMenu a:hover a:hover ul img.over, ul.pureCssMenu a:hover a:hover img.def, ul.pureCssMenu a:hover a:hover a:hover img.def {
-				display: none
-			}
-			ul.pureCssMenu a:hover ul, ul.pureCssMenu a:hover a:hover ul {
-				display: block
-			}
-			ul.pureCssMenu a:hover ul ul {
-				display: none
-			}
-			ul.pureCssMenu span {
-				display: block;
-				background-image: url(./css/images/arrv_white_2.gif);
-				background-position: right center;
-				background-repeat: no-repeat;
-				padding-right: 12px;
-			}
-			ul.pureCssMenu li:hover > a > span {
-				background-image: url(./css/images/arrv_white_2.gif);
-			}
-			ul.pureCssMenu a:hover span {
-				_background-image: url(./css/images/arrv_white_2.gif)
-			}
-			ul.pureCssMenu ul span, ul.pureCssMenu a:hover table span {
-				background-image: url(./css/images/arr_white_2.gif)
-			}
-			ul.pureCssMenu ul li:hover > a span {
-				background-image: url(./css/images/arr_white_2.gif);
-			}
-			ul.pureCssMenu table a:hover span, ul.pureCssMenu table a:hover a:hover span {
-				background-image: url(./css/images/arr_white_2.gif)
-			}
-			ul.pureCssMenu table a:hover table span {
-				background-image: url(./css/images/arr_white_2.gif)
-			}
 		</style>
 		<!-- End PureCSSMenu.com STYLE -->
 		<!-- Start PureCSSMenu.com MENU -->
 		<div class = 'menu_bkg'>
 			<ul class="pureCssMenu pureCssMenum">
 				<li class="pureCssMenui0">
-					<a class="logoBar" id='noclick'>LogoGoesHere</a>
+					<a class="logoBar noclick">LogoGoesHere</a>
 				</li>
 				<li class="pureCssMenui0">
-					<a id='noclick' class="currentClassBar" href="#">Class 1</a>
+					<a id='menu_visible_class' class="currentClassBar noclick" href="#">Class 1</a>
 				</li>
-				<li class="pureCssMenui0">
+				<li id='class_main_menu' class="pureCssMenui0">
 					<a class="selectClassBar" href="#"><span>Select A Class</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 					<ul class="pureCssMenum">
 						<li class="pureCssMenui">
 							<a class="pureCssMenui" href="#"><span>Semester 1</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 							<ul class="pureCssMenum">
-								<li class="pureCssMenui">
-									<a class="pureCssMenui" href="#">Class 1</a>
+								<li id='selectClasses_sem1'class="pureCssMenui">
+									<a class="pureCssMenui" class_button='true' id='12345'href="#">Class 1</a>
 								</li>
 							</ul>
 							<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -289,8 +262,8 @@
 						<li class="pureCssMenui">
 							<a class="pureCssMenui" href="#"><span>Semester 2</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 							<ul class="pureCssMenum">
-								<li class="pureCssMenui">
-									<a class="pureCssMenui" href="#">Class 2</a>
+								<li id='selectClasses_sem2' class="pureCssMenui">
+									<a class="pureCssMenui" class_button='true' id='12345753'href="#">Class 2</a>
 								</li>
 							</ul>
 							<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -298,63 +271,101 @@
 					</ul>
 					<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 				</li>
-				</ul>
-				<ul class="pureCssMenu pureCssMenum" id ='right'>
-					<li class="pureCssMenui0" id='right'>				
-						<a class = 'currentClassBar'>Settings</a>
-					</li>
-					<li class="pureCssMenui0" id='right'>	
-						<a class = 'currentClassBar'>Help</a>
-					</li>
-					<li class="pureCssMenui0" id='right'>
-						<a class = 'currentClassBar'>Logout</a>
-					</li>
+			</ul>
+			<ul class="pureCssMenu pureCssMenum" id ='right'>
+				<li class="pureCssMenui0" id='right'>
+					<a class = 'currentClassBar'>Settings</a>
+				</li>
+				<li class="pureCssMenui0" id='right'>
+					<a class = 'currentClassBar'>Help</a>
+				</li>
+				<li class="pureCssMenui0" id='right'>
+					<a class = 'currentClassBar'>Logout</a>
+				</li>
 			</ul>
 		</div>
 		<div id = "entry">
 			<div id = 'students'>
-				<h1 id='std_title'>Students</h1>
-				<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/><br/>
-				<select id = 'student_list'multiple="6">
-				</select>
+				<h1 class='std_title'>Students</h1>
+				<div id='student_wrapper'>
+					<img src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
+					<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+					<br/>
+					<select id = 'student_list'multiple="6"></select>
+				</div>
 			</div>
 			<div id = 'options'>
-				<h1 id='std_title' class='fl_left'>Class 1</h1>
+				<div id='title_wrapper'>
+					<h1 id='title_class_name'class='std_title fl_left'>Class 1</h1>
+				</div>
+				<div id='main_content'>
+					<div id = 'main_content_wrapper'>
+						<ul class="pureCssMenu pureCssMenum">
+							<li id='class_main_menu' class="pureCssMenui0">
+								<a class="mainOptions" type='unusual'href="#"><span type='unusual'>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+								<ul class="pureCssMenum">
+									<li class="pureCssMenui">
+										<a class="pureCssMenui" href="#">Observation</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+									</li>
+									<li class="pureCssMenui">
+										<a class="pureCssMenui" href="#">Conversation</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+									</li>
+									<li class="pureCssMenui">
+										<a class="pureCssMenui" href="#">Product</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+										<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+									</li>
+								</ul>
+								<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+							</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
 		<script type="text/javascript" charset="utf-8">
 			// fix hilight color later
-			// $('select[id$=-status][id^=id_item-]').children().each(function (){    
-   			// colors = ['white', 'green', 'red', 'orange']
-    		// $(this).attr('style', 'background-color:' + colors[$(this).val()] + ';');
+			// $('select[id$=-status][id^=id_item-]').children().each(function (){
+			// colors = ['white', 'green', 'red', 'orange']
+			// $(this).attr('style', 'background-color:' + colors[$(this).val()] + ';');
 			// });
 			// $('select[id$=-status][id^=id_item-]').change(function (){
-    		// $(this).attr('style', $(this).find('option:selected').attr('style'));
+			// $(this).attr('style', $(this).find('option:selected').attr('style'));
 			// }).change();
-			function clear(bar){
-				$("#"+bar).val("");
-			}
-			var students ={0:"Cassie Wei",1:"Aaron Shifman",2:"Steve Irvin"};
+
+			var students = {
+				0 : "Cassie Wei",
+				1 : "Aaron Shifman",
+				2 : "Steve Irvin"
+			};
 			var students_deleted = {};
-			
-			function buildStudents(id){
-				for(student in students){
-					$("#"+id).append("<option class = 'std_opt'id='"+student+"'>"+students[student]+"</option>");
+
+			function buildStudents(id) {
+				for(student in students) {
+					$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
 				}
 			}
-			$(document).ready(function(){
+
+			$("#student_list").change(function(){
+				$("#student_list option:selected").each(function () {
+                	window.location.href = 'getRecords.html?stdId='+$(this).attr('id');
+              });
+			})
+			$("a[class_button='true']").click(function() {
+				$("#menu_visible_class,#title_class_name").html($(this).html());
+			})
+			$(document).ready(function() {
 				buildStudents('student_list');
 			})
-			$("#student_search_field").keyup(function(){
-				$("#student_list").children().each(function(iter){
-					if($(this).html().toString().indexOf($("#student_search_field").val().toString()) == -1){
+			$("#student_search_field").keyup(function() {
+				$("#student_list").children().each(function(iter) {
+					if($(this).html().toString().indexOf($("#student_search_field").val().toString()) == -1) {
 						students_deleted[$(this).attr('id')] = $(this).val();
 						$(this).remove();
 					}
 				})
-				for(student in students_deleted){
-					if((students_deleted[student].indexOf($("#student_search_field").val().toString()) != -1)){
-						$("#student_list").append("<option class = 'std_opt' id='"+student+"'>"+students[student]+"</option>");
+				for(student in students_deleted) {
+					if((students_deleted[student].indexOf($("#student_search_field").val().toString()) != -1)) {
+						$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
 						delete students_deleted[student];
 					}
 				}
