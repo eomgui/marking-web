@@ -245,26 +245,20 @@
 					<a class="logoBar noclick">LogoGoesHere</a>
 				</li>
 				<li class="pureCssMenui0">
-					<a id='menu_visible_class' class="currentClassBar noclick" href="#">Class 1</a>
+					<a id='menu_visible_class' class="currentClassBar noclick" href="#">No Class Selected</a>
 				</li>
 				<li id='class_main_menu' class="pureCssMenui0">
 					<a class="selectClassBar" href="#"><span>Select A Class</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 					<ul class="pureCssMenum">
 						<li class="pureCssMenui">
 							<a class="pureCssMenui" href="#"><span>Semester 1</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-							<ul class="pureCssMenum">
-								<li id='selectClasses_sem1'class="pureCssMenui">
-									<a class="pureCssMenui" class_button='true' id='12345'href="#">Class 1</a>
-								</li>
+							<ul id='selectClasses_sem1' class="pureCssMenum">
 							</ul>
 							<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 						</li>
 						<li class="pureCssMenui">
 							<a class="pureCssMenui" href="#"><span>Semester 2</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-							<ul class="pureCssMenum">
-								<li id='selectClasses_sem2' class="pureCssMenui">
-									<a class="pureCssMenui" class_button='true' id='12345753'href="#">Class 2</a>
-								</li>
+							<ul id='selectClasses_sem2' class="pureCssMenum">
 							</ul>
 							<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 						</li>
@@ -296,7 +290,7 @@
 			</div>
 			<div id = 'options'>
 				<div id='title_wrapper'>
-					<h1 id='title_class_name'class='std_title fl_left'>Class 1</h1>
+					<h1 id='title_class_name'class='std_title fl_left'>No Class Selected</h1>
 				</div>
 				<div id='main_content'>
 					<div id = 'main_content_wrapper'>
@@ -350,7 +344,7 @@
                 	window.location.href = 'getRecords.html?stdId='+$(this).attr('id');
               });
 			})
-			$("a[class_button='true']").click(function() {
+			$("a[class_button='true']").live('click',function() {
 				$("#menu_visible_class,#title_class_name").html($(this).html());
 			})
 			$(document).ready(function() {
@@ -370,6 +364,25 @@
 					}
 				}
 			})
+			$(document).ready(function selectClasses(){
+				var url = window.location.toString();
+				var staffID = QueryString.id;
+				params = {};
+				params.fcn = 'selectClasses';
+				params.params = {
+					staffID : staffID
+				}
+				jQuery.getJSON(IP+"/mark/model/classes-model.php?callback=?", params, function(data) {
+					if(!data[0]) {
+						$("#error_text").html(data[1]);
+						$("#error_msg").show();
+					}else{
+						var list = "";
+						for(var i = 0; i < data[1].length; i++)
+						$("#selectClasses_sem"+data[1][i][4]).append('<li class="pureCssMenui"><a class="pureCssMenui" class_button="true" id="'+data[1][i][0]+'" href="#">'+data[1][i][1]+'</a></li>');
+					}
+				});
+			});
 		</script>
 		<!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
 		<!-- End PureCSSMenu.com MENU -->
