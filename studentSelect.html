@@ -1,0 +1,102 @@
+<style type="text/css" media="screen">
+	#student_list {
+		clear: both;
+		width: 100%;
+		margin: 0px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: white;
+		border-top-color: rgb(179,121,142);
+		border-top-style: solid;
+		border-top-width: 1px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+		padding-left: 5px;
+		min-height: 400px;
+	}
+	#students {
+		float: left;
+		margin-right: 30px;
+		margin-left: 70px;
+		display: inline-block;
+		width: 15%;
+	}
+	.std_title {
+		margin: 7px 0px;
+		font-size: 150%;
+		font-weight: normal;
+	}
+	#student_search_field {
+		border-style: solid;
+		border-width: 1px;
+		border-color: white;
+		color: gray;
+		width: 80%;
+		margin: 0px;
+		padding: 5px 5px;
+	}
+	#student_wrapper {
+		border-style: solid;
+		border-width: 1px;
+		border-color: rgb(179,121,142);
+	}
+</style>
+<div id = "entry">
+	<div id = 'students'>
+		<h1 class='std_title'>Students</h1>
+		<div id='student_wrapper'>
+			<img src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
+			<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+			<br/>
+			<select id = 'student_list'multiple="6"></select>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+	$("#student_search_field").keyup(function() {
+		$("#student_list").children().each(function(iter) {
+			if($(this).html().toString().indexOf($("#student_search_field").val().toString()) == -1) {
+				students_deleted[$(this).attr('id')] = $(this).val();
+				$(this).remove();
+			}
+		})
+		for(student in students_deleted) {
+			if((students_deleted[student].indexOf($("#student_search_field").val().toString()) != -1)) {
+				$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
+				delete students_deleted[student];
+			}
+		}
+	})
+	function buildStudents(id) {
+		for(student in students) {
+			$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
+		}
+	}
+
+	var students = {
+		0 : "Cassie Wei",
+		1 : "Aaron Shifman",
+		2 : "Steve Irvin"
+	};
+	var students_deleted = {};
+	function buildStudents(id) {
+		for(student in students) {
+			$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
+		}
+	}
+
+
+	$("#student_list").change(function() {
+		$("#student_list option:selected").each(function() {
+			$("body").load("getRecords.html");
+			//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+		});
+	})
+	$("a[class_button='true']").live('click', function() {
+		$("#menu_visible_class,#title_class_name").html($(this).html());
+		$("#menu_visible_class").attr("class_id", $(this).attr('id'))
+	})
+	$(document).ready(function() {
+		buildStudents("student_list");
+	})
+</script>

@@ -1,0 +1,68 @@
+<style type="text/css" media="screen">
+	#right_header {
+		float: right !important;
+	}
+	#spacer {
+		background-color: rgb(107,41,62);
+		width: 100px;
+	}
+</style>
+<ul class="pureCssMenu pureCssMenum">
+	<li class="pureCssMenui0">
+		<a class="logoBar noclick">LogoGoesHere</a>
+	</li>
+	<li class="pureCssMenui0">
+		<a id='menu_visible_class' class="currentClassBar noclick" href="#">No Class Selected</a>
+	</li>
+	<li id='class_main_menu' class="pureCssMenui0">
+		<a class="selectClassBar" href="#"><span>Select A Class</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="pureCssMenum">
+			<li class="pureCssMenui">
+				<a class="pureCssMenui" href="#"><span>Semester 1</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				<ul id='selectClasses_sem1' class="pureCssMenum"></ul>
+				<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui" href="#"><span>Semester 2</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				<ul id='selectClasses_sem2' class="pureCssMenum"></ul>
+				<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			</li>
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+</ul>
+<ul class="pureCssMenu pureCssMenum" id ='right_header'>
+	<li class="pureCssMenui0" id='right'>
+		<a class = 'currentClassBar'>Settings</a>
+	</li>
+	<li class="pureCssMenui0" id='right'>
+		<a class = 'currentClassBar'>Help</a>
+	</li>
+	<li class="pureCssMenui0" id='right'>
+		<a class = 'currentClassBar'>Logout</a>
+	</li>
+</ul>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function selectClasses() {
+		var url = window.location.toString();
+		var staffID = QueryString.id;
+		params = {};
+		params.fcn = 'selectClasses';
+		params.params = {
+			staffID : staffID
+		}
+		jQuery.getJSON(IP + "/mark/model/classes-model.php?callback=?", params, function(data) {
+			if(!data[0]) {
+				$("#error_text").html(data[1]);
+				$("#error_msg").show();
+			} else {
+				var list = "";
+				for(var i = 0; i < data[1].length; i++)
+				$("#selectClasses_sem" + data[1][i][4]).append('<li class="pureCssMenui"><a class="pureCssMenui" class_button="true" id="' + data[1][i][0] + '" href="#">' + data[1][i][1] + '</a></li>');
+			}
+		});
+	});
+</script>
+<!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
+<!-- End PureCSSMenu.com MENU -->
+<!-- (c) 2009, PureCSSMenu.com -->
