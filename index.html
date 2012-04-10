@@ -90,23 +90,15 @@
 							user : user,
 							pass : pass
 						}
-						try{
-							jQuery.getJSON(IP+"/mark/model/staff-model.php?callback=?", params, function(data) {
-								if(!data[0]) {
-									$("#error_text").html(data[1][0]);
-									$("#error_msg").show();
-									$("#msg").hide();
-								}else {
-									window.location.href = "main.html?id=" + data[1][1] + "";
-								}
-							});
-						}
-						catch(err)
-						{
-								$("#error_text").html("Could not connect to server")
+						jQuery.getJSON(IP+"/mark/model/staff-model.php?callback=?", params, function(data) {
+							if(!data[0]) {
+								$("#error_text").html(data[1][0]);
 								$("#error_msg").show();
 								$("#msg").hide();
-						}
+							}else {
+								window.location.href = "main.html?id=" + data[1][1] + "";
+							}
+						});
 					} else {
 						$("#error_text").html("Username must start with C");
 						$("#error_msg").show();

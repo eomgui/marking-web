@@ -67,25 +67,37 @@
 			}
 		}
 	})
-	function buildStudents(id) {
-		for(student in students) {
-			$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
-		}
-	}
 
-	var students = {
-		0 : "Cassie Wei",
-		1 : "Aaron Shifman",
-		2 : "Steve Irvin"
-	};
+	var students = {}
+	
 	var students_deleted = {};
+	//TODO pull off server
 	function buildStudents(id) {
+		params = {};
+		params.fcn = 'selectStudentsByCourse';
+		params.params = {
+			course: id
+		}
+		jQuery.getJSON(IP+"/mark/model/student-model.php?callback=?", params, function(data) {
+			if(!data[0]) {
+				$("#error_text").html(data[1][0]);
+				$("#error_msg").show();
+				$("#msg").hide();
+			}
+			else
+			{
+				for(i in data[1])
+				{
+					var j = parseInt(i) + 1;
+					students.j = data[1][i][1] + data[1][i][2];
+				}
+			}
+		});
 		for(student in students) {
 			$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
 		}
 	}
-
-
+		
 	$("#student_list").change(function() {
 		$("#student_list option:selected").each(function() {
 			$("#content").load("getRecords.html");
