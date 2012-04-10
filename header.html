@@ -5,7 +5,7 @@
 	#spacer {
 		background-color: rgb(107,41,62);
 		width: 100px;
-	}
+	}
 </style>
 <ul class="pureCssMenu pureCssMenum">
 	<li class="pureCssMenui0">
@@ -39,12 +39,11 @@
 		<a class = 'currentClassBar'>Help</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
-		<a class = 'currentClassBar'>Logout</a>
+		<a class = 'currentClassBar' onclick='logout();'>Logout</a>
 	</li>
 </ul>
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function selectClasses() {
-		var url = window.location.toString();
 		var staffID = QueryString.id;
 		params = {};
 		params.fcn = 'selectClasses';
@@ -62,6 +61,17 @@
 			}
 		});
 	});
+	function logout() {
+		params = {};
+		params.fcn = 'logout';
+		params.params = {};
+		jQuery.getJSON(IP + "/mark/model/staff-model.php?callback=?", params, function(data) {
+			if(data[0])
+				window.location.href = "index.html?msg=" + data[1] + "";
+			else
+				alert(data[1]);
+		});
+	}
 </script>
 <!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
 <!-- End PureCSSMenu.com MENU -->
