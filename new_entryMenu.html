@@ -1,33 +1,48 @@
 <style type="text/css" media="screen">
 	#add_wrapper {
 		margin-top: 70px;
-		float:left;
+		float: left;
 		padding-left: 40%;
 	}
-	#title_wrapper{
-		margin-left:150px;
+	#title_wrapper {
+		margin-left: 150px;
 	}
+	.entryMenum {
+		width: 165px !important;
+	}
 </style>
-	<div id='title_wrapper'>
-		<h1 id='title_class_name'class='std_title fl_left'>No Class Selected</h1>
-	</div>
-	<div id='add_wrapper'>
-		<ul class="pureCssMenu pureCssMenum">
-			<li id='class_main_menu' class="pureCssMenui0">
-				<a class="mainOptions" type='unusual'href="#"><span type='unusual'>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-				<ul class="pureCssMenum">
-					<li class="pureCssMenui">
-						<a class="pureCssMenui" href="#">Observation</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-					</li>
-					<li class="pureCssMenui">
-						<a class="pureCssMenui" href="#">Conversation</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-					</li>
-					<li class="pureCssMenui">
-						<a class="pureCssMenui" href="#">Product</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-						<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-					</li>
-				</ul>
-				<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			</li>
-		</ul>
+<div id='title_wrapper'>
+	<h1 id='title_class_name'class='std_title fl_left'>No Class Selected</h1>
 </div>
+<div id='add_wrapper'>
+	<ul class="pureCssMenu pureCssMenum">
+		<li id='class_main_menu' class="pureCssMenui0">
+			<a class="mainOptions" type='unusual'href="#"><span type='unusual'>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			<ul class="pureCssMenum entryMenum">
+				<li class="pureCssMenui">
+					<a class="pureCssMenui" onclick = 'generateWindow("newObservation.html")'href="#">Observation</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui" href="#">Conversation</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui" href="#">Product</a><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+				</li>
+			</ul>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+	</ul>
+</div>
+<div id='dialog'></div>
+<script type="text/javascript" charset="utf-8">
+	function generateWindow(page) {
+		$("#dialog").dialog({
+			show : "blind",
+			hide : "explode",
+			open : function() {
+				$("#dialog").load(page);
+			}
+		});
+	}
+</script>

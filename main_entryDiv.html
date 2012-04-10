@@ -19,6 +19,9 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		$('#student_holder').load("studentSelect.html");
-		$("#new_entryMenu").load("new_entryMenu.html");
+		$("#new_entryMenu").load("new_entryMenu.html",function(){
+			$("#title_class_name").html($("#selectClasses_sem1").children().eq(0).children().eq(0).html());
+		});
+		
 	})
 </script>
