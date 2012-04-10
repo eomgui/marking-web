@@ -88,7 +88,7 @@
 
 	$("#student_list").change(function() {
 		$("#student_list option:selected").each(function() {
-			$("body").load("getRecords.html");
+			$("#content").load("getRecords.html");
 			//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 		});
 	})

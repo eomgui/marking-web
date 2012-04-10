@@ -64,6 +64,13 @@
 				display: inline;
 				color: red;
 			}
+			#msg{
+				display:none;
+			}
+			#msg_text {
+				display: inline;
+				color: green;
+			}
 			body{
 				background-color: rgb(232,232,232);
 			}
@@ -71,6 +78,7 @@
 	</head>
 	<body>
 		<script type='text/javascript'>
+			tried = false;
 			function login(user, pass) {
 				if(user.length == 6) {
 					if(user.charAt(0).toString().toUpperCase() == 'C') {
@@ -87,6 +95,7 @@
 								if(!data[0]) {
 									$("#error_text").html(data[1][0]);
 									$("#error_msg").show();
+									$("#msg").hide();
 								}else {
 									window.location.href = "main.html?id=" + data[1][1] + "";
 								}
@@ -96,16 +105,25 @@
 						{
 								$("#error_text").html("Could not connect to server")
 								$("#error_msg").show();
+								$("#msg").hide();
 						}
 					} else {
 						$("#error_text").html("Username must start with C");
 						$("#error_msg").show();
+						$("#msg").hide();
 					}
 				} else {
 					$("#error_text").html("Username must have 6 characters");
 					$("#error_msg").show();
+					$("#msg").hide();
 				}
 			}
+			$(document).ready(function(){
+				if(QueryString.msg !== undefined){
+					$("#msg_text").html(unescape(QueryString.msg));
+					$("#msg").show();
+				}
+			})
 		</script>
 		<div id='logo_wrapper'>
 			Logo Goes Here
@@ -114,6 +132,9 @@
 			<div id='error_msg'>
 				<span id='error_icon'><img src='css/images/error_icon.png' /></span>
 				<div id='error_text'></div>
+			</div>
+			<div id='msg'>
+				<div id='msg_text'></div>
 			</div>
 			<div class='input_wrapper'>
 				<label class='login_label'for="login_user">Login</label>
