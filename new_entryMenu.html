@@ -43,7 +43,10 @@
 			open : function() {
 				$("#dialog").load(page);
 			},
-			modal: true
+			position: 'center',
+			modal: true,
+			height:$(window).height()-50,
+			width:$(window).width()-50
 		});
 	}
 </script>
