@@ -1,6 +1,6 @@
 body {
 	background-color: white;
-	font-family: "Arial", Arial, serif;
+	font-family: Tahoma, Geneva, sans-serif;
 }
 body {
 	margin: 0px;
@@ -29,7 +29,6 @@ ul.pureCssMenu, ul.pureCssMenu ul {
 	list-style: none;
 	padding: 0px 1px 1px 0px;
 	background-color: rgb(107,41,62);
-	background-repeat: repeat;
 	border-color: rgb(107,41,62);
 	border-width: 0px;
 	border-style: solid;
@@ -63,7 +62,8 @@ ul.pureCssMenu a, ul.pureCssMenu li.dis a:hover, ul.pureCssMenu li.sep a:hover {
 	text-align: left;
 	text-decoration: none;
 	padding: 10px 35px;
-	font: bold 13px Arial;
+	font-weight: bold;
+	font-size: 13px;
 	color: white;
 	text-decoration: none;
 	cursor: pointer;
@@ -107,7 +107,8 @@ ul.pureCssMenu li:hover > a {
 	background-color: rgb(66,26,37);
 	border-color: rgb(66,26,37);
 	border-style: solid;
-	font: bold 13px Arial;
+	font-weight: bold;
+	font-size: 13px;
 	color: #FFFFFF;
 	text-decoration: none;
 }
@@ -116,7 +117,8 @@ ul.pureCssMenu li a:hover {
 	background-color: rgb(66,26,37);
 	border-color: rgb(66,26,37);
 	border-style: solid;
-	font: bold 13px Arial;
+	font-weight: bold;
+	font-size: 13px;
 	color: #FFFFFF;
 	text-decoration: none;
 }

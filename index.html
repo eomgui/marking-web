@@ -40,9 +40,17 @@
 				margin-top: 25px;
 			}
 			#submit_button > input {
-				font-size: 15px;
-				padding: 3px 15px;
+				font-size: 13px;
+				font-weight: bold;
+				padding: 5px 15px;
+				background-color: rgb(107,41,62);
+				border-width: 0px;
+				color: white;
 			}
+			#submit_button a:hover > input {
+				background-color: rgb(66,26,37);
+			}
+			
 			#logo_wrapper {
 				width: 300px;
 				text-align: center;
@@ -60,6 +68,9 @@
 			#error_text {
 				display: inline;
 				color: red;
+			}
+			#sucess_icon {
+				margin-right: 5px;
 			}
 			#msg{
 				display:none;
@@ -136,6 +147,7 @@
 				<div id='error_text'></div>
 			</div>
 			<div id='msg'>
+				<span id='secess_icon'><img src='css/images/sucess_icon.png' /></span>
 				<div id='msg_text'></div>
 			</div>
 			<div class='input_wrapper'>
