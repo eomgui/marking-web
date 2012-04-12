@@ -15,34 +15,52 @@
 	.button_link {
 		text-decoration: none;
 		color: white !important;
-	}	#newObs_title_wrap{
-		margin-bottom:10px;
+	}	#newObs_title_wrap {
+		margin-bottom: 10px;
 	}
-	span.button_header{
-		font-size:17px;
-		padding-right:5px;
+	span.button_header {
+		font-size: 17px;
+		padding-right: 5px;
+		float: left;
 	}
-	#scrolling_area{
-		margin-left:10%;
-		margin-right:10%;
+	#scrolling_area {
+		margin-left: 10%;
+		margin-right: 10%;
 	}
-	.selectedName{
-		display:block;
-		margin-bottom:5px;
+	.selectedName {
+		display: block;
+		margin-bottom: 10px;
 	}
-	#selectedNames{
-		clear:both;
-		margin-left:20px;
-		font-size:12px;
+	#selectedNames {
+		clear: both;
+		margin-left: 20px;
+		font-size: 12px;
 	}
-	.remove_link{
-		font-size:11px;
-		color:rgb(179,121,142) !important;
-		margin-left:5px;
+	.remove_link {
+		font-size: 11px;
+		color: rgb(179,121,142) !important;
+		margin-left: 5px;
 	}
-	#stdButton{
-		margin-left:40px;
+	#stdButton {
+		margin-left: 40px;
 	}
+	#expList {
+		clear: both;
+		font-size: 12px;
+	}	.selectedExp {
+		margin-bottom: 10px;
+	}	#activity_types {
+		font-size: 17px;
+	}
+	#level_type {
+		clear: both;
+		font-size: 17px;
+	}	#comments {
+		clear: both;
+	}
+	#comments textarea {
+		width: 90%;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -50,21 +68,93 @@
 	<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/observation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Observation</h1>
 	</div>
 	<div id='scrolling_area'>
-		<span class='button_header'style='float:left'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+		<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
 		<div id='selectedNames'>
 			<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
 			<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
 			<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
 		</div>
 		<div id='expectation'>
-			<span class='button_header'style='float:left'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+			<span class='button_header'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+			<ul id='expList'>
+				<li>
+					<span class='selectedExp' id='1'>Something here <a class='remove_link'href='#'>Remove</a></span>
+				</li>
+			</ul>
+		</div>
+		<div id='record_types'>
+			<div id='activity_types'>
+				<span class='button_header'>Activity Type</span>
+				<div style='display:inline; float:left'>
+					<a class='up toggle_button'>demonstrate</a>
+					<a class='up toggle_button'>explain</a>
+				</div>
+			</div>
+			<div id='activity_types'>
+				<span class='button_header'>Activity Type</span>
+				<div style='display:inline; float:left'>
+					<a class='up toggle_button' buttongroup = '0'grouptype_id='0'>Individual</a>
+					<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
+					<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
+				</div>
+			</div>
+		</div>
+		<div id='level_type'>
+			<span class='button_header'>Level</span>
+			<div style='display:inline; float:left'>
+				<a class='up toggle_button' buttongroup = '1'grouptype_id='0'>Insufficient</a>
+				<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
+				<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
+				<a class='up toggle_button' buttongroup = '1' grouptype_id='3'>Sufficient</a>
+				<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightfull</a>
+			</div>
+		</div>
+		<div id='comments'>
+			<span class='button_header'>Comments</span><span id='remainingChars'>500</span><span> Characters Remaining</span>
+			<textarea id='comments_area'></textarea>
 		</div>
 	</div>
 </div>
+<div id='add_container'></div>
 <script type="text/javascript" charset="utf-8">
+	var charLimit = 500;
+	var charsRemaining = 500;
+	var selectedWType = null;
+	var addedStudents = {};
+	$("#stdLink").click(function() {
+		$("#add_container").load('add_studentsDialog.html');
+		$("#add_container").dialog();
+	})
 	$(document).ready(function() {
-		$('#scrolling_area').jScrollPane({
-			showArrows : true
-		});
+// $('#scrolling_area').jScrollPane({
+// showArrows : true
+// });
+	})
+	$('a.toggle_button').click(function(){
+		if($(this).attr("grouptype_id") !== undefined){
+			var buttonGroup = $(this).attr("buttongroup");
+			if(selectedWType === null)
+			selectedWType = $(this).attr("grouptype_id")
+		else{
+			$("a.toggle_button[buttongroup="+buttonGroup+"]").each(function(){
+		if($(this).attr("grouptype_id") !== undefined){
+				$(this).removeClass("down")
+				$(this).removeClass("up");
+				$(this).addClass("up");
+			}
+			})
+			};
+		}
+		$(this).toggleClass("up");
+		$(this).toggleClass("down");
+	});
+	$("#comments_area").keyup(function(){
+		length = $(this).val().length;
+		charsRemaining = charLimit-length;
+		if(charsRemaining == -1){
+			$("#comments_area").val($(this).val().substring(0,length-1));
+			charsRemaining = charsRemaining+1;
+		}
+		$("#remainingChars").html(charsRemaining);
 	})
 </script>
