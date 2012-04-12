@@ -70,12 +70,13 @@
 	})
 
 	var students = {
-		1 : "asdf jkl;"
+		//0 : "test"
 	};
 	
 	var students_deleted = {};
 	//TODO pull off server
 	function buildStudents(id) {
+		//students = {};
 		params = {};
 		params.fcn = 'selectStudentsByCourse';
 		params.params = {
@@ -89,10 +90,12 @@
 			}
 			else
 			{
-				students = {};
 				for(i in data[1])
 				{
-					students.i = data[1][i][1] + " " + data[1][i][2];
+					var j = parseInt(i)+1;
+					var name = data[1][i][1] + " " + data[1][i][2];
+					students.i = name;
+					console.log(j);
 				}
 			}
 		});
