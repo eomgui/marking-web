@@ -190,13 +190,29 @@ ul.pureCssMenu table a:hover table span, ul.pureCssMenu table a:hover a:hover ta
 a[type=unusual] {
 		padding-left: 20px !important;
 		padding-right: 20px !important;
-	}
-	span[type=unusual] {
-		display: block;
-		background-image: url(./images/record_icon.png) !important;
-		background-position: left center !important;
-		background-repeat: no-repeat !important;
-		padding: 12px;
-		padding-left: 35px;
-		background-size: 25px;
-	}
+}
+span[type=unusual] {
+	display: block;
+	background-image: url(./images/record_icon.png) !important;
+	background-position: left center !important;
+	background-repeat: no-repeat !important;
+	padding: 12px;
+	padding-left: 35px;
+	background-size: 25px;
+}
+a.up {
+   background: rgb(107,41,62);
+   color:white !important;
+   cursor: pointer;  
+   padding: 5px 5px;       
+}
+
+a.down {
+	color:white !important;
+    background: rgb(66,26,37);
+    padding: 5px 5px;  
+   }
+   .toggle_button{
+   	
+		display:block;
+   }
