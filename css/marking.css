@@ -214,7 +214,7 @@ a.down {
     background: rgb(66,26,37);
     padding: 5px 5px;  
    }
-   .toggle_button{
-   	
+.toggle_button{
 		display:block;
-   }
+		font-size:13px;
+}

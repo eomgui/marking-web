@@ -50,18 +50,41 @@
 	}	.selectedExp {
 		margin-bottom: 10px;
 	}	#activity_types {
-		margin-top: 20px;
 		font-size: 17px;
 	}
 	#level_type {
 		clear: both;
 		font-size: 17px;
 	}	#comments {
+		width:92%;
 		clear: both;
 	}
 	#comments textarea {
 		width: 90%;
-	}
+	}	#expectation {
+		margin-top: 10px;
+	}
+	#level_type {
+		float:left;
+		margin-bottom:20px;
+	}
+	#activity_types {
+		display:inline;
+	}	#record_types{
+		float:left;
+		margin-top:10px;
+		margin-bottom:20px;
+	}
+	.button_group{
+		margin-left:10px;
+		margin-right:20px;
+	}
+		#remaining_msg{
+		font-size:15px !important;
+	}
+	#submit{
+		text-align: center;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -86,14 +109,14 @@
 		<div id='record_types'>
 			<div id='activity_types'>
 				<span class='button_header'>Activity Type</span>
-				<div style='display:inline; float:left'>
+				<div class='button_group' style='display:inline; float:left'>
 					<a class='up toggle_button'>Demonstrate</a>
 					<a class='up toggle_button'>Explain</a>
 				</div>
 			</div>
 			<div id='activity_types'>
 				<span class='button_header'>Work Type</span>
-				<div style='display:inline; float:left'>
+				<div class='button_group' style='display:inline; float:left'>
 					<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
 					<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
 					<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
@@ -102,7 +125,7 @@
 		</div>
 		<div id='level_type'>
 			<span class='button_header'>Level</span>
-			<div style='display:inline; float:left'>
+			<div class='button_group'  style='display:inline; float:left'>
 				<a class='up toggle_button' buttongroup = '1' grouptype_id='0'>Insufficient</a>
 				<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
 				<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
@@ -111,51 +134,53 @@
 			</div>
 		</div>
 		<div id='comments'>
-			<span class='button_header'>Comments</span><span id='remainingChars'>500</span><span> Characters Remaining</span>
+			<div id='comment_about'><span class='button_header'>Comments</span><span id='remainingChars' style='font-size:15px !important'>500</span><span id='remaining_msg' style='font-size:15px !important'> Characters Remaining</span></div>
 			<textarea id='comments_area'></textarea>
 		</div>
+	</div>
+	<div id='submit'>
+		<input type="button" value='submit' id="save_newObs"/>
 	</div>
 </div>
 <div id='add_container'></div>
 <script type="text/javascript" charset="utf-8">
-	var charLimit = 500;
-	var charsRemaining = 500;
-	var selectedWType = null;
-	var addedStudents = {};
-	$("#stdLink").click(function() {
-		$("#add_container").load('add_studentsDialog.html');
-		$("#add_container").dialog();
-	})
-	$(document).ready(function() {
+var charLimit = 500;
+var charsRemaining = 500;
+var selectedWType = null;
+var addedStudents = {};
+$("#stdLink").click(function() {
+$("#add_container").load('add_studentsDialog.html');
+$("#add_container").dialog();
+})
+$(document).ready(function() {
 // $('#scrolling_area').jScrollPane({
 // showArrows : true
 // });
-	})
-	$('a.toggle_button').click(function(){
-		if($(this).attr("grouptype_id") !== undefined){
-			var buttonGroup = $(this).attr("buttongroup");
-			if(selectedWType === null)
-			selectedWType = $(this).attr("grouptype_id")
-		else{
-			$("a.toggle_button[buttongroup="+buttonGroup+"]").each(function(){
-		if($(this).attr("grouptype_id") !== undefined){
-				$(this).removeClass("down")
-				$(this).removeClass("up");
-				$(this).addClass("up");
-			}
-			})
-			};
-		}
-		$(this).toggleClass("up");
-		$(this).toggleClass("down");
-	});
-	$("#comments_area").keyup(function(){
-		length = $(this).val().length;
-		charsRemaining = charLimit-length;
-		if(charsRemaining == -1){
-			$("#comments_area").val($(this).val().substring(0,length-1));
-			charsRemaining = charsRemaining+1;
-		}
-		$("#remainingChars").html(charsRemaining);
-	})
-</script>
+})
+$('a.toggle_button').click(function(){
+if($(this).attr("grouptype_id") !== undefined){
+var buttonGroup = $(this).attr("buttongroup");
+if(selectedWType === null)
+selectedWType = $(this).attr("grouptype_id")
+else{
+$("a.toggle_button[buttongroup="+buttonGroup+"]").each(function(){
+if($(this).attr("grouptype_id") !== undefined){
+$(this).removeClass("down")
+$(this).removeClass("up");
+$(this).addClass("up");
+}
+})
+};
+}
+$(this).toggleClass("up");
+$(this).toggleClass("down");
+});
+$("#comments_area").keyup(function(){
+length = $(this).val().length;
+charsRemaining = charLimit-length;
+if(charsRemaining == -1){
+$("#comments_area").val($(this).val().substring(0,length-1));
+charsRemaining = charsRemaining+1;
+}
+$("#remainingChars").html(charsRemaining);
+})</script>
