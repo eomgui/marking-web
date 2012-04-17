@@ -13,8 +13,12 @@
 		color: white;
 	}
 	.button_link {
+		font-weight: bold;
 		text-decoration: none;
 		color: white !important;
+	}
+	.span_button > img {
+		margin-right: 5px;
 	}	#newObs_title_wrap {
 		margin-bottom: 13px;
 	}
@@ -24,7 +28,7 @@
 		float: left;
 	}
 	#scrolling_area {
-		margin-left: 10%;
+		margin-left: 15%;
 		margin-right: 10%;
 	}
 	.selectedName {
@@ -49,138 +53,180 @@
 		font-size: 13px;
 	}	.selectedExp {
 		margin-bottom: 10px;
-	}	#activity_types {
-		font-size: 17px;
 	}
 	#level_type {
 		clear: both;
 		font-size: 17px;
 	}	#comments {
-		width:92%;
+		width: 100%;
 		clear: both;
+		padding-bottom: 10px;
 	}
 	#comments textarea {
+		font-size: 13px;
+		font-weight: normal;
+		margin-top: 5px;
 		width: 90%;
 	}	#expectation {
-		margin-top: 10px;
+		margin-top: 20px;
 	}
 	#level_type {
-		float:left;
-		margin-bottom:20px;
+		float: left;
+		margin-bottom: 20px;
 	}
-	#activity_types {
-		display:inline;
-	}	#record_types{
-		float:left;
-		margin-top:10px;
-		margin-bottom:20px;
+	.activity_types {
+		float: left;
+		font-size: 17px;
+		display: inline;
+	}	#record_types {
+		float: left;
+		margin-top: 10px;
+		margin-bottom: 20px;
 	}
-	.button_group{
-		margin-left:10px;
-		margin-right:20px;
+	.button_group {
+		margin-left: 10px;
+		margin-right: 20px;
 	}
-		#remaining_msg{
-		font-size:15px !important;
+	#remaining_msg {
+		font-size: 15px !important;
 	}
-	#submit{
+	#submit {
 		text-align: center;
+	}	#newObs_mainEntry {
+		margin-left: 30px;
 	}
+	#remainingChars {
+		margin-left: 60px;
+	}
+	#activityTypeLabel {
+		margin-top: 12px;
+	}
+	#workTypeLabel {
+		margin-top: 29px;
+	}
+	#levelTypeHeader {
+		margin-top: 60px;
+	}
+	#actityTypeContainer {
+		margin-top: 18px;
+	}
+	#addObsButton {
+		font-size: 13px;
+		font-weight: bold;
+		padding: 5px 15px;
+		background-color: rgb(107,41,62);
+		border-width: 0px;
+		color: white;
+	}
+	#addObsButton:hover {
+		cursor: pointer;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
 <div id='newObs_container'>
-	<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/observation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Observation</h1>
-	</div>
-	<div id='scrolling_area'>
-		<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
-		<div id='selectedNames'>
-			<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
-			<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
-			<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
+	<div id='newObs_mainEntry'>
+		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/observation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Observation</h1>
 		</div>
-		<div id='expectation'>
-			<span class='button_header'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
-			<ul id='expList'>
-				<li>
-					<span class='selectedExp' id='1'>Something here <a class='remove_link'href='#'>Remove</a></span>
-				</li>
-			</ul>
-		</div>
-		<div id='record_types'>
-			<div id='activity_types'>
-				<span class='button_header'>Activity Type</span>
-				<div class='button_group' style='display:inline; float:left'>
-					<a class='up toggle_button'>Demonstrate</a>
-					<a class='up toggle_button'>Explain</a>
+		<div id='scrolling_area'>
+			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
+			<div id='selectedNames'>
+				<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
+				<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
+				<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
+			</div>
+			<div id='expectation'>
+				<span class='button_header'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+				<ul id='expList'>
+					<li>
+						<span class='selectedExp' id='1'>Something here <a class='remove_link'href='#'>Remove</a></span>
+					</li>
+				</ul>
+			</div>
+			<div id='record_types'>
+				<div class='activity_types' id='actityTypeContainer'>
+					<span class='button_header' id='activityTypeLabel'>Activity Type</span>
+					<div class='button_group' style='display:inline; float:left'>
+						<a class='up toggle_button'>Demonstrate</a>
+						<a class='up toggle_button'>Explain</a>
+					</div>
+				</div>
+				<div class='activity_types'>
+					<span class='button_header' id='workTypeLabel'>Work Type</span>
+					<div class='button_group' style='display:inline; float:left'>
+						<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
+						<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
+						<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
+					</div>
 				</div>
 			</div>
-			<div id='activity_types'>
-				<span class='button_header'>Work Type</span>
-				<div class='button_group' style='display:inline; float:left'>
-					<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
-					<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
-					<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
+			<div id='level_type'>
+				<span class='button_header' id='levelTypeHeader'>Level</span>
+				<div class='button_group'  style='display:inline; float:left'>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='0'>Insufficient</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='3'>Sufficient</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightfull</a>
 				</div>
 			</div>
-		</div>
-		<div id='level_type'>
-			<span class='button_header'>Level</span>
-			<div class='button_group'  style='display:inline; float:left'>
-				<a class='up toggle_button' buttongroup = '1' grouptype_id='0'>Insufficient</a>
-				<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
-				<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
-				<a class='up toggle_button' buttongroup = '1' grouptype_id='3'>Sufficient</a>
-				<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightfull</a>
+			<div id='comments'>
+				<div id='comment_about'>
+					<span class='button_header'>Comments</span><span id='remainingChars' style='font-size:13px !important'>500</span><span id='remaining_msg' style='font-size:13px !important'> Characters Remaining</span>
+				</div>
+				<textarea id='comments_area' rows="4"></textarea>
 			</div>
 		</div>
-		<div id='comments'>
-			<div id='comment_about'><span class='button_header'>Comments</span><span id='remainingChars' style='font-size:15px !important'>500</span><span id='remaining_msg' style='font-size:15px !important'> Characters Remaining</span></div>
-			<textarea id='comments_area'></textarea>
+		<div id='submit'>
+			<input type="button" value='submit' id="addObsButton"/>
 		</div>
-	</div>
-	<div id='submit'>
-		<input type="button" value='submit' id="save_newObs"/>
 	</div>
 </div>
 <div id='add_container'></div>
 <script type="text/javascript" charset="utf-8">
-var charLimit = 500;
-var charsRemaining = 500;
-var selectedWType = null;
-var addedStudents = {};
-$("#stdLink").click(function() {
-$("#add_container").load('add_studentsDialog.html');
-$("#add_container").dialog();
-})
-$(document).ready(function() {
-// $('#scrolling_area').jScrollPane({
-// showArrows : true
-// });
-})
-$('a.toggle_button').click(function(){
-if($(this).attr("grouptype_id") !== undefined){
-var buttonGroup = $(this).attr("buttongroup");
-if(selectedWType === null)
-selectedWType = $(this).attr("grouptype_id")
-else{
-$("a.toggle_button[buttongroup="+buttonGroup+"]").each(function(){
-if($(this).attr("grouptype_id") !== undefined){
-$(this).removeClass("down")
-$(this).removeClass("up");
-$(this).addClass("up");
-}
-})
-};
-}
-$(this).toggleClass("up");
-$(this).toggleClass("down");
-});
-$("#comments_area").keyup(function(){
-length = $(this).val().length;
-charsRemaining = charLimit-length;
-if(charsRemaining == -1){
-$("#comments_area").val($(this).val().substring(0,length-1));
-charsRemaining = charsRemaining+1;
-}
-$("#remainingChars").html(charsRemaining);
-})</script>
+	var charLimit = 500;
+	var charsRemaining = 500;
+	var selectedWType = null;
+	var addedStudents = {};
+	$("#stdLink").click(function() {
+		$("#add_container").load('add_studentsDialog.html',function(){
+			//$("#add_container").children().find('#students');
+		});
+		$("#add_container").dialog();
+	});
+
+	$(document).ready(function() {
+		// $('#scrolling_area').jScrollPane({
+			// showArrows : true
+		// });
+	})
+
+	$("#comments_area").keyup(function() {
+		length = $(this).val().length;
+		charsRemaining = charLimit - length;
+		if(charsRemaining == -1) {
+			$("#comments_area").val($(this).val().substring(0, length - 1));
+			charsRemaining = charsRemaining + 1;
+		}
+		$("#remainingChars").html(charsRemaining);
+	})
+	$('a.toggle_button').click(function() {
+		if($(this).attr("grouptype_id") !== undefined) {
+			var buttonGroup = $(this).attr("buttongroup");
+			if(selectedWType === null) {
+				selectedWType = $(this).attr("grouptype_id")
+			} else {
+				$("a.toggle_button[buttongroup=" + buttonGroup + "]").each(function() {
+					if($(this).attr("grouptype_id") !== undefined) {
+						$(this).removeClass("down")
+						$(this).removeClass("up");
+						$(this).addClass("up");
+					}
+				})
+			}
+		}
+		$(this).toggleClass("up");
+		$(this).toggleClass("down");
+	});
+
+</script>

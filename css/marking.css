@@ -203,6 +203,7 @@ span[type=unusual] {
 	background-size: 25px;
 }
 a.up {
+   font-weight:bold;	
    background: rgb(107,41,62);
    color:white !important;
    cursor: pointer;  
@@ -210,6 +211,7 @@ a.up {
 }
 
 a.down {
+	font-weight:bold;
 	color:white !important;
     background: rgb(66,26,37);
     padding: 5px 5px;  
