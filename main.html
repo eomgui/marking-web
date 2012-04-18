@@ -2,8 +2,10 @@
 <html>
 	<head>
 		<link rel='stylesheet'type="text/css" href="css/marking.css" />
+		<link rel='stylesheet'type="text/css" href="css/jqueryui.css" />
 		<script src="js/jquery.js" type="text/javascript" charset="utf-8"></script>
 		<script src="js/marking.js" type="text/javascript" charset="utf-8"></script>
+		<script src="js/jqueryui.js" type="text/javascript" charset="utf-8"></script>
 		<title>Marking Login</title>
 	</head>
 	<body>
@@ -19,8 +21,9 @@
 		<div id='content'></div>
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
-				$("#header").load("header.html");
-				$("#content").load("main_entryDiv.html");
+				$("#header").load("header.html", function() {
+					$("#content").load("main_entryDiv.html");
+				});
 			})
 		</script>
 	</body>

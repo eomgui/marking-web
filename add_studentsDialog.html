@@ -1,0 +1,127 @@
+<div id='addStudentToObs'>
+	<style type="text/css" media="screen">
+		#add_student_list, #add_student_search_field, #add_entry {
+			font-size: 13px !important;
+		}
+		#addStudentToObs {
+			float: left;
+		}
+		#add_student_list {
+			clear: both;
+			width: 100%;
+			margin: 0px;
+			border-style: solid;
+			border-width: 1px;
+			border-color: white;
+			border-top-color: rgb(179,121,142);
+			border-top-style: solid;
+			border-top-width: 1px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			padding-left: 5px;
+		}
+		#add_students {
+			float: left;
+			margin: 0px auto;
+			display: inline-block;
+			width: 100%;
+		}
+		#add_student_search_field {
+			border-style: solid;
+			border-width: 1px;
+			border-color: white;
+			color: gray;
+			width: 75%;
+			margin: 0px;
+			padding: 5px 5px;
+		}
+		#add_student_wrapper {
+			width: 100%;
+			border-style: solid;
+			border-width: 1px;
+			border-color: rgb(179,121,142);
+		}
+		#add_search_icon {
+			margin-left: 7px;
+		}		#add_entry {
+			float: left;
+		}
+		#add_search_container {
+			display: inline;
+		}
+		#add_icon_container {
+			width: 10%;
+			display: inline;
+		}
+	</style>
+	<div id = "add_entry">
+		<div id = 'add_students'>
+			<div id='add_student_wrapper'>
+				<div id='add_search_header'>
+					<div id='add_icon_container'>
+						<img id='add_search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
+					</div>
+					<div id='add_search_container'>
+						<input type='text' id='add_student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+					</div>
+				</div>
+				<select id = 'add_student_list'multiple="6"></select>
+			</div>
+			<input type="button" value="Add" id="addName"/>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$("#add_student_search_field").keyup(function() {
+			$("#add_student_list").children().each(function(iter) {
+				if($(this).html().toString().indexOf($("#add_student_search_field").val().toString()) == -1) {
+					add_students_deleted[$(this).attr('id')] = $(this).val();
+					$(this).remove();
+				}
+			})
+			for(student in add_students_deleted) {
+				if((add_students_deleted[student].indexOf($("#add_student_search_field").val().toString()) != -1)) {
+					$("#add_student_list").append("<option class = 'add_std_opt' id='" + student + "'>" + students[student] + "</option>");
+					delete add_students_deleted[student];
+				}
+			}
+		})
+		function buildStudents(id) {
+			for(student in add_students) {
+				$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + students[student] + "</option>");
+			}
+		}
+
+		var add_students = {
+			0 : "Cassie Wei",
+			1 : "Aaron Shifman",
+			2 : "Steve Irvin"
+		};
+		var add_students_deleted = {};
+		function buildStudents(id) {
+			for(student in add_students) {
+				if(!( student in studentsAdded)) {
+					$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + students[student] + "</option>");
+				}
+			}
+		}
+
+
+		$("#add_student_list").change(function() {
+			$("#add_student_list option:selected").each(function() {
+				//$("#content").load("getRecords.html");
+				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+			});
+		})
+		$(document).ready(function() {
+			buildStudents("add_student_list");
+		})
+		$("#addName").click(function() {
+			$("#add_student_list option:selected").each(function() {
+				studentsAdded[$(this).attr('id')] = ($(this).html());
+				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" href="#">Remove</a></span>');
+			});
+			$("#add_container").dialog('close');
+		});
+
+	</script>
+</div>

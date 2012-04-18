@@ -26,28 +26,44 @@
 		font-size: 150%;
 		font-weight: normal;
 	}
-	#student_search_field {
-		border-style: solid;
-		border-width: 1px;
-		border-color: white;
-		color: gray;
-		width: 80%;
-		margin: 0px;
-		padding: 5px 5px;
-	}
 	#student_wrapper {
 		border-style: solid;
 		border-width: 1px;
 		border-color: rgb(179,121,142);
 	}
+	#search_icon {
+		margin-left: 7px;
+	}	#search_header {
+		width: 100%;
+	}
+	#student_search_field {
+		border-style: solid;
+		border-width: 1px;
+		border-color: white;
+		color: gray;
+		margin: 0px;
+		width:70%;
+		padding: 5px 5px;
+	}	#search_container{
+		display:inline;
+	}
+	#icon_container{
+		width:10%;
+		display:inline;
+	}
 </style>
 <div id = "entry">
 	<div id = 'students'>
 		<h1 class='std_title'>Students</h1>
 		<div id='student_wrapper'>
-			<img src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
-			<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
-			<br/>
+			<div id='search_header'>
+				<div id='icon_container'>
+					<img id='search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
+				</div>
+				<div id='search_container'>
+					<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+				</div>
+			</div>
 			<select id = 'student_list'multiple="6"></select>
 		</div>
 	</div>
@@ -91,10 +107,6 @@
 			$("#content").load("getRecords.html");
 			//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 		});
-	})
-	$("a[class_button='true']").live('click', function() {
-		$("#menu_visible_class,#title_class_name").html($(this).html());
-		$("#menu_visible_class").attr("class_id", $(this).attr('id'))
 	})
 	$(document).ready(function() {
 		buildStudents("student_list");
