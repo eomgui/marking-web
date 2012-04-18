@@ -102,7 +102,7 @@
 		margin-left: 60px;
 	}
 	#expectationLabel {
-		margin-bottom: 14px;
+		margin-bottom: 5px;
 	}
 	#activityTypeLabel {
 		margin-top: 26px;
@@ -130,7 +130,9 @@
 	}
 	#addObsButton:hover {
 		cursor: pointer;
-	}
+	}	.span_button{
+		margin-top: -7px;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -200,7 +202,7 @@
 		$("#add_container").load('add_studentsDialog.html',function(){
 			//$("#add_container").children().find('#students');
 		});
-		$("#add_container").dialog();
+		$("#add_container").dialog({resizable: false});
 	});
 	
 	var studentsAdded = {};
