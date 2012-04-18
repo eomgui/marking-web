@@ -76,7 +76,8 @@
 	var students_deleted = {};
 	//TODO pull off server
 	function buildStudents(id) {
-		//students = {};
+		students = {};
+		$("#" + id).html("");
 		params = {};
 		params.fcn = 'selectStudentsByCourse';
 		params.params = {
@@ -92,16 +93,17 @@
 			{
 				for(i in data[1])
 				{
-					var j = parseInt(i)+1;
+					var jInt = parseInt(i) + 1;
+					var j = eval("\'" + jInt + "\'");
 					var name = data[1][i][1] + " " + data[1][i][2];
-					students.i = name;
-					console.log(j);
+					students[j] = name;
+				}
+				for(student in students) {
+					console.log(student);
+					$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
 				}
 			}
 		});
-		for(student in students) {
-			$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
-		}
 	}
 		
 	$("#student_list").change(function() {

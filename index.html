@@ -80,7 +80,7 @@
 		<script type='text/javascript'>
 			tried = false;
 			function login(user, pass) {
-				if(user.length == 6) {
+				if(user.length > 5) {
 					if(user.charAt(0).toString().toUpperCase() == 'C') {
 						user = parseInt(user.slice(1));
 						$("#error_msg").hide();
@@ -105,7 +105,7 @@
 						$("#msg").hide();
 					}
 				} else {
-					$("#error_text").html("Username must have 6 characters");
+					$("#error_text").html("Username must have 6 characters or more");
 					$("#error_msg").show();
 					$("#msg").hide();
 				}
