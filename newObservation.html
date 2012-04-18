@@ -199,10 +199,10 @@
 	var selectedWType = null;
 	var addedStudents = {};
 	$("#stdLink").click(function() {
-		$("#add_container").load('add_studentsDialog.html',function(){
+		$("#add_container").load('add_studentsDialog.html?int='+Math.random(),function(){
 			//$("#add_container").children().find('#students');
 		});
-		$("#add_container").dialog({resizable: false});
+		$("#add_container").dialog({resizable: false,close: function(ev, ui) { $(this).html(""); },});
 	});
 	
 	var studentsAdded = {};

@@ -93,7 +93,7 @@
 		<script type='text/javascript'>
 			tried = false;
 			function login(user, pass) {
-				if(user.length == 6) {
+				if(user.length > 5) {
 					if(user.charAt(0).toString().toUpperCase() == 'C') {
 						user = parseInt(user.slice(1));
 						$("#error_msg").hide();
@@ -103,30 +103,22 @@
 							user : user,
 							pass : pass
 						}
-						try{
-							jQuery.getJSON(IP+"/mark/model/staff-model.php?callback=?", params, function(data) {
-								if(!data[0]) {
-									$("#error_text").html(data[1][0]);
-									$("#error_msg").show();
-									$("#msg").hide();
-								}else {
-									window.location.href = "main.html?id=" + data[1][1] + "";
-								}
-							});
-						}
-						catch(err)
-						{
-								$("#error_text").html("Could not connect to server")
+						jQuery.getJSON(IP+"/mark/model/staff-model.php?callback=?", params, function(data) {
+							if(!data[0]) {
+								$("#error_text").html(data[1][0]);
 								$("#error_msg").show();
 								$("#msg").hide();
-						}
+							}else {
+								window.location.href = "main.html?id=" + data[1][1] + "";
+							}
+						});
 					} else {
 						$("#error_text").html("Username must start with C");
 						$("#error_msg").show();
 						$("#msg").hide();
 					}
 				} else {
-					$("#error_text").html("Username must have 6 characters");
+					$("#error_text").html("Username must have 6 characters or more");
 					$("#error_msg").show();
 					$("#msg").hide();
 				}

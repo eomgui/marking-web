@@ -65,7 +65,8 @@
 						<input type='text' id='add_student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
 					</div>
 				</div>
-				<select id = 'add_student_list'multiple="6"></select>
+				<select id = "add_student_list" multiple='6'>
+				</select>
 			</div>
 			<input type="button" value="Add" id="addName"/>
 		</div>
@@ -85,22 +86,13 @@
 				}
 			}
 		})
-		function buildStudents(id) {
-			for(student in add_students) {
-				$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + students[student] + "</option>");
-			}
-		}
-
-		var add_students = {
-			0 : "Cassie Wei",
-			1 : "Aaron Shifman",
-			2 : "Steve Irvin"
-		};
+		var add_students = students;
 		var add_students_deleted = {};
-		function buildStudents(id) {
+		function add_buildStudents(id) {
+			add_students = students;
 			for(student in add_students) {
 				if(!( student in studentsAdded)) {
-					$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + students[student] + "</option>");
+					$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + add_students[student] + "</option>");
 				}
 			}
 		}
@@ -113,7 +105,7 @@
 			});
 		})
 		$(document).ready(function() {
-			buildStudents("add_student_list");
+			add_buildStudents("add_student_list");
 		})
 		$("#addName").click(function() {
 			$("#add_student_list option:selected").each(function() {

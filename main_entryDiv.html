@@ -7,10 +7,10 @@
 		width: 100%;
 		float: left;
 	}
-	#new_entryMenu{
+	#new_entryMenu {
 		display: inline-block;
 		width: 70%;
-	}
+	}
 </style>
 <div id='main_entry'>
 	<div id='student_holder'></div>
@@ -19,9 +19,6 @@
 <script type="text/javascript" charset="utf-8">
 	$(document).ready(function() {
 		$('#student_holder').load("studentSelect.html");
-		$("#new_entryMenu").load("new_entryMenu.html",function(){
-			$("#title_class_name").html($("#selectClasses_sem1").children().eq(0).children().eq(0).html());
-		});
-		
+		$("#new_entryMenu").load("new_entryMenu.html");
 	})
 </script>

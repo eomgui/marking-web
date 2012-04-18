@@ -21,8 +21,8 @@
 		<div id='content'></div>
 		<script type="text/javascript" charset="utf-8">
 			$(document).ready(function() {
-				$("#header").load("header.html", function() {
-					$("#content").load("main_entryDiv.html");
+				$("#content").load("main_entryDiv.html",function(){
+					$("#header").load("header.html");
 				});
 			})
 		</script>
