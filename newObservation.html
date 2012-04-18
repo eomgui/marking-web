@@ -6,6 +6,7 @@
 		font-size: 20px;
 	}
 	.span_button {
+		margin-left:20px;
 		font-size: 12px;
 		padding: 3px 10px;
 		float: left;
@@ -13,6 +14,7 @@
 		color: white;
 	}
 	.button_link {
+		margin-left:5px;
 		font-weight: bold;
 		text-decoration: none;
 		color: white !important;
@@ -37,7 +39,7 @@
 	}
 	#selectedNames {
 		clear: both;
-		margin-left: 20px;
+		margin-left: 40px;
 		font-size: 13px;
 	}
 	.remove_link {
@@ -46,7 +48,7 @@
 		margin-left: 7px;
 	}
 	#stdButton {
-		margin-left: 40px;
+		margin-left: 60px;
 	}
 	#expList {
 		clear: both;
@@ -86,6 +88,7 @@
 	.button_group {
 		margin-left: 10px;
 		margin-right: 20px;
+		margin-top: 10px;
 	}
 	#remaining_msg {
 		font-size: 15px !important;
@@ -98,14 +101,21 @@
 	#remainingChars {
 		margin-left: 60px;
 	}
+	#expectationLabel {
+		margin-bottom: 14px;
+	}
 	#activityTypeLabel {
-		margin-top: 12px;
+		margin-top: 26px;
 	}
 	#workTypeLabel {
-		margin-top: 29px;
+		margin-top: 40px;
+		margin-left:30px;
 	}
 	#levelTypeHeader {
-		margin-top: 60px;
+		margin-top: 66px;	
+	}
+	#level_button_group {
+		margin-left: 66px;
 	}
 	#actityTypeContainer {
 		margin-top: 18px;
@@ -134,10 +144,10 @@
 				
 			</div>
 			<div id='expectation'>
-				<span class='button_header'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
 				<ul id='expList'>
 					<li>
-						<span class='selectedExp' id='1'>Something here <a class='remove_link'href='#'>Remove</a></span>
+						<span class='selectedExp' id='1'>Something here blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah<a class='remove_link'href='#'>Remove</a></span>
 					</li>
 				</ul>
 			</div>
@@ -160,7 +170,7 @@
 			</div>
 			<div id='level_type'>
 				<span class='button_header' id='levelTypeHeader'>Level</span>
-				<div class='button_group'  style='display:inline; float:left'>
+				<div class='button_group'  id='level_button_group' style='display:inline; float:left'>
 					<a class='up toggle_button' buttongroup = '1' grouptype_id='0'>Insufficient</a>
 					<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
 					<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
