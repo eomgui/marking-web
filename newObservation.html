@@ -131,9 +131,7 @@
 		<div id='scrolling_area'>
 			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
 			<div id='selectedNames'>
-				<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
-				<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
-				<span class='selectedName' id='1'>Aaron Shifmn <a class='remove_link'href='#'>Remove</a></span>
+				
 			</div>
 			<div id='expectation'>
 				<span class='button_header'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
@@ -194,7 +192,8 @@
 		});
 		$("#add_container").dialog();
 	});
-
+	
+	var studentsAdded = {};
 	$(document).ready(function() {
 		// $('#scrolling_area').jScrollPane({
 			// showArrows : true
@@ -228,5 +227,8 @@
 		$(this).toggleClass("up");
 		$(this).toggleClass("down");
 	});
-
+	$("a.remove_link").live('click',function(){
+		delete studentsAdded[$(this).parent().attr('id')];
+		$(this).parent().remove();
+	})
 </script>

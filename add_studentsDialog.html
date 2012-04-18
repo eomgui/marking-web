@@ -1,7 +1,7 @@
 <div id='addStudentToObs'>
 	<style type="text/css" media="screen">
 		#addStudentToObs {
-			float:left;
+			float: left;
 		}
 		#add_student_list {
 			clear: both;
@@ -19,8 +19,7 @@
 		}
 		#add_students {
 			float: left;
-			margin-right: 30px;
-			margin-left: 70px;
+			margin: 0px auto;
 			display: inline-block;
 			width: 100%;
 		}
@@ -34,16 +33,16 @@
 			padding: 5px 5px;
 		}
 		#add_student_wrapper {
-			float:left;
+			width: 100%;
 			border-style: solid;
 			border-width: 1px;
 			border-color: rgb(179,121,142);
 		}
 		#add_search_icon {
-			float:left;
+			float: left;
 			margin-left: 7px;
-		}		#add_entry{
-			float:left;
+		}		#add_entry {
+			float: left;
 		}
 	</style>
 	<div id = "add_entry">
@@ -54,6 +53,7 @@
 				<br/>
 				<select id = 'add_student_list'multiple="6"></select>
 			</div>
+			<input type="button" value="Add" id="addName"/>
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8">
@@ -85,7 +85,9 @@
 		var add_students_deleted = {};
 		function buildStudents(id) {
 			for(student in add_students) {
-				$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + students[student] + "</option>");
+				if(!(student in studentsAdded)) {
+					$("#" + id).append("<option class = 'add_std_opt'id='" + student + "'>" + students[student] + "</option>");
+				}
 			}
 		}
 
@@ -99,5 +101,13 @@
 		$(document).ready(function() {
 			buildStudents("add_student_list");
 		})
+		$("#addName").click(function() {
+			$("#add_student_list option:selected").each(function() {
+				studentsAdded[$(this).attr('id')] = ($(this).html());
+				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" href="#">Remove</a></span>');
+			});
+			$("#add_container").dialog('close');
+		});
+
 	</script>
 </div>
