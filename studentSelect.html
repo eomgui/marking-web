@@ -23,7 +23,7 @@
 	}
 	.std_title {
 		margin: 7px 0px;
-		font-size: 150%;
+		font-size: 125%;
 		font-weight: normal;
 	}
 	#student_wrapper {
@@ -122,7 +122,7 @@
 		
 	$("#student_list").change(function() {
 		$("#student_list option:selected").each(function() {
-			$("#content").load("getRecords.html");
+			$("#new_entryMenu").load("getRecords.html");
 			//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 		});
 	})

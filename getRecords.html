@@ -1,1 +1,65 @@
-TBA
+<style>
+	.nobgimg_menu {
+		background-image: none !important;
+		font-size: 12px !important;
+		padding:0px !important;
+	}
+	.prevRecords_menu {
+		padding: 10px 15px !important;
+		font-size: 12px !important;
+	}
+	.smaller_submenuRecord{
+		width:135px !important;
+	}
+	.smaller_submenuView{
+		width:112px !important;
+	}
+</style>
+<div id ='record_header'></div>
+<ul class="pureCssMenu pureCssMenum" id='right_header'>
+	<li class="pureCssMenui0">
+		<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/edit_icon.png" width="12px" height='12px'/>Edit</a>
+	</li>
+	<li id='class_main_menu' class="pureCssMenui0">
+		<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="pureCssMenum smaller_submenuRecord">
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li id='class_main_menu' class="pureCssMenui0">
+		<a class="prevRecords_menu" href="#"><img src="css/images/view_icon.png" width="12px" height='12px'/><span>View All</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="pureCssMenum smaller_submenuView">
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li class="pureCssMenui0">
+		<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/graphical_view_icon.png" width="12px" height='12px'/>Graphical View</a>
+	</li>
+</ul>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$("#student_list option:selected").each(function() {
+			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
+		});
+	});
+
+</script>

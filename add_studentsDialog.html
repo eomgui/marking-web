@@ -110,7 +110,7 @@
 		$("#addName").click(function() {
 			$("#add_student_list option:selected").each(function() {
 				studentsAdded[$(this).attr('id')] = ($(this).html());
-				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" href="#">Remove</a></span>');
+				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
 			});
 			$("#add_container").dialog('close');
 		});

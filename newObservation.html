@@ -149,7 +149,7 @@
 				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
 				<ul id='expList'>
 					<li>
-						<span class='selectedExp' id='1'>Something here blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah<a class='remove_link'href='#'>Remove</a></span>
+						<span class='selectedExp' id='1'>Something here blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah<a class='remove_link' link_type='exp' href='#'>Remove</a></span>
 					</li>
 				</ul>
 			</div>
@@ -240,7 +240,12 @@
 		$(this).toggleClass("down");
 	});
 	$("a.remove_link").live('click',function(){
-		delete studentsAdded[$(this).parent().attr('id')];
-		$(this).parent().remove();
+		if($(this).attr("link_type") == "std"){
+			delete studentsAdded[$(this).parent().attr('id')];
+			$(this).parent().remove();
+		}else if($(this).attr("link_type") == "exp"){
+			//delete studentsAdded[$(this).parent().attr('id')];
+			$(this).parent().parent().remove();
+		}
 	})
 </script>
