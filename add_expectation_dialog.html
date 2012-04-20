@@ -1,0 +1,140 @@
+<div id='addexpectationToObs'>
+	<style type="text/css" media="screen">
+		#add_expectation_list, #add_expectation_search_field, #add_entry {
+			font-size: 13px !important;
+		}
+		#addexpectationToObs {
+			float: left;
+		}
+		#add_expectation_list {
+			clear: both;
+			width: 100%;
+			margin: 0px;
+			border-style: solid;
+			border-width: 1px;
+			border-color: white;
+			border-top-color: rgb(179,121,142);
+			border-top-style: solid;
+			border-top-width: 1px;
+			padding-top: 3px;
+			padding-bottom: 3px;
+			padding-left: 5px;
+		}
+		#add_expectations {
+			float: left;
+			margin: 0px auto;
+			display: inline-block;
+			width: 100%;
+		}
+		#add_expectation_search_field {
+			border-style: solid;
+			border-width: 1px;
+			border-color: white;
+			color: gray;
+			width: 75%;
+			margin: 0px;
+			padding: 5px 5px;
+		}
+		#add_expectation_wrapper {
+			width: 100%;
+			border-style: solid;
+			border-width: 1px;
+			border-color: rgb(179,121,142);
+		}
+		#add_search_icon {
+			margin-left: 7px;
+		}
+		#add_entry {
+			float: left;
+		}
+		#add_search_container {
+			display: inline;
+		}
+		#add_icon_container {
+			width: 10%;
+			display: inline;
+		}
+	</style>
+	<div id = "add_entry">
+		<div id = 'add_expectation'>
+			<div id='add_expectation_wrapper'>
+				<div id='add_search_header'>
+					<div id='add_icon_container'>
+						<img id='add_search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
+					</div>
+					<div id='add_search_container'>
+						<input type='text' id='add_expectation_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+					</div>
+				</div>
+				<select id = "add_expectation_list" multiple='6'></select>
+			</div>
+			<input type="button" value="Add" id="addName"/>
+		</div>
+	</div>
+	<script type="text/javascript" charset="utf-8">
+		$("#add_expectation_search_field").keyup(function() {
+			$("#add_expectation_list").children().each(function(iter) {
+				if($(this).html().toString().indexOf($("#add_expectation_search_field").val().toString()) == -1) {
+					add_expectations_deleted[$(this).attr('id')] = $(this).val();
+					$(this).remove();
+				}
+			})
+			for(expectation in add_expectations_deleted) {
+				if((add_expectations_deleted[expectation].indexOf($("#add_expectation_search_field").val().toString()) != -1)) {
+					$("#add_expectation_list").append("<option class = 'add_std_opt' id='" + expectation + "'>" + expectations[expectation] + "</option>");
+					delete add_expectations_deleted[expectation];
+				}
+			}
+		})
+		var add_expectations = {};
+		var add_expectations_deleted = {};
+		var expectations = {};
+		function add_buildexpectations(id) {
+			for(expectation in add_expectations) {
+				if(!( expectation in expectationsAdded)) {
+					$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
+				}
+			}
+		}
+
+		function getExpectations(id) {
+			params.fcn = 'selectExpectationsByCourse';
+			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
+				if(!data[0]) {
+					$("#error_text").html(data[1][0]);
+					$("#error_msg").show();
+					$("#msg").hide();
+				} else {
+					for(i in data[1]) {
+						expectations[data[1][i][0]] = data[1][i][1];
+					}
+					add_expectations = expectations;
+					for(expectation in add_expectations) {
+						if(!( expectation in expectationsAdded)) {
+							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
+						}
+					}
+				}
+			});
+		}
+
+
+		$("#add_expectation_list").change(function() {
+			$("#add_expectation_list option:selected").each(function() {
+				//$("#content").load("getRecords.html");
+				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+			});
+		})
+		$(document).ready(function() {
+			getExpectations("add_expectation_list");
+		})
+		$("#addName").click(function() {
+			$("#add_expectation_list option:selected").each(function() {
+				expectationsAdded[$(this).attr('id')] = ($(this).html());
+				$("#expList").append("<li><span class='selectedExp' id='"+$(this).attr('id')+"'>"+$(this).html()+"<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+			});
+			$("#add_container").dialog('close');
+		});
+
+	</script>
+</div>

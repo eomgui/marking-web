@@ -6,7 +6,7 @@
 		font-size: 20px;
 	}
 	.span_button {
-		margin-left:20px;
+		margin-left: 20px;
 		font-size: 12px;
 		padding: 3px 10px;
 		float: left;
@@ -14,7 +14,7 @@
 		color: white;
 	}
 	.button_link {
-		margin-left:5px;
+		margin-left: 5px;
 		font-weight: bold;
 		text-decoration: none;
 		color: white !important;
@@ -109,10 +109,10 @@
 	}
 	#workTypeLabel {
 		margin-top: 40px;
-		margin-left:30px;
+		margin-left: 30px;
 	}
 	#levelTypeHeader {
-		margin-top: 66px;	
+		margin-top: 66px;
 	}
 	#level_button_group {
 		margin-left: 66px;
@@ -130,9 +130,9 @@
 	}
 	#addObsButton:hover {
 		cursor: pointer;
-	}	.span_button{
+	}	.span_button {
 		margin-top: -7px;
-	}
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -142,15 +142,10 @@
 		</div>
 		<div id='scrolling_area'>
 			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
-			<div id='selectedNames'>
-				
-			</div>
+			<div id='selectedNames'></div>
 			<div id='expectation'>
-				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='expLink' class='button_link'href='#'>Add</a></span>
 				<ul id='expList'>
-					<li>
-						<span class='selectedExp' id='1'>Something here blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah<a class='remove_link' link_type='exp' href='#'>Remove</a></span>
-					</li>
 				</ul>
 			</div>
 			<div id='record_types'>
@@ -198,17 +193,33 @@
 	var charsRemaining = 500;
 	var selectedWType = null;
 	var addedStudents = {};
+	var expectationsAdded = {};
 	$("#stdLink").click(function() {
-		$("#add_container").load('add_studentsDialog.html?int='+Math.random(),function(){
+		$("#add_container").load('add_studentsDialog.html?int=' + Math.random(), function() {
 			//$("#add_container").children().find('#students');
 		});
-		$("#add_container").dialog({resizable: false,close: function(ev, ui) { $(this).html(""); },});
+		$("#add_container").dialog({
+			resizable : false,
+			close : function(ev, ui) {
+				$(this).html("");
+			},
+		});
 	});
-	
+	$("#expLink").click(function() {
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
+			//$("#add_container").children().find('#students');
+		});
+		$("#add_container").dialog({
+			resizable : false,
+			close : function(ev, ui) {
+				$(this).html("");
+			},
+		});
+	});
 	var studentsAdded = {};
 	$(document).ready(function() {
 		// $('#scrolling_area').jScrollPane({
-			// showArrows : true
+		// showArrows : true
 		// });
 	})
 
@@ -239,33 +250,14 @@
 		$(this).toggleClass("up");
 		$(this).toggleClass("down");
 	});
-	$("a.remove_link").live('click',function(){
-		if($(this).attr("link_type") == "std"){
+	$("a.remove_link").live('click', function() {
+		if($(this).attr("link_type") == "std") {
 			delete studentsAdded[$(this).parent().attr('id')];
 			$(this).parent().remove();
-		}else if($(this).attr("link_type") == "exp"){
+		} else if($(this).attr("link_type") == "exp") {
 			//delete studentsAdded[$(this).parent().attr('id')];
+			delete expectationsAdded[$(this).parent().attr('id')];
 			$(this).parent().parent().remove();
 		}
 	})
-	
-	var expectations = {};
-	
-	function getExpectations()
-	{
-		params.fcn = 'selectExpectationsByCourse';
-		jQuery.getJSON(IP+"/mark/model/expectations-model.php?callback=?", params, function(data) {
-			if(!data[0]) {
-				$("#error_text").html(data[1][0]);
-				$("#error_msg").show();
-				$("#msg").hide();
-			}else {
-				for(i in data[1])
-				{
-					expectations[data[1][i][0]] = data[1][i][1];
-					console.log(data[1][i][0] + ", " + expectations[data[1][i][0]]);
-				}
-			}
-		});
-	}
 </script>
