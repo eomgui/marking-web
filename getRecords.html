@@ -62,4 +62,29 @@
 		});
 	});
 
+	function getObservations(first, second, third, fourth) {
+		params.fcn = 'selectObservationsAndOrConvos';
+		params.params = {
+			stid : first,
+			type : second,
+			array : [third, fourth]
+		}
+		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+			if(!data[0]) {
+				$("#error_text").html(data[1][0]);
+				$("#error_msg").show();
+				$("#msg").hide();
+			} else {
+				/*for(i in data[1]) {
+					observations[data[1][i][0]] = data[1][i][1];
+				}
+				add_expectations = expectations;
+				for(expectation in add_expectations) {
+					if(!( expectation in expectationsAdded)) {
+						$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
+					}
+				}*/
+			}
+		});
+	}
 </script>

@@ -96,7 +96,7 @@
 				}
 			}
 		}
-
+		
 		function getExpectations(id) {
 			params.fcn = 'selectExpectationsByCourse';
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
@@ -117,8 +117,8 @@
 				}
 			});
 		}
-
-
+		
+		
 		$("#add_expectation_list").change(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				//$("#content").load("getRecords.html");
