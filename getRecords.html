@@ -61,7 +61,12 @@
 			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
 		});
 	});
-
+	
+	var observations = {
+		
+	};
+	
+	//TODO: fill in parameters
 	function getObservations(first, second, third, fourth) {
 		params.fcn = 'selectObservationsAndOrConvos';
 		params.params = {
@@ -75,15 +80,13 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
-				/*for(i in data[1]) {
+				for(i in data[1]) {
 					observations[data[1][i][0]] = data[1][i][1];
 				}
-				add_expectations = expectations;
-				for(expectation in add_expectations) {
-					if(!( expectation in expectationsAdded)) {
-						$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
-					}
-				}*/
+				for(o in observations)
+				{
+					
+				}
 			}
 		});
 	}
