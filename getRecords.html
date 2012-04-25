@@ -81,11 +81,12 @@
 				$("#msg").hide();
 			} else {
 				for(i in data[1]) {
-					observations[data[1][i][0]] = data[1][i][1];
+					observations[data[1][i][0]] = data[1][i][2];
 				}
 				for(o in observations)
 				{
-					
+					console.log(o);
+					console.log(observations[o]);
 				}
 			}
 		});
