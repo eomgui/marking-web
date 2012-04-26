@@ -67,12 +67,12 @@
 	};
 	
 	//TODO: fill in parameters
-	function getObservations(first, second, third, fourth) {
+	function getObservations(skills, expectations) {
 		params.fcn = 'selectObservationsAndOrConvos';
 		params.params = {
-			stid : first,
-			type : second,
-			array : [third, fourth]
+			stid : stid,
+			type : 0,
+			array : [skills, expectations]
 		}
 		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
@@ -91,4 +91,60 @@
 			}
 		});
 	}
+		
+	var conversations = {
+		
+	};
+	
+	function getConversations(skills, expectations) {
+	var stid = $(".std_opt:selected").attr('id');
+	params.fcn = 'selectObservationsAndOrConvos';
+	params.params = {
+		stid : stid,
+		type : 1,
+		array : [skills, expectations]
+	}
+	jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+		if(!data[0]) {
+			$("#error_text").html(data[1][0]);
+			$("#error_msg").show();
+			$("#msg").hide();
+		} else {
+			for(i in data[1]) {
+				conversations[data[1][i][0]] = data[1][i][2];
+			}
+			for(c in conversations)
+			{
+				console.log(c);
+				console.log(conversations[c]);
+			}
+		}
+	});
+	
+	
+	function getAllRecords(skills, expectations) {
+	var stid = $(".std_opt:selected").attr('id');
+	params.fcn = 'selectObservationsAndOrConvos';
+	params.params = {
+		stid : stid,
+		type : 1,
+		array : [skills, expectations]
+	}
+	jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+		if(!data[0]) {
+			$("#error_text").html(data[1][0]);
+			$("#error_msg").show();
+			$("#msg").hide();
+		} else {
+			for(i in data[1]) {
+				conversations[data[1][i][0]] = data[1][i][2];
+			}
+			for(c in conversations)
+			{
+				console.log(c);
+				console.log(conversations[c]);
+			}
+		}
+	});
+}
 </script>
