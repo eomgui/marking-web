@@ -265,6 +265,8 @@
 	/*
 	 * obtains length of the user comment and compare it to the character limit
 	 * 
+	 * if the length of user comment exceeds the limit, 
+	 * only the first 500 characters of the user comment will be shown
 	 */
 	$("#comments_area").keyup(function() {
 		length = $(this).val().length;
@@ -293,6 +295,9 @@
 		$(this).toggleClass("up");
 		$(this).toggleClass("down");
 	});
+	/*
+	 * removes a selected student or expectation
+	 */
 	$("a.remove_link").live('click', function() {
 		if($(this).attr("link_type") == "std") {
 			delete studentsAdded[$(this).parent().attr('id')];
