@@ -120,13 +120,18 @@
 			}
 		});
 	}
-		
+	/*
+	 * when a student is selected, the user is directed to getRecords
+	 */
 	$("#student_list").change(function() {
 		$("#student_list option:selected").each(function() {
 			$("#new_entryMenu").load("getRecords.html");
 			//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 		});
 	})
+	/*
+	 * when this page is done loading, loads the list of students
+	 */
 	$(document).ready(function() {
 		buildStudents("student_list");
 	})

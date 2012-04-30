@@ -207,11 +207,14 @@
 </div>
 <div id='add_container'></div>
 <script type="text/javascript" charset="utf-8">
-		var charLimit = 500;
+	var charLimit = 500;
 	var charsRemaining = 500;
 	var selectedWType = null;
 	var addedStudents = {};
 	var expectationsAdded = {};
+	/*
+	 * when this dialog is done loading, the current date is displayed on the dateField
+	 */
 	$(document).ready(function(){
 		$("#observation_dateField").datepicker({
 			showOn: "none"
@@ -224,9 +227,15 @@
 		year = date.getFullYear();
 		$("#observation_dateField").val(month+"/"+day+"/"+year);
 	})
+	/*
+	 * when calender button is presses, the datepicker is displayed
+	 */
 	$("#calendar_show").click(function() {
 		$("#observation_dateField").datepicker("show");
 	})
+	/*
+	 * when stdLink button is pressed, the add_studentDialog is loaded
+	 */
 	$("#stdLink").click(function() {
 		$("#add_container").load('add_studentsDialog.html?int=' + Math.random(), function() {
 			//$("#add_container").children().find('#students');
@@ -238,6 +247,9 @@
 			},
 		});
 	});
+	/*
+	 * when expLink button is pressed, the add_expectation_dialog is loaded
+	 */
 	$("#expLink").click(function() {
 		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
 			//$("#add_container").children().find('#students');
@@ -250,13 +262,16 @@
 		});
 	});
 	var studentsAdded = {};
-
+	/*
+	 * obtains length of the user comment and compare it to the character limit
+	 * 
+	 */
 	$("#comments_area").keyup(function() {
 		length = $(this).val().length;
 		charsRemaining = charLimit - length;
-		if(charsRemaining == -1) {
-			$("#comments_area").val($(this).val().substring(0, length - 1));
-			charsRemaining = charsRemaining + 1;
+		if(charsRemaining < 0) {
+			$("#comments_area").val($(this).val().substring(0, 500));
+			charsRemaining = 0;
 		}
 		$("#remainingChars").html(charsRemaining);
 	})

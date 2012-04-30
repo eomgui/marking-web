@@ -47,6 +47,9 @@
 <script type="text/javascript" charset="utf-8">
 	selectedClass = null;
 	x = null;
+	/*
+	 * when the header is done loading, loads the classes the current user is teaching
+	 */
 	$(document).ready(function selectClasses() {
 		var staffID = QueryString.id;
 		params = {};
@@ -76,6 +79,9 @@
 			buildStudents("student_list");
 		})
 	});
+	/*
+	 * logs user out
+	 */
 	function logout() {
 		params = {};
 		params.fcn = 'logout';
