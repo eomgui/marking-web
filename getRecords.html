@@ -69,12 +69,12 @@
 	//TODO: fill in parameters
 	function getObservations(skills) {
 		getExpectations();
-		var stid = $(".std_opt:selected").attr('id');
+		var stid = $("option.std_opt:selected").attr('id'); //selected student
 		params.fcn = 'selectObservationsAndOrConvos';
 		params.params = {
-			stid : stid,
-			type : 0,
-			array : [skills, expectations]
+			id : stid,
+			recType : 0,
+			third : [skills, expectations] //not sure where to get learning skills from
 		}
 		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
@@ -85,7 +85,7 @@
 				for(i in data[1]) {
 					observations[data[1][i][0]] = data[1][i][2];
 				}
-				for(o in observations)
+				for(o in observations) //testing
 				{
 					console.log(o);
 					console.log(observations[o]);
@@ -96,12 +96,12 @@
 	
 	function getConversations(skills) {
 		getExpectations();
-		var stid = $(".std_opt:selected").attr('id');
+		var stid = $("option.std_opt:selected").attr('id'); //selected student
 		params.fcn = 'selectObservationsAndOrConvos';
 		params.params = {
-			stid : stid,
-			type : 1,
-			array : [skills, expectations]
+			id : stid,
+			recType : 1,
+			third : [skills, expectations] //not sure where to get learning skills from
 		}
 		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
@@ -112,7 +112,7 @@
 				for(i in data[1]) {
 					conversations[data[1][i][0]] = data[1][i][2];
 				}
-				for(c in conversations)
+				for(c in conversations) //testing
 				{
 					console.log(c);
 					console.log(conversations[c]);
@@ -121,7 +121,7 @@
 		});
 	}
 	
-	//Temporary Code
+	//Get all expectations from course, store id's in array
 	function getExpectations() {
 		params.fcn = 'selectExpectationsByCourse';
 		jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
