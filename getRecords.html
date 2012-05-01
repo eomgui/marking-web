@@ -32,15 +32,15 @@
 		border-bottom-color: rgb(179,121,142);
 		border-bottom-style: solid;
 		border-bottom-width: 1px;
-		padding-left:15px;
-		padding-top:15px;
-		padding-bottom:15px;
-		font-size:14px;
+		padding-left: 15px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		font-size: 14px;
 	}
-	#record_data_fields{
-		width:90%;
-		margin:0px auto;
-	}
+	#record_data_fields {
+		width: 90%;
+		margin: 0px auto;
+	}
 </style>
 <div id='record_wrapper'>
 	<div id='record_top_wrapper'>
@@ -54,11 +54,11 @@
 			<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 			<ul class="pureCssMenum smaller_submenuRecord">
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'generateWindow("newObservation.html")'><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("newObservation.html")'><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 				<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'generateWindow("newConversation.html")'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("newConversation.html")'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 				<li class="pureCssMenui">
 					<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
@@ -120,18 +120,25 @@
 	/*
 	 * generates a new dialog
 	 */
-	function generateWindow(page) {
+	function getRecords_generateWindow(page) {
+		$("#dialog").load(page, function() {
+			$("#student_list option:selected").each(function() {
+				studentsAdded[$(this).attr("id")] = ($(this).html());
+				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+			});
+		});
 		$("#dialog").dialog({
 			show : "blind",
 			hide : "explode",
-			open : function() {
-				$("#dialog").load(page);
-			},
-			position: 'center',
-			modal: true,
-			height:$(window).height()-200,
-			width:$(window).width()-300,
-			resizable:false
+			position : 'center',
+			modal : true,
+			height : $(window).height() - 200,
+			width : $(window).width() - 300,
+			resizable : false,
+			close : function(ev, ui) {
+				$(this).html("");
+			}
 		});
 	}
 </script>

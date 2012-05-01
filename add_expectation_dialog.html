@@ -61,10 +61,10 @@
 			background-color: rgb(107,41,62);
 			border-width: 0px;
 			color: white;
-			margin-left:0px;
+			margin-left: 0px;
 		}
 		#addName:hover {
-		cursor: pointer;
+			cursor: pointer;
 		}
 	</style>
 	<div id = "add_entry">
@@ -143,7 +143,7 @@
 		$("#addName").click(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
-				$("#expList").append("<li><span class='selectedExp' id='"+$(this).attr('id')+"'>"+$(this).html()+"<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
 			});
 			$("#add_container").dialog('close');
 		});

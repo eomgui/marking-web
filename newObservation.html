@@ -213,7 +213,6 @@
 		</div>
 	</div>
 </div>
-<div id='add_container'></div>
 <script type="text/javascript" charset="utf-8">
 	var charLimit = 500;
 	var charsRemaining = 500;
@@ -259,13 +258,11 @@
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
 	$("#expLink").click(function() {
-		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
-			//$("#add_container").children().find('#students');
-		});
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
-				$(this).html("");
+				$(this).destroy();
 			},
 		});
 	});

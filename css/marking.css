@@ -216,6 +216,7 @@ a.down {
 	color:white !important;
     background: rgb(66,26,37);
     padding: 5px 5px;  
+       cursor: pointer;  
    }
 .toggle_button{
 		display:block;

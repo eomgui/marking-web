@@ -11,7 +11,7 @@
 </style>
 <ul class="pureCssMenu pureCssMenum">
 	<li class="pureCssMenui0">
-		<a class="logoBar" href='main.html'>LogoGoesHere</a>
+		<a class="logoBar" id='header_logo'>LogoGoesHere</a>
 	</li>
 	<li class="pureCssMenui0">
 		<a id='menu_visible_class' class="currentClassBar noclick" href="#">No Class Selected</a>
@@ -76,7 +76,7 @@
 		$("a[class_button='true']").live('click', function() {
 			$("#menu_visible_class,#title_class_name").html($(this).html());
 			$("#menu_visible_class").attr("class_id", $(this).attr('id'))
-			buildStudents("student_list");
+			$("#content").load("main_entryDiv.html");
 		})
 	});
 	/*
@@ -93,6 +93,9 @@
 				alert(data[1]);
 		});
 	}
+	$("#header_logo").click(function(){
+		$("#content").load("main_entryDiv.html");
+	})
 </script>
 <!-- <a id="pcm" href="http://www.purecssmenu.com/">CSS Drop Down Menu by PureCSSMenu.com</a> -->
 <!-- End PureCSSMenu.com MENU -->
