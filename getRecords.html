@@ -27,6 +27,14 @@
 	#record_data_fields {
 		clear: both;
 		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+	.record_data {
+		-o-text-overflow: ellipsis;   /* Opera */
+		text-overflow: ellipsis;   /* IE, Safari (WebKit) */
+		overflow: hidden;              /* don't show excess chars */
+		white-space: nowrap;           /* force single line */
+		width: 100% !important;                 /* fixed width */
 	}
 	.record {
 		border-bottom-color: rgb(179,121,142);
@@ -40,6 +48,17 @@
 	#record_data_fields {
 		width: 90%;
 		margin: 0px auto;
+	}	#view_menu {
+		padding-left: 25px !important;
+		padding-right: 25px !important;
+	}	.record_options {
+		width: 20%;
+		display: inline-block;
+		vertical-align: top;
+	}
+	.record_main {
+		width: 75%;
+		display: inline-block;
 	}
 </style>
 <div id='record_wrapper'>
@@ -47,9 +66,6 @@
 		<div id ='record_header'></div>
 	</div>
 	<ul class="pureCssMenu pureCssMenum" id='right_header'>
-		<li class="pureCssMenui0">
-			<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/edit_icon.png" width="12px" height='12px'/>Edit</a>
-		</li>
 		<li id='class_main_menu' class="pureCssMenui0">
 			<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 			<ul class="pureCssMenum smaller_submenuRecord">
@@ -67,43 +83,57 @@
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 		</li>
 		<li id='class_main_menu' class="pureCssMenui0">
-			<a class="prevRecords_menu" href="#"><img src="css/images/view_icon.png" width="12px" height='12px'/><span>View All</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			<a class="prevRecords_menu" id='view_menu'href="#"><img src="css/images/view_icon.png" width="12px" height='12px'/><span>View</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 			<ul class="pureCssMenum smaller_submenuView">
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#" ><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(0)'><span class='nobgimg_menu'>All</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(1)' ><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(2)'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(3)'><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 			</ul>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
 		</li>
 		<li class="pureCssMenui0">
-			<a id='menu_visible_class' class="prevRecords_menu" href="#" onclick = 'generateWindow("graphicalView_dialog.html")'><img src="css/images/graphical_view_icon.png" width="12px" height='12px'/>Graphical View</a>
+			<a id='menu_visible_class' class="prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("graphicalView_dialog.html")'><img src="css/images/graphical_view_icon.png" width="12px" height='12px'/>Graphical View</a>
 		</li>
 	</ul>
 </div>
 </div>
 <div id='record_data_fields'>
-	<div id='1' class = 'record'>
-		<div class='record_header_info'>
-			<span>Type:Conversation</span>
-			<span>Data:11/11/11</span>
+	<div id='1' class = 'record' type_id='1'>
+		<div class = 'record_main'>
+			<div class='record_header_info'>
+				<div>
+					Type:Conversation
+				</div>
+				<div>
+					Date:11/11/11
+				</div>
+				<div>
+					Expectation: a-1
+				</div>
+				<div>
+					Level: Limited
+				</div>
+			</div>
+			<div class='record_data'>
+				Comments: Billy Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATION
+			</div>
 		</div>
-		<div class='record_data'>
-			Billy Bob Did something
-		</div>
-	</div>
-	<div id='1' class = 'record'>
-		<div class='record_header_info'>
-			<span>Type:Conversation</span>
-			<span>Data:11/11/11</span>
-		</div>
-		<div class='record_data'>
-			Billy Bob Did something
+		<div class = 'record_options'>
+			<div>
+				<a href='#'>Expand</a>
+			</div>
+			<div>
+				<a href='#'>Edit</a>
+			</div>
 		</div>
 	</div>
 </div>
@@ -140,5 +170,19 @@
 				$(this).html("");
 			}
 		});
+	}
+
+	function toggleCommunicationsById(id) {
+		$("#record_data_fields").children().each(function() {
+			if(id == 0) {
+				$(this).show();
+			} else {
+				if($(this).attr("type_id") != id)
+					$(this).hide();
+				else {
+					$(this).show();
+				}
+			}
+		})
 	}
 </script>
