@@ -62,67 +62,13 @@
 		});
 	});
 	
-	var observations = {};
-	var conversations = {};
+	var communications = {};
 	var expectations = {};
 	
 	//TODO: fill in parameters
-	function getObservations(skills) {
-		getExpectations();
-		var stid = $("option.std_opt:selected").attr('id'); //selected student
-		params.fcn = 'selectObservationsAndOrConvos';
-		params.params = {
-			id : stid,
-			recType : 0,
-			third : [skills, expectations] //not sure where to get learning skills from
-		}
-		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-			if(!data[0]) {
-				$("#error_text").html(data[1][0]);
-				$("#error_msg").show();
-				$("#msg").hide();
-			} else {
-				for(i in data[1]) {
-					observations[data[1][i][0]] = data[1][i][2];
-				}
-				for(o in observations) //testing
-				{
-					console.log(o);
-					console.log(observations[o]);
-				}
-			}
-		});
-	}
-	
-	function getConversations(skills) {
-		getExpectations();
-		var stid = $("option.std_opt:selected").attr('id'); //selected student
-		params.fcn = 'selectObservationsAndOrConvos';
-		params.params = {
-			id : stid,
-			recType : 1,
-			third : [skills, expectations] //not sure where to get learning skills from
-		}
-		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-			if(!data[0]) {
-				$("#error_text").html(data[1][0]);
-				$("#error_msg").show();
-				$("#msg").hide();
-			} else {
-				for(i in data[1]) {
-					conversations[data[1][i][0]] = data[1][i][2];
-				}
-				for(c in conversations) //testing
-				{
-					console.log(c);
-					console.log(conversations[c]);
-				}
-			}
-		});
-	}
 	
 	//Get all expectations from course, store id's in array
-	function getExpectations() {
+	function getCommunications(type, skills) {
 		params.fcn = 'selectExpectationsByCourse';
 		jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
@@ -133,6 +79,29 @@
 				for(i in data[1]) {
 					expectations[i] = data[1][i][0];
 				}
+				var stid = $("option.std_opt:selected").attr('id'); //selected student
+				params.fcn = 'selectObservationsAndOrConvos';
+				params.params = {
+					id : stid,
+					recType : type,
+					third : [skills, expectations] //not sure where to get learning skills from
+				}
+				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+					if(!data[0]) {
+						$("#error_text").html(data[1][0]);
+						$("#error_msg").show();
+						$("#msg").hide();
+					} else {
+						for(i in data[1]) {
+							communications[data[1][i][0]] = data[1][i][2];
+						}
+						for(c in communications) //testing
+						{
+							console.log(c);
+							console.log(communications[c]);
+						}
+					}
+				});
 			}
 		});
 	}
