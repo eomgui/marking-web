@@ -54,6 +54,18 @@
 			width: 10%;
 			display: inline;
 		}
+		#addName {
+			font-size: 12px;
+			font-weight: bold;
+			padding: 5px 20px;
+			background-color: rgb(107,41,62);
+			border-width: 0px;
+			color: white;
+			margin-left: 0px;
+		}
+		#addName:hover {
+			cursor: pointer;
+		}
 	</style>
 	<div id = "add_entry">
 		<div id = 'add_expectation'>
@@ -131,7 +143,7 @@
 		$("#addName").click(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
-				$("#expList").append("<li><span class='selectedExp' id='"+$(this).attr('id')+"'>"+$(this).html()+"<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
 			});
 			$("#add_container").dialog('close');
 		});

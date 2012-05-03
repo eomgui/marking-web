@@ -20,11 +20,16 @@
 		<div id='header'></div>
 		<div id='content'></div>
 		<script type="text/javascript" charset="utf-8">
+		/*
+		 * when this page is done loading, loads header and main_entryDiv
+		 */
 			$(document).ready(function() {
 				$("#content").load("main_entryDiv.html",function(){
 					$("#header").load("header.html");
 				});
 			})
 		</script>
+		<div id='add_container'></div>
+		<div id='dialog'></div>
 	</body>
 </html>

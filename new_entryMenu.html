@@ -5,11 +5,11 @@
 		padding-left: 40%;
 	}
 	#title_wrapper {
-		margin-left: 150px;
+		margin-left: 80px;
 	}
 	.entryMenum {
 		width: 165px !important;
-	}
+	}
 </style>
 <div id='title_wrapper'>
 	<h1 id='title_class_name'class='std_title fl_left'>No Class Selected</h1>
@@ -34,20 +34,8 @@
 		</li>
 	</ul>
 </div>
-<div id='dialog'></div>
 <script type="text/javascript" charset="utf-8">
-	function generateWindow(page) {
-		$("#dialog").dialog({
-			show : "blind",
-			hide : "explode",
-			open : function() {
-				$("#dialog").load(page);
-			},
-			position: 'center',
-			modal: true,
-			height:$(window).height()-200,
-			width:$(window).width()-300,
-			resizable:false
-		});
-	}
+	$(document).ready(function(){
+		$("#title_class_name").html($("#menu_visible_class").html());
+	})
 </script>

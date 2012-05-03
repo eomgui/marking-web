@@ -13,13 +13,13 @@
 				display: block;
 			}
 			.login_field {
-				color:gray;
+				color:rgb(51,51,51);
 				border-style: solid;
 				border-width: 1px;
 				border-color: rgb(179,121,142);
+				padding:3px;
 			}
 			#content_wrapper {
-
 				-moz-border-radius: 15px;
 				border-radius: 15px;
 				background-color: white;
@@ -92,8 +92,23 @@
 	<body>
 		<script type='text/javascript'>
 			tried = false;
+			/*
+			 * checks if username is valid stucture wise
+			 * if so, user will be directed to main.html
+			 * if not, error message will be displayed
+			 */
 			function login(user, pass) {
+				/* 
+				 * checks if username has exactly 5 character
+				 * if so, checks if username begins with 'c'
+				 * if not, error message will be displayed
+				 */
 				if(user.length > 5) {
+					/* 
+					 * checks if username begins with 'c'; case does not matter
+					 * if so, user will be directed to main.html
+					 * if not, error message will be displayed
+					 */
 					if(user.charAt(0).toString().toUpperCase() == 'C') {
 						user = parseInt(user.slice(1));
 						$("#error_msg").hide();
@@ -123,6 +138,9 @@
 					$("#msg").hide();
 				}
 			}
+			/*
+			 * shows logout message if the user have already logged in before being directed to index.html
+			 */
 			$(document).ready(function(){
 				if(QueryString.msg !== undefined){
 					$("#msg_text").html(unescape(QueryString.msg));
@@ -143,7 +161,7 @@
 				<div id='msg_text'></div>
 			</div>
 			<div class='input_wrapper'>
-				<label class='login_label'for="login_user">Login</label>
+				<label class='login_label'for="login_user">User ID</label>
 				<input class='login_field' type="text" name="login_user" value="" id="login_user"/>
 			</div>
 			<div class='input_wrapper'>

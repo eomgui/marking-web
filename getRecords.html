@@ -2,64 +2,256 @@
 	.nobgimg_menu {
 		background-image: none !important;
 		font-size: 12px !important;
-		padding:0px !important;
+		padding: 0px !important;
 	}
 	.prevRecords_menu {
 		padding: 10px 15px !important;
 		font-size: 12px !important;
 	}
-	.smaller_submenuRecord{
-		width:135px !important;
+	.smaller_submenuRecord {
+		width: 135px !important;
 	}
-	.smaller_submenuView{
-		width:112px !important;
+	.smaller_submenuView {
+		width: 112px !important;
 	}
+	#record_top_wrapper {
+		display: block;
+		font-size: 125%;
+		margin-top: 5px;
+		margin-left: 30px;
+	}
+	#record_wrapper {
+		width: 100%;
+		height: 100px;
+	}
+	#record_data_fields {
+		clear: both;
+		overflow-y: scroll;
+		overflow-x: hidden;
+	}
+	.record_data {
+		-o-text-overflow: ellipsis;   /* Opera */
+		text-overflow: ellipsis;   /* IE, Safari (WebKit) */
+		overflow: hidden;              /* don't show excess chars */
+		white-space: nowrap;           /* force single line */
+		width: 100% !important;                 /* fixed width */
+	}
+	.record {
+		border-bottom-color: rgb(179,121,142);
+		border-bottom-style: solid;
+		border-bottom-width: 1px;
+		padding-left: 15px;
+		padding-top: 15px;
+		padding-bottom: 15px;
+		font-size: 14px;
+	}
+	#record_data_fields {
+		width: 90%;
+		margin: 0px auto;
+	}
+	#view_menu {
+		padding-left: 25px !important;
+		padding-right: 25px !important;
+	}
+	.record_options {
+		width: 20%;
+		display: inline-block;
+		vertical-align: top;
+		font-size: 11px;
+	}
+	.record_main {
+		width: 75%;
+		display: inline-block;
+	}
+	.record_tool_link {
+		color: rgb(179,121,142) !important;
+	}
+	.record_tool_link_wrapper {
+		margin-bottom: 3px;
+		text-align: right;
+	}
+	key {
+		font-weight: bold;
+	}
 </style>
-<div id ='record_header'></div>
-<ul class="pureCssMenu pureCssMenum" id='right_header'>
-	<li class="pureCssMenui0">
-		<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/edit_icon.png" width="12px" height='12px'/>Edit</a>
-	</li>
-	<li id='class_main_menu' class="pureCssMenui0">
-		<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-		<ul class="pureCssMenum smaller_submenuRecord">
-			<li class="pureCssMenui">
-				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-			</li>
+<div id='record_wrapper'>
+	<div id='record_top_wrapper'>
+		<div id ='record_header'></div>
+	</div>
+	<ul class="pureCssMenu pureCssMenum" id='right_header'>
+		<li id='class_main_menu' class="pureCssMenui0">
+			<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			<ul class="pureCssMenum smaller_submenuRecord">
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("newObservation.html")'><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("newConversation.html")'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+			</ul>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-			<li class="pureCssMenui">
-				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-			</li>
-			<li class="pureCssMenui">
-				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-			</li>
-		</ul>
-		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-	</li>
-	<li id='class_main_menu' class="pureCssMenui0">
-		<a class="prevRecords_menu" href="#"><img src="css/images/view_icon.png" width="12px" height='12px'/><span>View All</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-		<ul class="pureCssMenum smaller_submenuView">
-			<li class="pureCssMenui">
-				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-			</li>
-			<li class="pureCssMenui">
-				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-			</li>
-			<li class="pureCssMenui">
-				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
-			</li>
-		</ul>
-		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
-	</li>
-	<li class="pureCssMenui0">
-		<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/graphical_view_icon.png" width="12px" height='12px'/>Graphical View</a>
-	</li>
-</ul>
+		</li>
+		<li id='class_main_menu' class="pureCssMenui0">
+			<a class="prevRecords_menu" id='view_menu'href="#"><img src="css/images/view_icon.png" width="12px" height='12px'/><span>View</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			<ul class="pureCssMenum smaller_submenuView">
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(0)'><span class='nobgimg_menu'>All</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(1)' ><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(2)'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+				<li class="pureCssMenui">
+					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(3)'><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+				</li>
+			</ul>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+		</li>
+		<li class="pureCssMenui0">
+			<a id='menu_visible_class' class="prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("graphicalView_dialog.html")'><img src="css/images/graphical_view_icon.png" width="12px" height='12px'/>Graphical View</a>
+		</li>
+	</ul>
+</div>
+</div>
+<div id='record_data_fields'>
+	<div id='record_1' class = 'record' type_id='1'>
+		<div class = 'record_main'>
+			<div class='record_header_info'>
+				<div type_id="1">
+					Type:Observation
+				</div>
+				<div date="11/11/11">
+					Date:11/11/11
+				</div>
+				<div expec_id='1'>
+					Expectation: a-1
+				</div>
+				<div level_id='1'>
+					Level: Limited
+				</div>
+			</div>
+			<div class='record_data'>
+				Comments:
+				<key type='ac' type_id='1'>
+					Explain
+				</key>
+				<key type='work' type_id='1'>
+					Group
+				</key>
+				Billy Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATION
+			</div>
+		</div>
+		<div class = 'record_options'>
+			<div class='record_tool_link_wrapper'>
+				<a href='#' class='record_tool_link'id='record_expander_1'onclick='expandRecord(1)'>Expand</a>
+			</div>
+			<div class='record_tool_link_wrapper'>
+				<a href='#' class='record_tool_link' editing='0' id='record_editor_1'onclick='editRecord(1)'>Edit</a>
+			</div>
+		</div>
+	</div>
+</div>
+<div id='dialog'></div>
 <script type="text/javascript" charset="utf-8">
+	/*
+	 * when the page is done loading, loads the selected student's name and the selected class
+	 */
 	$(document).ready(function() {
 		$("#student_list option:selected").each(function() {
 			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
 		});
 	});
+	/*
+	 * generates a new dialog
+	 */
+	function getRecords_generateWindow(page) {
+		$("#dialog").load(page, function() {
+			$("#student_list option:selected").each(function() {
+				studentsAdded[$(this).attr("id")] = ($(this).html());
+				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+			});
+		});
+		$("#dialog").dialog({
+			show : "blind",
+			hide : "explode",
+			position : 'center',
+			modal : true,
+			height : $(window).height() - 200,
+			width : $(window).width() - 300,
+			resizable : false,
+			close : function(ev, ui) {
+				$(this).html("");
+			}
+		});
+	}
 
+	function toggleCommunicationsById(id) {
+		$("#record_data_fields").children().each(function() {
+			if(id == 0) {
+				$(this).show();
+			} else {
+				if($(this).attr("type_id") != id)
+					$(this).hide();
+				else {
+					$(this).show();
+				}
+			}
+		})
+	}
+
+	function expandRecord(id) {
+		if($("#record_expander_" + id).html() == "Expand") {
+			$("#record_expander_" + id).html("Shrink");
+			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'normal')
+		} else if($("#record_expander_" + id).html() == "Shrink") {
+			$("#record_expander_" + id).html("Expand");
+			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'nowrap')
+		}
+	}
+
+	function editRecord(id) {
+		// type of record (1 = obs 2 = conv)
+		if($("div #record_" + id).attr("type_id") == 1) {
+			$("#dialog").load("editObservation.html", function() {
+				$("#student_list option:selected").each(function() {// add student
+					studentsAdded[$(this).attr("id")] = ($(this).html());
+					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+				});
+				// add level
+				level = $("div #record_"+id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				$("#level_button_group").children().eq(level).removeClass("up");
+				$("#level_button_group").children().eq(level).addClass("down");
+				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
+				// add work type
+				work = $("div #record_"+id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				$("#level_button_group").children().eq(level).removeClass("up");
+				$("#level_button_group").children().eq(level).addClass("down");
+				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
+			});
+			$("#dialog").dialog({
+				show : "blind",
+				hide : "explode",
+				position : 'center',
+				modal : true,
+				height : $(window).height() - 200,
+				width : $(window).width() - 300,
+				resizable : false,
+				close : function(ev, ui) {
+					$(this).html("");
+				}
+			});
+		} else if($("div #record_" + id).attr("type_id") == 2) {
+
+		} else {//products
+
+		}
+	}
 </script>
