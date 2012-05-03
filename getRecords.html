@@ -48,19 +48,30 @@
 	#record_data_fields {
 		width: 90%;
 		margin: 0px auto;
-	}	#view_menu {
+	}
+	#view_menu {
 		padding-left: 25px !important;
 		padding-right: 25px !important;
-	}	.record_options {
+	}
+	.record_options {
 		width: 20%;
 		display: inline-block;
 		vertical-align: top;
 		font-size: 11px;
-		color: rgb(179,121,142) !important
 	}
 	.record_main {
 		width: 75%;
 		display: inline-block;
+	}
+	.record_tool_link {
+		color: rgb(179,121,142) !important;
+	}
+	.record_tool_link_wrapper {
+		margin-bottom: 3px;
+		text-align: right;
+	}
+	key {
+		font-weight: bold;
 	}
 </style>
 <div id='record_wrapper'>
@@ -109,32 +120,39 @@
 </div>
 </div>
 <div id='record_data_fields'>
-	<div id='1' class = 'record' type_id='1'>
+	<div id='record_1' class = 'record' type_id='1'>
 		<div class = 'record_main'>
 			<div class='record_header_info'>
-				<div>
+				<div type_id="1">
 					Type:Observation
 				</div>
-				<div>
+				<div date="11/11/11">
 					Date:11/11/11
 				</div>
-				<div>
+				<div expec_id='1'>
 					Expectation: a-1
 				</div>
-				<div>
+				<div level_id='1'>
 					Level: Limited
 				</div>
 			</div>
 			<div class='record_data'>
-				Comments: Billy Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATION
+				Comments:
+				<key type='ac' type_id='1'>
+					Explain
+				</key>
+				<key type='work' type_id='1'>
+					Group
+				</key>
+				Billy Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATION
 			</div>
 		</div>
 		<div class = 'record_options'>
-			<div>
-				<a href='#'>Expand</a>
+			<div class='record_tool_link_wrapper'>
+				<a href='#' class='record_tool_link'id='record_expander_1'onclick='expandRecord(1)'>Expand</a>
 			</div>
-			<div>
-				<a href='#'>Edit</a>
+			<div class='record_tool_link_wrapper'>
+				<a href='#' class='record_tool_link' editing='0' id='record_editor_1'onclick='editRecord(1)'>Edit</a>
 			</div>
 		</div>
 	</div>
@@ -186,5 +204,54 @@
 				}
 			}
 		})
+	}
+
+	function expandRecord(id) {
+		if($("#record_expander_" + id).html() == "Expand") {
+			$("#record_expander_" + id).html("Shrink");
+			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'normal')
+		} else if($("#record_expander_" + id).html() == "Shrink") {
+			$("#record_expander_" + id).html("Expand");
+			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'nowrap')
+		}
+	}
+
+	function editRecord(id) {
+		// type of record (1 = obs 2 = conv)
+		if($("div #record_" + id).attr("type_id") == 1) {
+			$("#dialog").load("editObservation.html", function() {
+				$("#student_list option:selected").each(function() {// add student
+					studentsAdded[$(this).attr("id")] = ($(this).html());
+					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+				});
+				// add level
+				level = $("div #record_"+id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				$("#level_button_group").children().eq(level).removeClass("up");
+				$("#level_button_group").children().eq(level).addClass("down");
+				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
+				// add work type
+				work = $("div #record_"+id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				$("#level_button_group").children().eq(level).removeClass("up");
+				$("#level_button_group").children().eq(level).addClass("down");
+				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
+			});
+			$("#dialog").dialog({
+				show : "blind",
+				hide : "explode",
+				position : 'center',
+				modal : true,
+				height : $(window).height() - 200,
+				width : $(window).width() - 300,
+				resizable : false,
+				close : function(ev, ui) {
+					$(this).html("");
+				}
+			});
+		} else if($("div #record_" + id).attr("type_id") == 2) {
+
+		} else {//products
+
+		}
 	}
 </script>

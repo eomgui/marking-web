@@ -35,26 +35,6 @@
 	</ul>
 </div>
 <script type="text/javascript" charset="utf-8">
-	/*
-	 * generates a dialog
-	 */
-	function generateWindow(page) {
-		$("#dialog").dialog({
-			show : "blind",
-			hide : "explode",
-			open : function() {
-				$("#dialog").load(page);
-			},
-			position : 'center',
-			modal : true,
-			height : $(window).height() - 200,
-			width : $(window).width() - 300,
-			resizable : false,
-			close : function(ev, ui) {
-				$(this).html("");
-			}
-		});
-	}
 	$(document).ready(function(){
 		$("#title_class_name").html($("#menu_visible_class").html());
 	})

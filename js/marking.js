@@ -26,3 +26,21 @@ var QueryString = function() {
 	}
 	return query_string;
 }();
+/*
+ * generates a dialog
+ */
+function generateWindow(page) {
+	$("#dialog").load(page);
+	$("#dialog").dialog({
+		show : "blind",
+		hide : "explode",
+		position : 'center',
+		modal : true,
+		height : $(window).height() - 200,
+		width : $(window).width() - 300,
+		resizable : false,
+		close : function(ev, ui) {
+			$(this).html("");
+		}
+	});
+}
