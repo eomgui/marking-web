@@ -62,47 +62,53 @@
 		});
 	});
 	
-	var communications = {};
-	var expectations = {};
+	var communications = {}; //final result of getCommunications
 	
-	//TODO: fill in parameters
-	
-	//Get all expectations from course, store id's in array
 	function getCommunications(type, skills) {
-		params.fcn = 'selectExpectationsByCourse';
-		jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-			if(!data[0]) {
-				$("#error_text").html(data[1][0]);
-				$("#error_msg").show();
+		var expectations = {};
+		params.fcn = 'selectExpectationsByCourse'; //Get all expectations from course
+		params.params = {
+			course : $("#menu_visible_class").attr("class_id") //use selected class id to get expectations
+		};
+		/* ^Those three lines weren't there before. After the last pull request, I realized that under
+		 * certain circumstances the function would use the wrong set of expectations. I hypothesized that
+		 * selectExpectationsByCourse was using the previous student ID as its "section ID".
+		 * Looks like I was right. --Richard Yin; May 3, 2012*/
+		
+		jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(expecData) {
+			if(!expecData[0]) { //standard if/else statement: if the first value is false, there's an error
+				$("#error_text").html(expecData[1][0]);
+				$("#error_msg").show(); //standard error display
 				$("#msg").hide();
 			} else {
-				for(i in data[1]) {
-					expectations[i] = data[1][i][0];
+				for(i in expecData[1]) {
+					expectations[i] = expecData[1][i][0]; //Store expectations in array
 				}
-				var stid = $("option.std_opt:selected").attr('id'); //selected student
-				params.fcn = 'selectObservationsAndOrConvos';
+				var stid = $("option.std_opt:selected").attr('id'); //selected student id in the menu
+				params.fcn = 'selectObservationsAndOrConvos'; //getting communications off server
 				params.params = {
-					id : stid,
-					recType : type,
-					third : [skills, expectations] //not sure where to get learning skills from
+					id : stid, //from selected menu item
+					recType : type, //type given to function
+					third : [skills, expectations] //Use expectations array to get communications
 				}
+				
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-					if(!data[0]) {
+					if(!data[0]) { //standard error checking, etc
 						$("#error_text").html(data[1][0]);
 						$("#error_msg").show();
 						$("#msg").hide();
 					} else {
-						for(i in data[1]) {
+						for(i in data[1]) { //store comment with index equal to comment id
 							communications[data[1][i][0]] = data[1][i][2];
 						}
 						for(c in communications) //testing
 						{
 							console.log(c);
 							console.log(communications[c]);
-						}
-					}
-				});
-			}
-		});
-	}
+						} //end testing for loop
+					} //end if/else statement for selectObservationsAndOrConvos
+				}); //end getJSON function for selectObservationsAndOrConvos
+			} //end if/else statement for selectExpectationsByCourse
+		}); //end getJSON function for selectExpectationsByCourse
+	} //end getCommunications
 </script>
