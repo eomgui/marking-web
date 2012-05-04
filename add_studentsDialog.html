@@ -84,15 +84,21 @@
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8">
+		/*
+		 * searches students' names that include the keyword typed in search field
+		 * 
+		 * names that do not include the keyword will be removed from list
+		 */
 		$("#add_student_search_field").keyup(function() {
 			$("#add_student_list").children().each(function(iter) {
-				if($(this).html().toString().indexOf($("#add_student_search_field").val().toString()) == -1) {
+				if($(this).html().toString().toUpperCase().indexOf($("#add_student_search_field").val().toString().toUpperCase()) == -1) {
 					add_students_deleted[$(this).attr('id')] = $(this).val();
 					$(this).remove();
 				}
 			})
+			//if name was previously removed but can be searched with the new keyword, the name will be added back to list
 			for(student in add_students_deleted) {
-				if((add_students_deleted[student].indexOf($("#add_student_search_field").val().toString()) != -1)) {
+				if((add_students_deleted[student].toUpperCase().indexOf($("#add_student_search_field").val().toString().toUpperCase()) != -1)) {
 					$("#add_student_list").append("<option class = 'add_std_opt' id='" + student + "'>" + students[student] + "</option>");
 					delete add_students_deleted[student];
 				}
@@ -100,6 +106,9 @@
 		})
 		var add_students = students;
 		var add_students_deleted = {};
+		/*
+		 * get student list
+		 */
 		function add_buildStudents(id) {
 			add_students = students;
 			for(student in add_students) {
@@ -109,21 +118,27 @@
 			}
 		}
 
-
 		$("#add_student_list").change(function() {
 			$("#add_student_list option:selected").each(function() {
 				//$("#content").load("getRecords.html");
 				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 			});
 		})
+		/*
+		 * when this page is done loading, loads the list of students
+		 */
 		$(document).ready(function() {
 			add_buildStudents("add_student_list");
 		})
+		/*
+		 * when addName button is pressed, the selected names will be added in the corrisponding entry dialog
+		 */
 		$("#addName").click(function() {
 			$("#add_student_list option:selected").each(function() {
 				studentsAdded[$(this).attr('id')] = ($(this).html());
 				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
 			});
+			//add_students dialog is closed
 			$("#add_container").dialog("close");
 		});
 

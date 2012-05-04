@@ -54,7 +54,7 @@
 			width: 10%;
 			display: inline;
 		}
-		#addName {
+		#addExp {
 			font-size: 12px;
 			font-weight: bold;
 			padding: 5px 20px;
@@ -63,7 +63,7 @@
 			color: white;
 			margin-left: 0px;
 		}
-		#addName:hover {
+		#addExp:hover {
 			cursor: pointer;
 		}
 	</style>
@@ -80,19 +80,25 @@
 				</div>
 				<select id = "add_expectation_list" multiple='6'></select>
 			</div>
-			<input type="button" value="Add" id="addName"/>
+			<input type="button" value="Add" id="addExp"/>
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8">
+		/*
+		 * searches expectation that include the keyword typed in search field
+		 * 
+		 * expectations that do not include the keyword will be removed from list
+		 */
 		$("#add_expectation_search_field").keyup(function() {
 			$("#add_expectation_list").children().each(function(iter) {
-				if($(this).html().toString().indexOf($("#add_expectation_search_field").val().toString()) == -1) {
+				if($(this).html().toString().toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) == -1) {
 					add_expectations_deleted[$(this).attr('id')] = $(this).val();
 					$(this).remove();
 				}
 			})
+			//if expectation was previously removed but can be searched with the new keyword, the name will be added back to list
 			for(expectation in add_expectations_deleted) {
-				if((add_expectations_deleted[expectation].indexOf($("#add_expectation_search_field").val().toString()) != -1)) {
+				if((add_expectations_deleted[expectation].toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) != -1)) {
 					$("#add_expectation_list").append("<option class = 'add_std_opt' id='" + expectation + "'>" + expectations[expectation] + "</option>");
 					delete add_expectations_deleted[expectation];
 				}
@@ -101,6 +107,7 @@
 		var add_expectations = {};
 		var add_expectations_deleted = {};
 		var expectations = {};
+
 		function add_buildexpectations(id) {
 			for(expectation in add_expectations) {
 				if(!( expectation in expectationsAdded)) {
@@ -139,7 +146,10 @@
 		$(document).ready(function() {
 			getExpectations("add_expectation_list");
 		})
-		$("#addName").click(function() {
+		/*
+		 * when add button is pressed, adds the selected expectations to its corriponding entry dialog
+		 */
+		$("#addExp").click(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
 				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");

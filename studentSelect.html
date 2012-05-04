@@ -70,15 +70,21 @@
 	</div>
 </div>
 <script type="text/javascript" charset="utf-8">
+	/*
+	 * searches students' names that include the keyword typed in search field
+	 * 
+	 * names that do not include the keyword will be removed from list
+	 */
 	$("#student_search_field").keyup(function() {
 		$("#student_list").children().each(function(iter) {
-			if($(this).html().toString().indexOf($("#student_search_field").val().toString()) == -1) {
+			if($(this).html().toString().toUpperCase().indexOf($("#student_search_field").val().toString().toUpperCase()) == -1) {
 				students_deleted[$(this).attr('id')] = $(this).val();
 				$(this).remove();
 			}
 		})
+		//if name was previously removed but can be searched with the new keyword, the name will be added back to list
 		for(student in students_deleted) {
-			if((students_deleted[student].indexOf($("#student_search_field").val().toString()) != -1)) {
+			if((students_deleted[student].toUpperCase().indexOf($("#student_search_field").val().toString().toUpperCase()) != -1)) {
 				$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
 				delete students_deleted[student];
 			}
@@ -91,6 +97,9 @@
 	
 	var students_deleted = {};
 	//TODO pull off server
+	/*
+	 * get student list
+	 */
 	function buildStudents(id) {
 		students = {};
 		$("#" + id).html("");
