@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <style>
 	.nobgimg_menu {
 		background-image: none !important;
@@ -120,7 +121,7 @@
 </div>
 </div>
 <div id='record_data_fields'>
-	<div id='record_4' class = 'record' type_id='1'>
+	<div id='record_1' class = 'record' type_id='1'>
 		<div class = 'record_main'>
 			<div class='record_header_info'>
 				<div type_id="1">
@@ -167,70 +168,6 @@
 			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
 		});
 	});
-	function getCommunications() {
-		var stid = $("option.std_opt:selected").attr('id');
-		//selected student id in the menu
-		params.fcn = 'selectAllCommunications';
-		//getting communications off server
-		params.params = {
-			id : stid, //from selected menu item
-		}
-		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-			if(!data[0]) {//standard error checking, etc
-				$("#error_text").html(data[1][0]);
-				$("#error_msg").show();
-				$("#msg").hide();
-			} else {
-				data = data[1]
-				for(communication in data) {
-					comId = data[communication][0];
-					comType = data[communication][3];
-					comTypeName = "";
-					if(comType == 1) {
-						comTypeName = "Observation";
-					} else if(comType == 2) {
-						comTypeName = "Conversation";
-					}
-					date = data[communication][6];
-					dateTS = date;
-					date = new Date(date * 1000);
-					date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
-					expecId = data[communication][7];
-					expecTitle = data[communication][5];
-					comStyle = data[communication][4];
-					comMark = data[communication][2];
-					styleName = "";
-					styleValue = "";
-					if(comStyle == 0) { // true
-						styleName = 'Expectation';
-					} else if(comStyle == 1) { // false
-						styleName = "Learning Skill";
-					}
-					comData = data[communication][1];
-					$("#record_data_fields").append("<div id='record_" + comId + "' class='record' type_id='" + comType + "'></div>")
-					html = "<div class = 'record_main'><div class='record_header_info'>";
-					html += "<div type_id='" + comType + "'>Type: " + comTypeName + "</div>";
-					html += "<div date='" + dateTS + "'>Date: " + date + "</div>";
-					html += "<div expecType = '"+comStyle+"'expec_id='" + expecId + "'>" + styleName + ":" + expecTitle + "</div>";
-					html += "<div level_id='" + comMark + "'>Level: " + levelIdToName(comMark) + "</div>"
-					html += "<div class='record_data'>Comments: " + comData + "</div>";
-					html += "</div></div>";
-					html +="<div class = 'record_options'><div class='record_tool_link_wrapper'><a href='#' class='record_tool_link'id='record_expander_"+comId+"' onclick='expandRecord("+comId+")'>Expand</a>";
-					html +="</div>";
-					html +="<div class='record_tool_link_wrapper'>";
-					html +="<a href='#' class='record_tool_link' editing='0' id='record_editor_"+comId+"'onclick='editRecord("+comId+")'>Edit</a>";
-					html +="</div></div>";
-					$("#record_" + comId + "").append(html);
-				}
-			} //end if/else statement for selectObservationsAndOrConvos
-		});
-		//end getJSON function for selectObservationsAndOrConvos
-	}//end getCommunications
-
-	function levelIdToName(id) {
-		levels = ["Insufficient", "Limited", "Approaching", "Sufficient", "Insightfull"];
-		return levels[id];
-	}
 	/*
 	 * generates a new dialog
 	 */
@@ -290,12 +227,12 @@
 					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 				});
 				// add level
-				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				level = $("div #record_"+id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
 				$("#level_button_group").children().eq(level).removeClass("up");
 				$("#level_button_group").children().eq(level).addClass("down");
 				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
 				// add work type
-				work = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				work = $("div #record_"+id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
 				$("#level_button_group").children().eq(level).removeClass("up");
 				$("#level_button_group").children().eq(level).addClass("down");
 				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
@@ -318,7 +255,119 @@
 
 		}
 	}
-	$(document).ready(function(){
-		getCommunications();
-	})
+=======
+<style>
+	.nobgimg_menu {
+		background-image: none !important;
+		font-size: 12px !important;
+		padding:0px !important;
+	}
+	.prevRecords_menu {
+		padding: 10px 15px !important;
+		font-size: 12px !important;
+	}
+	.smaller_submenuRecord{
+		width:135px !important;
+	}
+	.smaller_submenuView{
+		width:112px !important;
+	}
+</style>
+<div id ='record_header'></div>
+<ul class="pureCssMenu pureCssMenum" id='right_header'>
+	<li class="pureCssMenui0">
+		<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/edit_icon.png" width="12px" height='12px'/>Edit</a>
+	</li>
+	<li id='class_main_menu' class="pureCssMenui0">
+		<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="pureCssMenum smaller_submenuRecord">
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li id='class_main_menu' class="pureCssMenui0">
+		<a class="prevRecords_menu" href="#"><img src="css/images/view_icon.png" width="12px" height='12px'/><span>View All</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+		<ul class="pureCssMenum smaller_submenuView">
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Observation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+			<li class="pureCssMenui">
+				<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+			</li>
+		</ul>
+		<!--[if lte IE 6]></td></tr></table></a><![endif]-->
+	</li>
+	<li class="pureCssMenui0">
+		<a id='menu_visible_class' class="prevRecords_menu" href="#"><img src="css/images/graphical_view_icon.png" width="12px" height='12px'/>Graphical View</a>
+	</li>
+</ul>
+<script type="text/javascript" charset="utf-8">
+	$(document).ready(function() {
+		$("#student_list option:selected").each(function() {
+			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
+		});
+	});
+	
+	var communications = {}; //final result of getCommunications
+	
+	function getCommunications(type, skills) {
+		var expectations = {};
+		params.fcn = 'selectExpectationsByCourse'; //Get all expectations from course
+		params.params = {
+			course : $("#menu_visible_class").attr("class_id") //use selected class id to get expectations
+		};
+		/* ^Those three lines weren't there before. After the last pull request, I realized that under
+		 * certain circumstances the function would use the wrong set of expectations. I hypothesized that
+		 * selectExpectationsByCourse was using the previous student ID as its "section ID".
+		 * Looks like I was right. --Richard Yin; May 3, 2012*/
+		
+		jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(expecData) {
+			if(!expecData[0]) { //standard if/else statement: if the first value is false, there's an error
+				$("#error_text").html(expecData[1][0]);
+				$("#error_msg").show(); //standard error display
+				$("#msg").hide();
+			} else {
+				for(i in expecData[1]) {
+					expectations[i] = expecData[1][i][0]; //Store expectations in array
+				}
+				var stid = $("option.std_opt:selected").attr('id'); //selected student id in the menu
+				params.fcn = 'selectObservationsAndOrConvos'; //getting communications off server
+				params.params = {
+					id : stid, //from selected menu item
+					recType : type, //type given to function
+					third : [skills, expectations] //Use expectations array to get communications
+				}
+				
+				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+					if(!data[0]) { //standard error checking, etc
+						$("#error_text").html(data[1][0]);
+						$("#error_msg").show();
+						$("#msg").hide();
+					} else {
+						for(i in data[1]) { //store comment with index equal to comment id
+							communications[data[1][i][0]] = data[1][i][2];
+						}
+						for(c in communications) //testing
+						{
+							console.log(c);
+							console.log(communications[c]);
+						} //end testing for loop
+					} //end if/else statement for selectObservationsAndOrConvos
+				}); //end getJSON function for selectObservationsAndOrConvos
+			} //end if/else statement for selectExpectationsByCourse
+		}); //end getJSON function for selectExpectationsByCourse
+	} //end getCommunications
+>>>>>>> logic/master
 </script>

@@ -1,0 +1,556 @@
+<<<<<<< HEAD
+<style>
+	#newObs_img {
+		margin-right: 10px;
+	}
+	#newObs_title {
+		font-size: 20px;
+	}
+	.span_button {
+		margin-left: 20px;
+		font-size: 11px;
+		padding: 3px 8px;
+		float: left;
+		background-color: rgb(107,41,62);
+		color: white;
+	}
+	.button_link {
+		margin-left: 5px;
+		font-weight: bold;
+		text-decoration: none;
+		color: white !important;
+	}
+	.span_button > img {
+		margin-right: 5px;
+	}
+	#newObs_title_wrap {
+		margin-bottom: 13px;
+	}
+	span.button_header {
+		font-size: 17px;
+		padding-right: 5px;
+		float: left;
+	}
+	#scrolling_area {
+		margin-left: 15%;
+		margin-right: 10%;
+	}
+	.selectedName {
+		display: block;
+		margin-bottom: 5px;
+	}
+	#selectedNames {
+		clear: both;
+		margin-left: 40px;
+		font-size: 13px;
+	}
+	.remove_link {
+		font-size: 11px;
+		color: rgb(179,121,142) !important;
+		margin-left: 7px;
+	}
+	#stdButton {
+		margin-left: 60px;
+		margin-top:-2px;
+	}
+	#expButton{
+		margin-top:-2px;
+	}
+	#expList {
+		clear: both;
+		font-size: 13px;
+	}
+	.selectedExp {
+		margin-bottom: 10px;
+	}
+	#level_type {
+		clear: both;
+		font-size: 17px;
+	}
+	#comments {
+		width: 100%;
+		clear: both;
+		padding-bottom: 10px;
+	}
+	#comments textarea {
+		font-size: 13px;
+		font-weight: normal;
+		margin-top: 5px;
+		width: 90%;
+		color:rgb(51,51,51);
+		padding:3px;
+	}
+	#expectation {
+		margin-top: 20px;
+	}
+	#level_type {
+		float: left;
+		margin-bottom: 20px;
+	}
+	.activity_types {
+		float: left;
+		font-size: 17px;
+		display: inline;
+	}
+	#record_types {
+		float: left;
+		margin-top: 10px;
+		margin-bottom: 20px;
+	}
+	.button_group {
+		margin-left: 10px;
+		margin-right: 20px;
+		margin-top: 10px;
+	}
+	#remaining_msg {
+		font-size: 15px !important;
+	}
+	#submit {
+		text-align: center;
+	}
+	#newObs_mainEntry {
+		margin-left: 30px;
+	}
+	#remainingChars {
+		margin-left: 60px;
+	}
+	#expectationLabel {
+		margin-bottom: 5px;
+	}
+	#activityTypeLabel {
+		margin-top: 26px;
+	}
+	#workTypeLabel {
+		margin-top: 40px;
+		margin-left: 30px;
+	}
+	#levelTypeHeader {
+		margin-top: 66px;
+	}
+	#level_button_group {
+		margin-left: 30px;
+	}
+	#actityTypeContainer {
+		margin-top: 18px;
+	}
+	#addObsButton {
+		font-size: 13px;
+		font-weight: bold;
+		padding: 5px 15px;
+		background-color: rgb(107,41,62);
+		border-width: 0px;
+		color: white;
+	}
+	#addObsButton:hover {
+		cursor: pointer;
+	}
+	.span_button {
+		margin-top: -7px;
+	}
+	#observation_date {
+		float: left;
+	}
+	#full_wrapper {
+		width: 100%;
+		height: 30px;
+		margin-bottom: 15px;
+	}
+	#observation_dateField {
+		font-size: 13px !important;
+		padding-left:3px;
+		color:rgb(51,51,51);
+	}
+	#date_header {
+		margin-top: 8px;
+	}
+
+</style>
+<link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
+<script type="text/javascript" src="js/jScrollPane.js"></script>
+<div id='newObs_container'>
+	<div id='newObs_mainEntry'>
+		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/conversation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Conversation</h1>
+		</div>
+		<div id='scrolling_area'>
+			<div id='full_wrapper'>
+				<div id='observation_date'>
+					<span class='button_header' id='date_header'>Date:</span>
+					<input type="text" id='observation_dateField' />
+					<img id='calendar_show' src = 'css/images/calender_icon.png' width='18' height='15'/>
+				</div>
+			</div>
+			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
+			<div id='selectedNames'></div>
+			<div id='expectation'>
+				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span id='expButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='expLink' class='button_link'href='#'>Add</a></span>
+				<ul id='expList'></ul>
+			</div>
+			<div id='level_type'>
+				<span class='button_header' id='levelTypeHeader'>Level</span>
+				<div class='button_group'  id='level_button_group' style='display:inline; float:left'>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='0'>Insufficient</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='3'>Sufficient</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightfull</a>
+				</div>
+			</div>
+			<div id='comments'>
+				<div id='comment_about'>
+					<span class='button_header'>Comments</span><span id='remainingChars' style='font-size:13px !important'>500</span><span id='remaining_msg' style='font-size:13px !important'> Characters Remaining</span>
+				</div>
+				<textarea id='comments_area' rows="4"></textarea>
+			</div>
+		</div>
+		<div id='submit'>
+			<input type="button" value='submit' id="addObsButton"/>
+		</div>
+	</div>
+</div>
+<script type="text/javascript" charset="utf-8">
+	var charLimit = 500;
+	var charsRemaining = 500;
+	var selectedWType = null;
+	var addedStudents = {};
+	var expectationsAdded = {};
+	/*
+	 * when this dialog is done loading, the current date is displayed on the dateField
+	 */
+	$(document).ready(function(){
+		$("#observation_dateField").datepicker({
+			showOn: "none"
+		});
+		date = new Date();
+		day = date.getDate();
+		month = date.getMonth()+1;
+		if(month <=9)
+			month = "0"+month;
+		year = date.getFullYear();
+		$("#observation_dateField").val(month+"/"+day+"/"+year);
+	})
+	/*
+	 * when calender button is presses, the datepicker is displayed
+	 */
+	$("#calendar_show").click(function() {
+		$("#observation_dateField").datepicker("show");
+	})
+	/*
+	 * when stdLink button is pressed, the add_studentDialog is loaded
+	 */
+	$("#stdLink").click(function() {
+		$("#add_container").load('add_studentsDialog.html?int=' + Math.random(), function() {
+			//$("#add_container").children().find('#students');
+		});
+		$("#add_container").dialog({
+			resizable : false,
+			close : function(ev, ui) {
+				$(this).html("");
+			},
+		});
+	});
+	/*
+	 * when expLink button is pressed, the add_expectation_dialog is loaded
+	 */
+	$("#expLink").click(function() {
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
+			//$("#add_container").children().find('#students');
+		});
+		$("#add_container").dialog({
+			resizable : false,
+			close : function(ev, ui) {
+				$(this).html("");
+			},
+		});
+	});
+	var studentsAdded = {};
+	/*
+	 * obtains length of the user comment and compare it to the character limit
+	 * 
+	 * if the length of user comment exceeds the limit, 
+	 * only the first 500 characters of the user comment will be shown
+	 */
+	$("#comments_area").keyup(function() {
+		length = $(this).val().length;
+		charsRemaining = charLimit - length;
+		if(charsRemaining < 0) {
+			$("#comments_area").val($(this).val().substring(0, 500));
+			charsRemaining = 0;
+		}
+		$("#remainingChars").html(charsRemaining);
+	})
+	$('a.toggle_button').click(function() {
+		if($(this).attr("grouptype_id") !== undefined) {
+			var buttonGroup = $(this).attr("buttongroup");
+			if(selectedWType === null) {
+				selectedWType = $(this).attr("grouptype_id")
+			} else {
+				$("a.toggle_button[buttongroup=" + buttonGroup + "]").each(function() {
+					if($(this).attr("grouptype_id") !== undefined) {
+						$(this).removeClass("down")
+						$(this).removeClass("up");
+						$(this).addClass("up");
+					}
+				})
+			}
+		}
+		$(this).toggleClass("up");
+		$(this).toggleClass("down");
+	});
+	/*
+	 * removes a selected student or expectation
+	 */
+	$("a.remove_link").live('click', function() {
+		if($(this).attr("link_type") == "std") {
+			delete studentsAdded[$(this).parent().attr('id')];
+			$(this).parent().remove();
+		} else if($(this).attr("link_type") == "exp") {
+			//delete studentsAdded[$(this).parent().attr('id')];
+			delete expectationsAdded[$(this).parent().attr('id')];
+			$(this).parent().parent().remove();
+		}
+	})
+</script>
+=======
+<style>
+	#newObs_img {
+		margin-right: 10px;
+	}
+	#newObs_title {
+		font-size: 20px;
+	}
+	.span_button {
+		margin-left:20px;
+		font-size: 12px;
+		padding: 3px 10px;
+		float: left;
+		background-color: rgb(107,41,62);
+		color: white;
+	}
+	.button_link {
+		margin-left:5px;
+		font-weight: bold;
+		text-decoration: none;
+		color: white !important;
+	}
+	.span_button > img {
+		margin-right: 5px;
+	}
+	#newObs_title_wrap {
+		margin-bottom: 13px;
+	}
+	span.button_header {
+		font-size: 17px;
+		padding-right: 5px;
+		float: left;
+	}
+	#scrolling_area {
+		margin-left: 15%;
+		margin-right: 10%;
+	}
+	.selectedName {
+		display: block;
+		margin-bottom: 5px;
+	}
+	#selectedNames {
+		clear: both;
+		margin-left: 40px;
+		font-size: 13px;
+	}
+	.remove_link {
+		font-size: 11px;
+		color: rgb(179,121,142) !important;
+		margin-left: 7px;
+	}
+	#stdButton {
+		margin-left: 60px;
+	}
+	#expList {
+		clear: both;
+		font-size: 13px;
+	}
+	.selectedExp {
+		margin-bottom: 10px;
+	}
+	#level_type {
+		clear: both;
+		font-size: 17px;
+	}
+	#comments {
+		width: 100%;
+		clear: both;
+		padding-bottom: 10px;
+	}
+	#comments textarea {
+		font-size: 13px;
+		font-weight: normal;
+		margin-top: 5px;
+		width: 90%;
+	}
+	#expectation {
+		margin-top: 20px;
+	}
+	#level_type {
+		float: left;
+		margin-bottom: 20px;
+	}
+	.activity_types {
+		float: left;
+		font-size: 17px;
+		display: inline;
+	}
+	#record_types {
+		float: left;
+		margin-top: 10px;
+		margin-bottom: 20px;
+	}
+	.button_group {
+		margin-left: 10px;
+		margin-right: 20px;
+		margin-top: 10px;
+	}
+	#remaining_msg {
+		font-size: 15px !important;
+	}
+	#submit {
+		text-align: center;
+	}
+	#newObs_mainEntry {
+		margin-left: 30px;
+	}
+	#remainingChars {
+		margin-left: 60px;
+	}
+	#expectationLabel {
+		margin-bottom: 5px;
+	}
+	#activityTypeLabel {
+		margin-top: 26px;
+	}
+	#workTypeLabel {
+		margin-top: 40px;
+		margin-left:30px;
+	}
+	#levelTypeHeader {
+		margin-top: 66px;	
+	}
+	#level_button_group {
+		margin-left: 30px;
+	}
+	#actityTypeContainer {
+		margin-top: 18px;
+	}
+	#addObsButton {
+		font-size: 13px;
+		font-weight: bold;
+		padding: 5px 15px;
+		background-color: rgb(107,41,62);
+		border-width: 0px;
+		color: white;
+	}
+	#addObsButton:hover {
+		cursor: pointer;
+	}
+	.span_button{
+		margin-top: -7px;
+	}
+
+</style>
+<link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
+<script type="text/javascript" src="js/jScrollPane.js"></script>
+<div id='newObs_container'>
+	<div id='newObs_mainEntry'>
+		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/conversation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Conversation</h1>
+		</div>
+		<div id='scrolling_area'>
+			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
+			<div id='selectedNames'>
+				
+			</div>
+			<div id='expectation'>
+				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span class='span_button'><img src ='css/images/add_icon.png' width='15' width='15'/><a class='button_link'href='#'>Add</a></span>
+				<ul id='expList'>
+					<li>
+						<span class='selectedExp' id='1'>Something here blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah blahblahblahblahblahblahblahblahblahblahblah blahblahblahblah<a class='remove_link' link_type='exp' href='#'>Remove</a></span>
+					</li>
+				</ul>
+			</div>
+			<div id='level_type'>
+				<span class='button_header' id='levelTypeHeader'>Level</span>
+				<div class='button_group'  id='level_button_group' style='display:inline; float:left'>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='0'>Insufficient</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='3'>Sufficient</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightful</a>
+				</div>
+			</div>
+			<div id='comments'>
+				<div id='comment_about'>
+					<span class='button_header'>Comments</span><span id='remainingChars' style='font-size:13px !important'>500</span><span id='remaining_msg' style='font-size:13px !important'> Characters Remaining</span>
+				</div>
+				<textarea id='comments_area' rows="4"></textarea>
+			</div>
+		</div>
+		<div id='submit'>
+			<input type="button" value='submit' id="addObsButton"/>
+		</div>
+	</div>
+</div>
+<div id='add_container'></div>
+<script type="text/javascript" charset="utf-8">
+	var charLimit = 500;
+	var charsRemaining = 500;
+	var selectedWType = null;
+	var addedStudents = {};
+	$("#stdLink").click(function() {
+		$("#add_container").load('add_studentsDialog.html?int='+Math.random(),function(){
+			//$("#add_container").children().find('#students');
+		});
+		$("#add_container").dialog({resizable: false,close: function(ev, ui) { $(this).html(""); },});
+	});
+	
+	var studentsAdded = {};
+	$(document).ready(function() {
+		// $('#scrolling_area').jScrollPane({
+			// showArrows : true
+		// });
+	})
+
+	$("#comments_area").keyup(function() {
+		length = $(this).val().length;
+		charsRemaining = charLimit - length;
+		if(charsRemaining == -1) {
+			$("#comments_area").val($(this).val().substring(0, length - 1));
+			charsRemaining = charsRemaining + 1;
+		}
+		$("#remainingChars").html(charsRemaining);
+	})
+	$('a.toggle_button').click(function() {
+		if($(this).attr("grouptype_id") !== undefined) {
+			var buttonGroup = $(this).attr("buttongroup");
+			if(selectedWType === null) {
+				selectedWType = $(this).attr("grouptype_id")
+			} else {
+				$("a.toggle_button[buttongroup=" + buttonGroup + "]").each(function() {
+					if($(this).attr("grouptype_id") !== undefined) {
+						$(this).removeClass("down")
+						$(this).removeClass("up");
+						$(this).addClass("up");
+					}
+				})
+			}
+		}
+		$(this).toggleClass("up");
+		$(this).toggleClass("down");
+	});
+	$("a.remove_link").live('click',function(){
+		if($(this).attr("link_type") == "std"){
+			delete studentsAdded[$(this).parent().attr('id')];
+			$(this).parent().remove();
+		}else if($(this).attr("link_type") == "exp"){
+			//delete studentsAdded[$(this).parent().attr('id')];
+			$(this).parent().parent().remove();
+		}
+	})
+</script>
+>>>>>>> logic/master
