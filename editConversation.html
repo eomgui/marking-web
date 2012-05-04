@@ -127,7 +127,7 @@
 		margin-top: 66px;
 	}
 	#level_button_group {
-		margin-left: 66px;
+		margin-left: 30px;
 	}
 	#actityTypeContainer {
 		margin-top: 18px;
@@ -168,7 +168,7 @@
 <script type="text/javascript" src="js/jScrollPane.js"></script>
 <div id='newObs_container'>
 	<div id='newObs_mainEntry'>
-		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/observation_icon.png' width='28' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Observation</h1>
+		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/conversation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Conversation</h1>
 		</div>
 		<div id='scrolling_area'>
 			<div id='full_wrapper'>
@@ -184,23 +184,6 @@
 				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span id='expButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='expLink' class='button_link'href='#'>Add</a></span>
 				<ul id='expList'></ul>
 			</div>
-			<div id='record_types'>
-				<div class='activity_types' id='actityTypeContainer'>
-					<span class='button_header' id='activityTypeLabel'>Activity Type</span>
-					<div class='button_group' id='acButtonGroup' style='display:inline; float:left'>
-						<a class='up toggle_button'>Demonstrate</a>
-						<a class='up toggle_button'>Explain</a>
-					</div>
-				</div>
-				<div class='activity_types'>
-					<span class='button_header' id='workTypeLabel'>Work Type</span>
-					<div class='button_group' id='workButtonGroup' style='display:inline; float:left'>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
-					</div>
-				</div>
-			</div>
 			<div id='level_type'>
 				<span class='button_header' id='levelTypeHeader'>Level</span>
 				<div class='button_group'  id='level_button_group' style='display:inline; float:left'>
@@ -208,7 +191,7 @@
 					<a class='up toggle_button' buttongroup = '1' grouptype_id='1'>Limited</a>
 					<a class='up toggle_button' buttongroup = '1' grouptype_id='2'>Approaching</a>
 					<a class='up toggle_button' buttongroup = '1' grouptype_id='3'>Sufficient</a>
-					<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightfull</a>
+					<a class='up toggle_button' buttongroup = '1' grouptype_id='4'>Insightful</a>
 				</div>
 			</div>
 			<div id='comments'>
@@ -268,11 +251,13 @@
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
 	$("#expLink").click(function() {
-		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
+			//$("#add_container").children().find('#students');
+		});
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
-				$(this).destroy();
+				$(this).html("");
 			},
 		});
 	});
