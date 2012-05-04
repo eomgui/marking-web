@@ -313,4 +313,17 @@
 			$(this).parent().parent().remove();
 		}
 	})
+	
+	var finalObs = {};
+	var array;
+	function collect()
+	{
+		finalObs.date = $("#observation_dateField").val();
+		array = $(".selectedExp");
+		/*for(i in array)
+		{
+			array[i] = $(array[i]).attr("id");
+		}*/ //Trying to figure out a way to get attributes from multiple HTML tags into one array.
+			//Once that works we're set.
+	}
 </script>
