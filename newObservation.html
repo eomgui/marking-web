@@ -49,10 +49,10 @@
 	}
 	#stdButton {
 		margin-left: 60px;
-		margin-top:-2px;
+		margin-top: -2px;
 	}
-	#expButton{
-		margin-top:-2px;
+	#expButton {
+		margin-top: -2px;
 	}
 	#expList {
 		clear: both;
@@ -73,8 +73,8 @@
 		font-weight: normal;
 		margin-top: 5px;
 		width: 90%;
-		color:rgb(51,51,51);
-		padding:3px;
+		color: rgb(51,51,51);
+		padding: 3px;
 	}	#expectation {
 		margin-top: 20px;
 	}
@@ -147,12 +147,12 @@
 	}
 	#observation_dateField {
 		font-size: 13px !important;
-		padding-left:3px;
-		color:rgb(51,51,51);
+		padding-left: 3px;
+		color: rgb(51,51,51);
 	}
 	#date_header {
 		margin-top: 8px;
-	}
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -222,17 +222,17 @@
 	/*
 	 * when this dialog is done loading, the current date is displayed on the dateField
 	 */
-	$(document).ready(function(){
+	$(document).ready(function() {
 		$("#observation_dateField").datepicker({
-			showOn: "none"
+			showOn : "none"
 		});
 		date = new Date();
 		day = date.getDate();
-		month = date.getMonth()+1;
-		if(month <=9)
-			month = "0"+month;
+		month = date.getMonth() + 1;
+		if(month <= 9)
+			month = "0" + month;
 		year = date.getFullYear();
-		$("#observation_dateField").val(month+"/"+day+"/"+year);
+		$("#observation_dateField").val(month + "/" + day + "/" + year);
 	})
 	/*
 	 * when calender button is presses, the datepicker is displayed
@@ -240,10 +240,13 @@
 	$("#calendar_show").click(function() {
 		$("#observation_dateField").datepicker("show");
 	})
+	$("#observation_dateField").blur(function(){
+		$("#observation_dateField").datepicker("hide");
+	})
 	/*
 	 * when stdLink button is pressed, the add_studentDialog is loaded
 	 */
-	$("#stdLink").click(function() {
+	$("#stdLink").click(function(e) {
 		$("#add_container").load('add_studentsDialog.html?int=' + Math.random(), function() {
 			//$("#add_container").children().find('#students');
 		});
@@ -252,25 +255,27 @@
 			close : function(ev, ui) {
 				$(this).html("");
 			},
+			position : [e.pageX, e.pageY]
 		});
 	});
 	/*
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
-	$("#expLink").click(function() {
+	$("#expLink").click(function(e) {
 		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
 				$(this).destroy();
 			},
+			position : [e.pageX, e.pageY]
 		});
 	});
 	var studentsAdded = {};
 	/*
 	 * obtains length of the user comment and compare it to the character limit
-	 * 
-	 * if the length of user comment exceeds the limit, 
+	 *
+	 * if the length of user comment exceeds the limit,
 	 * only the first 500 characters of the user comment will be shown
 	 */
 	$("#comments_area").keyup(function() {

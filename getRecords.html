@@ -48,7 +48,7 @@
 	#record_data_fields {
 		width: 90%;
 		margin: 0px auto;
-		height: 300px;
+		height: 460px;
 	}
 	#view_menu {
 		padding-left: 25px !important;
@@ -157,6 +157,7 @@
 					date = data[communication][6];
 					dateTS = date;
 					date = new Date(date * 1000);
+					dateRead = date.toDateString()
 					date = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 					expecId = data[communication][7];
 					expecTitle = data[communication][5];
@@ -173,7 +174,7 @@
 					$("#record_data_fields").append("<div id='record_" + comId + "' class='record' type_id='" + comType + "'></div>")
 					html = "<div class = 'record_main'><div class='record_header_info'>";
 					html += "<div type_id='" + comType + "'>Type: " + comTypeName + "</div>";
-					html += "<div date='" + dateTS + "'>Date: " + date + "</div>";
+					html += "<div date_string='"+date+"'date='" + dateTS + "'>Date: " + dateRead + "</div>";
 					html += "<div expecType = '" + comStyle + "'expec_id='" + expecId + "'>" + styleName + ":" + expecTitle + "</div>";
 					html += "<div level_id='" + comMark + "'>Level: " + levelIdToName(comMark) + "</div>"
 					html += "<div class='record_data'>Comments: " + comData + "</div>";
