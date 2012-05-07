@@ -314,16 +314,22 @@
 		}
 	})
 	
-	var finalObs = {};
-	var array;
+	var finalObs = {}; //final result of collect method
 	function collect()
 	{
-		finalObs.date = $("#observation_dateField").val();
-		array = $(".selectedExp");
-		/*for(i in array)
-		{
-			array[i] = $(array[i]).attr("id");
-		}*/ //Trying to figure out a way to get attributes from multiple HTML tags into one array.
-			//Once that works we're set.
+		finalObs.stids = {};
+		$(".selectedName").each(function(i)
+		{		//get all ids of elements with class selectedName
+			console.log(i + " : " + $(this).attr('id'));
+			finalObs.stids[i] = $(this).attr('id');
+		});
+		finalObs.timestamp = new Date($("#observation_dateField").val());
+		finalObs.expectations = {};
+		$(".selectedExp").each(function(i)
+		{		//get all ids of elements with class selectedExp
+			console.log(i + " : " + $(this).attr('id'));
+			finalObs.expectations[i] = $(this).attr('id');
+		});
+		finalObs.text = $("#comments_area").val();
 	}
 </script>

@@ -98,7 +98,7 @@
 		params.fcn = 'selectStudentsByCourse';
 		params.params = {
 			course : $("#menu_visible_class").attr("class_id")
-		}
+		};
 		jQuery.getJSON(IP+"/mark/model/student-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
 				$("#error_text").html(data[1][0]);
