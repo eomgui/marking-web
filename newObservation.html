@@ -317,12 +317,7 @@
 	var finalObs = {}; //final result of collect method
 	function collect()
 	{
-		finalObs.stids = {};
-		$(".selectedName").each(function(i)
-		{		//get all ids of elements with class selectedName
-			console.log(i + " : " + $(this).attr('id'));
-			finalObs.stids[i] = $(this).attr('id');
-		});
+		finalObs.stid = $(".selectedName").attr("id");
 		finalObs.timestamp = new Date($("#observation_dateField").val());
 		finalObs.expectations = {};
 		$(".selectedExp").each(function(i)
