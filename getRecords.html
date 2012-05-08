@@ -174,7 +174,7 @@
 					$("#record_data_fields").append("<div id='record_" + comId + "' class='record' type_id='" + comType + "'></div>")
 					html = "<div class = 'record_main'><div class='record_header_info'>";
 					html += "<div type_id='" + comType + "'>Type: " + comTypeName + "</div>";
-					html += "<div date_string='"+date+"'date='" + dateTS + "'>Date: " + dateRead + "</div>";
+					html += "<div date_string='" + date + "'date='" + dateTS + "'>Date: " + dateRead + "</div>";
 					html += "<div expecType = '" + comStyle + "'expec_id='" + expecId + "'>" + styleName + ":" + expecTitle + "</div>";
 					html += "<div level_id='" + comMark + "'>Level: " + levelIdToName(comMark) + "</div>"
 					html += "<div class='record_data'>Comments: " + comData + "</div>";
@@ -238,10 +238,10 @@
 	function expandRecord(id) {
 		if($("#record_expander_" + id).html() == "Expand") {
 			$("#record_expander_" + id).html("Shrink");
-			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'normal')
+			$("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).css('white-space', 'normal')
 		} else if($("#record_expander_" + id).html() == "Shrink") {
 			$("#record_expander_" + id).html("Expand");
-			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'nowrap')
+			$("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).css('white-space', 'nowrap')
 		}
 	}
 
@@ -256,8 +256,7 @@
 				});
 				// add level
 				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
-				$("#level_button_group").children().eq(level).removeClass("up");
-				$("#level_button_group").children().eq(level).addClass("down");
+				$("#level_button_group").children().eq(level).click();
 
 				// add expectation
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
@@ -266,7 +265,7 @@
 				if(expectationType == 0) {
 					expectationsAdded[expectationId] = expectationText
 				} else if(expectationType == 1) {
-					expectationsAdded["lrn_" + expectationId] = expectationText;
+					expectationsAdded[expectationId] = expectationText;
 				}
 				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
 				// get comments
@@ -280,11 +279,9 @@
 				for(var i = 0; i < commentKeys.length; i++) {
 					keyLevel = $(commentKeys[i]).attr('type_id');
 					if($(commentKeys[i]).attr("type") == "ac") {
-						$("#acButtonGroup").children().eq(keyLevel).removeClass("up");
-						$("#acButtonGroup").children().eq(keyLevel).addClass("down");
+						$("#acButtonGroup").children().eq(keyLevel).click()
 					} else if($(commentKeys[i]).attr("type") == "work") {
-						$("#workButtonGroup").children().eq(keyLevel).removeClass("up");
-						$("#workButtonGroup").children().eq(keyLevel).addClass("down");
+						$("#workButtonGroup").children().eq(keyLevel).click()
 					}
 				}
 				$("#comments_area").html(commentText);
@@ -310,8 +307,7 @@
 				});
 				// add level
 				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
-				$("#level_button_group").children().eq(level).removeClass("up");
-				$("#level_button_group").children().eq(level).addClass("down");
+				$("#level_button_group").children().eq(level).click()
 
 				// add expectation
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
@@ -320,7 +316,7 @@
 				if(expectationType == 0) {
 					expectationsAdded[expectationId] = expectationText
 				} else if(expectationType == 1) {
-					expectationsAdded["lrn_" + expectationId] = expectationText;
+					expectationsAdded[expectationId] = expectationText;
 				}
 				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).html();
