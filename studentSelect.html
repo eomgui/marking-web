@@ -13,7 +13,7 @@
 		padding-bottom: 3px;
 		padding-left: 5px;
 		min-height: 500px;
-		color:rgb(51,51,51);
+		color: rgb(51,51,51);
 	}
 	#students {
 		float: left;
@@ -43,15 +43,15 @@
 		border-color: white;
 		color: gray;
 		margin: 0px;
-		width:70%;
+		width: 70%;
 		padding: 5px 5px;
-	}	#search_container{
-		display:inline;
+	}	#search_container {
+		display: inline;
 	}
-	#icon_container{
-		width:10%;
-		display:inline;
-	}
+	#icon_container {
+		width: 10%;
+		display: inline;
+	}
 </style>
 <div id = "entry">
 	<div id = 'students'>
@@ -72,35 +72,62 @@
 <script type="text/javascript" charset="utf-8">
 	/*
 	 * searches students' names that include the keyword typed in search field
-	 * 
+	 *
 	 * names that do not include the keyword will be removed from list
 	 */
 	$("#student_search_field").keyup(function() {
-		$("#student_list").children().each(function(iter) {
-			// names = $(this).html().toString().toUpperCase().split(" ");
-			// searchNames = $("#student_search_field").val().toString().toUpperCase().split(" ");
-			// if((names[0].indexOf(searchNames[0]) == -1) || (names[1].indexOf(searchNames[1]) == -1)) {
-				// students_deleted[$(this).attr('id')] = $(this).val();
-				// $(this).remove();
-			// }
-			if($(this).html().toString().toUpperCase().indexOf($("#student_search_field").val().toString().toUpperCase()) == -1) {
-				students_deleted[$(this).attr('id')] = $(this).val();
-				$(this).remove();
+		searchNames = $("#student_search_field").val().toString().toUpperCase().split(" ");
+		if(searchNames.length == 1) {
+			$("#student_list").children().each(function(iter) {
+				names = $(this).html().toString().toUpperCase()
+				if((names.indexOf(searchNames[0]) == -1)) {
+					students_deleted[$(this).attr('id')] = $(this).val();
+					$(this).remove();
+				}
+			})
+			for(student in students_deleted) {
+				names = students_deleted[student].toUpperCase()
+				if((names.indexOf(searchNames[0]) != -1)) {
+					$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
+					delete students_deleted[student];
+				}
 			}
-		})
-		//if name was previously removed but can be searched with the new keyword, the name will be added back to list
-		for(student in students_deleted) {
-			if((students_deleted[student].toUpperCase().indexOf($("#student_search_field").val().toString().toUpperCase()) != -1)) {
-				$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
-				delete students_deleted[student];
+		} else {
+			$("#student_list").children().each(function(iter) {
+				names = $(this).html().toString().toUpperCase().split(" ");
+				if(searchNames[1] !== undefined) {
+					if((names[0].indexOf(searchNames[0]) == -1) || (names[1].indexOf(searchNames[1]) == -1)) {
+						students_deleted[$(this).attr('id')] = $(this).val();
+						$(this).remove();
+					}
+				} else {
+					if((names[0].indexOf(searchNames[0]) == -1)) {
+						students_deleted[$(this).attr('id')] = $(this).val();
+						$(this).remove();
+					}
+				}
+			})
+			//if name was previously removed but can be searched with the new keyword, the name will be added back to list
+			for(student in students_deleted) {
+				names = students_deleted[student].toUpperCase().split(" ");
+				if(searchNames[1] !== undefined) {
+					if((names[0].indexOf(searchNames[0]) != -1) && (names[1].indexOf(searchNames[1]) != -1)) {
+						$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
+						delete students_deleted[student];
+					}
+				} else {
+					if((names[0].indexOf(searchNames[0]) != -1)) {
+						$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
+						delete students_deleted[student];
+					}
+				}
 			}
 		}
 	})
-
 	var students = {
 		//0 : "test"
 	};
-	
+
 	var students_deleted = {};
 	//TODO pull off server
 	/*
@@ -114,16 +141,13 @@
 		params.params = {
 			course : $("#menu_visible_class").attr("class_id")
 		}
-		jQuery.getJSON(IP+"/mark/model/student-model.php?callback=?", params, function(data) {
+		jQuery.getJSON(IP + "/mark/model/student-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
 				$("#error_text").html(data[1][0]);
 				$("#error_msg").show();
 				$("#msg").hide();
-			}
-			else
-			{
-				for(i in data[1])
-				{
+			} else {
+				for(i in data[1]) {
 					var jInt = parseInt(data[1][i][0]);
 					var j = eval("\'" + jInt + "\'");
 					var name = data[1][i][1] + " " + data[1][i][2];
@@ -135,6 +159,7 @@
 			}
 		});
 	}
+
 	/*
 	 * when a student is selected, the user is directed to getRecords
 	 */

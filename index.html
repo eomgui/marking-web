@@ -52,13 +52,13 @@
 			}
 			
 			#logo_wrapper {
-				width: 300px;
 				text-align: center;
 				margin-right: auto;
 				margin-left: auto;
-				margin-top: 200px;
+				margin-bottom: 10px;
+				margin-top:10px;
 			}
-			img {
+			img.helper {
 				width: 15px;
 				height: 15px;
 			}
@@ -152,15 +152,15 @@
 			})
 		</script>
 		<div id='logo_wrapper'>
-			Logo Goes Here
+			<img src='css/images/full_ocdsb_icon.png' width='300' height="254"/>
 		</div>
 		<div id='content_wrapper'>
 			<div id='error_msg'>
-				<span id='error_icon'><img src='css/images/error_icon.png' /></span>
+				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
 				<div id='error_text'></div>
 			</div>
 			<div id='msg'>
-				<span id='secess_icon'><img src='css/images/sucess_icon.png' /></span>
+				<span id='secess_icon'><img class='helper' src='css/images/sucess_icon.png' /></span>
 				<div id='msg_text'></div>
 			</div>
 			<div class='input_wrapper'>
