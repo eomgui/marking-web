@@ -182,7 +182,7 @@
 						<a class='up toggle_button'>Explain</a>
 					</div>
 				</div>
-				<div class='activity_types'>
+				<div class='activity_types' id = 'workTypeContainer'>
 					<span class='button_header' id='workTypeLabel'>Work Type</span>
 					<div class='button_group' style='display:inline; float:left'>
 						<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
@@ -319,12 +319,10 @@
 	{
 		finalObs.stid = $(".selectedName").attr("id");
 		finalObs.timestamp = new Date($("#observation_dateField").val());
-		finalObs.expectations = {};
-		$(".selectedExp").each(function(i)
-		{		//get all ids of elements with class selectedExp
-			console.log(i + " : " + $(this).attr('id'));
-			finalObs.expectations[i] = $(this).attr('id');
-		});
+		finalObs.expectation = $(".selectedExp").attr("id");
+		finalObs.activity = $("#actityTypeContainer").find(".down").text(); //find element with class down
+		finalObs.workType = $("#workTypeContainer").find(".down").text(); //in the relevant div and store
+		finalObs.level = $("#level_button_group").find(".down").index(); //text and/or index in object
 		finalObs.text = $("#comments_area").val();
 	}
 </script>
