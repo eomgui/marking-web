@@ -43,7 +43,7 @@
 		<a class = 'currentClassBar'>Settings</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
-		<a class = 'currentClassBar'>Help</a>
+		<a id='help' class = 'currentClassBar'>Help</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
 		<a class = 'currentClassBar' onclick='logout();'>Logout</a>
@@ -87,6 +87,12 @@
 	/*
 	 * logs user out
 	 */
+	$("#help").click(function(){
+		$("#dialog").load("help.html");
+		$("#dialog").dialog({
+			modal:true
+		});
+	})
 	function logout() {
 		params = {};
 		params.fcn = 'logout';

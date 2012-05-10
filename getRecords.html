@@ -281,7 +281,7 @@
 				}
 				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
 				// get comments
-				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).html();
+				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html()
 				commentKeys = $(comments);
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				// "Comments:"
@@ -331,7 +331,7 @@
 					expectationsAdded[expectationId] = expectationText;
 				}
 				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
-				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).html();
+				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				$("#comments_area").html(commentText);
 			});
