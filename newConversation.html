@@ -240,6 +240,7 @@
 	 * when stdLink button is pressed, the add_studentDialog is loaded
 	 */
 	$("#stdLink").click(function(e) {
+		$("#add_container").load('add_studentsDialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
@@ -252,9 +253,7 @@
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
 	$("#expLink").click(function(e) {
-		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
-			//$("#add_container").children().find('#students');
-		});
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {

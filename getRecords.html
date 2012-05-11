@@ -297,6 +297,9 @@
 					}
 				}
 				$("#comments_area").html(commentText);
+				//date 
+				date = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(1).attr('date_string');
+				$("#observation_dateField").datepicker("setDate",date);
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -334,6 +337,9 @@
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				$("#comments_area").html(commentText);
+				
+				date = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(1).attr('date_string');
+				$("#observation_dateField").datepicker("setDate",date);
 			});
 			$("#dialog").dialog({
 				show : "blind",

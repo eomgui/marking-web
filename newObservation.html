@@ -181,8 +181,8 @@
 				<div class='activity_types' id='actityTypeContainer'>
 					<span class='button_header' id='activityTypeLabel'>Activity Type</span>
 					<div class='button_group' style='display:inline; float:left'>
-						<a class='up toggle_button'>Demonstrate</a>
-						<a class='up toggle_button'>Explain</a>
+						<a class='up toggle_button' buttongroup = '2' grouptype_id='0'>Demonstrate</a>
+						<a class='up toggle_button' buttongroup = '2' grouptype_id='1'>Explain</a>
 					</div>
 				</div>
 				<div class='activity_types' id = 'workTypeContainer'>
@@ -247,6 +247,7 @@
 	 * when stdLink button is pressed, the add_studentDialog is loaded
 	 */
 	$("#stdLink").click(function(e) {
+		$("#add_container").load('add_studentsDialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
