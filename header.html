@@ -3,15 +3,20 @@
 		float: right !important;
 	}
 	#spacer {
-		background-color: rgb(107,41,62);
+		background-color: rgb(81,0,77);
 		width: 100px;
 	}	.headerMenum{
 		margin-left:2px !important;
-	}
+	}	#header_logo{
+		float:left;
+	}
+	#header_logo >img{
+		margin-right:15px;
+	}
 </style>
 <ul class="pureCssMenu pureCssMenum">
 	<li class="pureCssMenui0">
-		<a class="logoBar" id='header_logo'>LogoGoesHere</a>
+		<a class="logoBar" id='header_logo'><img src='css/images/small_ocdsb_icon.png'/>OCDSB</a>
 	</li>
 	<li class="pureCssMenui0">
 		<a id='menu_visible_class' class="currentClassBar noclick" href="#">No Class Selected</a>
@@ -38,7 +43,7 @@
 		<a class = 'currentClassBar'>Settings</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
-		<a class = 'currentClassBar'>Help</a>
+		<a id='help' class = 'currentClassBar'>Help</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
 		<a class = 'currentClassBar' onclick='logout();'>Logout</a>
@@ -82,6 +87,14 @@
 	/*
 	 * logs user out
 	 */
+	$("#help").click(function(){
+		$("#dialog").load("help.html");
+		$("#dialog").dialog({
+			modal:true,
+			height:"auto",
+			width:"auto"
+		});
+	})
 	function logout() {
 		params = {};
 		params.fcn = 'logout';
@@ -93,6 +106,9 @@
 				alert(data[1]);
 		});
 	}
+	/*
+	 * when header logo is pressed, directs user to the main page
+	 */
 	$("#header_logo").click(function(){
 		$("#content").load("main_entryDiv.html");
 	})

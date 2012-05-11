@@ -16,7 +16,7 @@
 				color:rgb(51,51,51);
 				border-style: solid;
 				border-width: 1px;
-				border-color: rgb(179,121,142);
+				border-color: rgb(198,141,195);
 				padding:3px;
 			}
 			#content_wrapper {
@@ -30,7 +30,7 @@
 				padding: 50px;
 				border-style: solid;
 				border-width: 8px;
-				border-color: rgb(107,41,62);
+				border-color: rgb(81,0,77);
 			}
 			.login_label {
 				display: inline-block;
@@ -43,7 +43,7 @@
 				font-size: 13px;
 				font-weight: bold;
 				padding: 5px 15px;
-				background-color: rgb(107,41,62);
+				background-color: rgb(81,0,77);
 				border-width: 0px;
 				color: white;
 			}
@@ -52,13 +52,13 @@
 			}
 			
 			#logo_wrapper {
-				width: 300px;
 				text-align: center;
 				margin-right: auto;
 				margin-left: auto;
-				margin-top: 200px;
+				margin-bottom: 10px;
+				margin-top:10px;
 			}
-			img {
+			img.helper {
 				width: 15px;
 				height: 15px;
 			}
@@ -94,18 +94,21 @@
 			tried = false;
 			/*
 			 * checks if username is valid stucture wise
+			 * 
 			 * if so, user will be directed to main.html
 			 * if not, error message will be displayed
 			 */
 			function login(user, pass) {
 				/* 
 				 * checks if username has exactly 5 character
+				 * 
 				 * if so, checks if username begins with 'c'
 				 * if not, error message will be displayed
 				 */
 				if(user.length > 5) {
 					/* 
 					 * checks if username begins with 'c'; case does not matter
+					 * 
 					 * if so, user will be directed to main.html
 					 * if not, error message will be displayed
 					 */
@@ -149,15 +152,15 @@
 			})
 		</script>
 		<div id='logo_wrapper'>
-			Logo Goes Here
+			<img src='css/images/full_ocdsb_icon.png' width='300' height="254"/>
 		</div>
 		<div id='content_wrapper'>
 			<div id='error_msg'>
-				<span id='error_icon'><img src='css/images/error_icon.png' /></span>
+				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
 				<div id='error_text'></div>
 			</div>
 			<div id='msg'>
-				<span id='secess_icon'><img src='css/images/sucess_icon.png' /></span>
+				<span id='secess_icon'><img class='helper' src='css/images/sucess_icon.png' /></span>
 				<div id='msg_text'></div>
 			</div>
 			<div class='input_wrapper'>

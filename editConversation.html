@@ -21,7 +21,8 @@
 	}
 	.span_button > img {
 		margin-right: 5px;
-	}	#newObs_title_wrap {
+	}
+	#newObs_title_wrap {
 		margin-bottom: 13px;
 	}
 	span.button_header {
@@ -54,18 +55,20 @@
 	}
 	#expButton {
 		margin-top: -2px;
-		margin-left: 26px;
+		margin-left:26px;
 	}
 	#expList {
 		clear: both;
 		font-size: 13px;
-	}	.selectedExp {
+	}
+	.selectedExp {
 		margin-bottom: 10px;
 	}
 	#level_type {
 		clear: both;
 		font-size: 17px;
-	}	#comments {
+	}
+	#comments {
 		width: 100%;
 		clear: both;
 		padding-bottom: 10px;
@@ -77,7 +80,8 @@
 		width: 90%;
 		color: rgb(51,51,51);
 		padding: 3px;
-	}	#expectation {
+	}
+	#expectation {
 		margin-top: 20px;
 	}
 	#level_type {
@@ -88,7 +92,8 @@
 		float: left;
 		font-size: 17px;
 		display: inline;
-	}	#record_types {
+	}
+	#record_types {
 		float: left;
 		margin-top: 10px;
 		margin-bottom: 20px;
@@ -103,7 +108,8 @@
 	}
 	#submit {
 		text-align: center;
-	}	#newObs_mainEntry {
+	}
+	#newObs_mainEntry {
 		margin-left: 30px;
 	}
 	#remainingChars {
@@ -123,7 +129,7 @@
 		margin-top: 66px;
 	}
 	#level_button_group {
-		margin-left: 66px;
+		margin-left: 30px;
 	}
 	#actityTypeContainer {
 		margin-top: 18px;
@@ -138,30 +144,36 @@
 	}
 	#addObsButton:hover {
 		cursor: pointer;
-	}	.span_button {
+	}
+	.span_button {
 		margin-top: -7px;
-	}	#observation_date {
+	}
+	#observation_date {
 		float: left;
-	}	#full_wrapper {
+	}
+	#full_wrapper {
 		width: 100%;
 		height: 30px;
 		margin-bottom: 15px;
 	}
 	#observation_dateField {
-		margin-top: 6px;
 		font-size: 13px !important;
 		padding-left: 3px;
 		color: rgb(51,51,51);
 	}
 	#date_header {
 		margin-top: 8px;
-	}
+	}
+	#calendar_show {
+		margin-top: 6px;
+	}
+
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
 <div id='newObs_container'>
 	<div id='newObs_mainEntry'>
-		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/observation_icon.png' width='28' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Observation</h1>
+		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/conversation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Edit Conversation</h1>
 		</div>
 		<div id='scrolling_area'>
 			<div id='full_wrapper'>
@@ -176,23 +188,6 @@
 			<div id='expectation'>
 				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span id='expButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='expLink' class='button_link'href='#'>Add</a></span>
 				<ul id='expList'></ul>
-			</div>
-			<div id='record_types'>
-				<div class='activity_types' id='actityTypeContainer'>
-					<span class='button_header' id='activityTypeLabel'>Activity Type</span>
-					<div class='button_group' style='display:inline; float:left'>
-						<a class='up toggle_button'>Demonstrate</a>
-						<a class='up toggle_button'>Explain</a>
-					</div>
-				</div>
-				<div class='activity_types'>
-					<span class='button_header' id='workTypeLabel'>Work Type</span>
-					<div class='button_group' style='display:inline; float:left'>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
-					</div>
-				</div>
 			</div>
 			<div id='level_type'>
 				<span class='button_header' id='levelTypeHeader'>Level</span>
@@ -247,6 +242,9 @@
 	 * when stdLink button is pressed, the add_studentDialog is loaded
 	 */
 	$("#stdLink").click(function(e) {
+		$("#add_container").load('add_studentsDialog.html?int=' + Math.random(), function() {
+			//$("#add_container").children().find('#students');
+		});
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
@@ -259,7 +257,9 @@
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
 	$("#expLink").click(function(e) {
-		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
+			//$("#add_container").children().find('#students');
+		});
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {

@@ -13,12 +13,13 @@
 			border-style: solid;
 			border-width: 1px;
 			border-color: white;
-			border-top-color: rgb(179,121,142);
+			border-top-color: rgb(198,141,195);
 			border-top-style: solid;
 			border-top-width: 1px;
 			padding-top: 3px;
 			padding-bottom: 3px;
 			padding-left: 5px;
+			color: rgb(51,51,51);
 		}
 		#add_students {
 			float: left;
@@ -39,7 +40,7 @@
 			width: 100%;
 			border-style: solid;
 			border-width: 1px;
-			border-color: rgb(179,121,142);
+			border-color: rgb(198,141,195);
 		}
 		#add_search_icon {
 			margin-left: 7px;
@@ -57,7 +58,7 @@
 			font-size: 12px;
 			font-weight: bold;
 			padding: 5px 20px;
-			background-color: rgb(107,41,62);
+			background-color: rgb(81,0,77);
 			border-width: 0px;
 			color: white;
 			margin-left:0px;
@@ -84,15 +85,21 @@
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8">
+		/*
+		 * searches students' names that include the keyword typed in search field
+		 * 
+		 * names that do not include the keyword will be removed from list
+		 */
 		$("#add_student_search_field").keyup(function() {
 			$("#add_student_list").children().each(function(iter) {
-				if($(this).html().toString().indexOf($("#add_student_search_field").val().toString()) == -1) {
+				if($(this).html().toString().toUpperCase().indexOf($("#add_student_search_field").val().toString().toUpperCase()) == -1) {
 					add_students_deleted[$(this).attr('id')] = $(this).val();
 					$(this).remove();
 				}
 			})
+			//if name was previously removed but can be searched with the new keyword, the name will be added back to list
 			for(student in add_students_deleted) {
-				if((add_students_deleted[student].indexOf($("#add_student_search_field").val().toString()) != -1)) {
+				if((add_students_deleted[student].toUpperCase().indexOf($("#add_student_search_field").val().toString().toUpperCase()) != -1)) {
 					$("#add_student_list").append("<option class = 'add_std_opt' id='" + student + "'>" + students[student] + "</option>");
 					delete add_students_deleted[student];
 				}
@@ -100,6 +107,9 @@
 		})
 		var add_students = students;
 		var add_students_deleted = {};
+		/*
+		 * get student list
+		 */
 		function add_buildStudents(id) {
 			add_students = students;
 			for(student in add_students) {
@@ -109,21 +119,27 @@
 			}
 		}
 
-
 		$("#add_student_list").change(function() {
 			$("#add_student_list option:selected").each(function() {
 				//$("#content").load("getRecords.html");
 				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 			});
 		})
+		/*
+		 * when this page is done loading, loads the list of students
+		 */
 		$(document).ready(function() {
 			add_buildStudents("add_student_list");
 		})
+		/*
+		 * when addName button is pressed, the selected names will be added in the corrisponding entry dialog
+		 */
 		$("#addName").click(function() {
 			$("#add_student_list option:selected").each(function() {
 				studentsAdded[$(this).attr('id')] = ($(this).html());
 				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
 			});
+			//add_students dialog is closed
 			$("#add_container").dialog("close");
 		});
 

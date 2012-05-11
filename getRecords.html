@@ -37,7 +37,7 @@
 		width: 100% !important;                 /* fixed width */
 	}
 	.record {
-		border-bottom-color: rgb(179,121,142);
+		border-bottom-color: rgb(198,141,195);
 		border-bottom-style: solid;
 		border-bottom-width: 1px;
 		padding-left: 15px;
@@ -48,6 +48,7 @@
 	#record_data_fields {
 		width: 90%;
 		margin: 0px auto;
+		height: 460px;
 	}
 	#view_menu {
 		padding-left: 25px !important;
@@ -64,7 +65,7 @@
 		display: inline-block;
 	}
 	.record_tool_link {
-		color: rgb(179,121,142) !important;
+		color: rgb(198,141,195) !important;
 	}
 	.record_tool_link_wrapper {
 		margin-bottom: 3px;
@@ -72,7 +73,19 @@
 	}
 	key {
 		font-weight: bold;
-	}
+		text-decoration: underline;
+	}
+	.dateDiv{
+		font-weight:bold;
+		font-size:11px;
+		color:rgb(102,102,102);
+	}
+	.record > div >div >div{
+		padding-bottom:3px;
+	}	.small_data{
+		display:inline;
+		font-size:12px;
+	}
 </style>
 <div id='record_wrapper'>
 	<div id='record_top_wrapper'>
@@ -118,45 +131,7 @@
 		</li>
 	</ul>
 </div>
-</div>
-<div id='record_data_fields'>
-	<div id='record_4' class = 'record' type_id='1'>
-		<div class = 'record_main'>
-			<div class='record_header_info'>
-				<div type_id="1">
-					Type:Observation
-				</div>
-				<div date="11/11/11">
-					Date:11/11/11
-				</div>
-				<div expec_id='1'>
-					Expectation: a-1
-				</div>
-				<div level_id='1'>
-					Level: Limited
-				</div>
-			</div>
-			<div class='record_data'>
-				Comments:
-				<key type='ac' type_id='1'>
-					Explain
-				</key>
-				<key type='work' type_id='1'>
-					Group
-				</key>
-				Billy Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATIONBilly Bob Did something OBSERVATION
-			</div>
-		</div>
-		<div class = 'record_options'>
-			<div class='record_tool_link_wrapper'>
-				<a href='#' class='record_tool_link'id='record_expander_1'onclick='expandRecord(1)'>Expand</a>
-			</div>
-			<div class='record_tool_link_wrapper'>
-				<a href='#' class='record_tool_link' editing='0' id='record_editor_1'onclick='editRecord(1)'>Edit</a>
-			</div>
-		</div>
-	</div>
-</div>
+</div> <div id='record_data_fields'></div>
 <div id='dialog'></div>
 <script type="text/javascript" charset="utf-8">
 	/*
@@ -194,32 +169,33 @@
 					date = data[communication][6];
 					dateTS = date;
 					date = new Date(date * 1000);
-					date = date.getDate() + "/" + (date.getMonth() + 1) + "/" + date.getFullYear();
+					dateRead = date.toDateString()
+					date = (date.getMonth() + 1) + "/" + date.getDate() + "/" + date.getFullYear();
 					expecId = data[communication][7];
 					expecTitle = data[communication][5];
 					comStyle = data[communication][4];
 					comMark = data[communication][2];
 					styleName = "";
 					styleValue = "";
-					if(comStyle == 0) { // true
+					if(comStyle == 0) {// true
 						styleName = 'Expectation';
-					} else if(comStyle == 1) { // false
+					} else if(comStyle == 1) {// false
 						styleName = "Learning Skill";
 					}
 					comData = data[communication][1];
 					$("#record_data_fields").append("<div id='record_" + comId + "' class='record' type_id='" + comType + "'></div>")
 					html = "<div class = 'record_main'><div class='record_header_info'>";
-					html += "<div type_id='" + comType + "'>Type: " + comTypeName + "</div>";
-					html += "<div date='" + dateTS + "'>Date: " + date + "</div>";
-					html += "<div expecType = '"+comStyle+"'expec_id='" + expecId + "'>" + styleName + ":" + expecTitle + "</div>";
-					html += "<div level_id='" + comMark + "'>Level: " + levelIdToName(comMark) + "</div>"
-					html += "<div class='record_data'>Comments: " + comData + "</div>";
+					html += "<div type_id='" + comType + "'><b>" + comTypeName + "</b></div>";
+					html += "<div class='dateDiv'date_string='" + date + "'date='" + dateTS + "'>" + dateRead + "</div>";
+					html += "<div expecType = '" + comStyle + "'expec_id='" + expecId + "'>" + styleName + ": <div class='small_data'>" + expecTitle + "</div></div>";
+					html += "<div level_id='" + comMark + "'>Level: <div class='small_data'>" + levelIdToName(comMark) + "</div></div>"
+					html += "<div class='record_data'>Comments: <div class='small_data'>" + comData + "</div></div>";
 					html += "</div></div>";
-					html +="<div class = 'record_options'><div class='record_tool_link_wrapper'><a href='#' class='record_tool_link'id='record_expander_"+comId+"' onclick='expandRecord("+comId+")'>Expand</a>";
-					html +="</div>";
-					html +="<div class='record_tool_link_wrapper'>";
-					html +="<a href='#' class='record_tool_link' editing='0' id='record_editor_"+comId+"'onclick='editRecord("+comId+")'>Edit</a>";
-					html +="</div></div>";
+					html += "<div class = 'record_options'>";
+					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link'id='record_expander_" + comId + "' onclick='expandRecord(" + comId + ")'>Expand</a></div>";
+					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='editRecord(" + comId + ")'>Edit</a></div>";
+					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='deleteRecord(" + comId + ")'>Delete</a></div>";
+					html += "</div>";
 					$("#record_" + comId + "").append(html);
 				}
 			} //end if/else statement for selectObservationsAndOrConvos
@@ -231,6 +207,7 @@
 		levels = ["Insufficient", "Limited", "Approaching", "Sufficient", "Insightfull"];
 		return levels[id];
 	}
+
 	/*
 	 * generates a new dialog
 	 */
@@ -273,10 +250,10 @@
 	function expandRecord(id) {
 		if($("#record_expander_" + id).html() == "Expand") {
 			$("#record_expander_" + id).html("Shrink");
-			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'normal')
+			$("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).css('white-space', 'normal')
 		} else if($("#record_expander_" + id).html() == "Shrink") {
 			$("#record_expander_" + id).html("Expand");
-			$("div #record_" + id).children().eq(0).children().eq(1).css('white-space', 'nowrap')
+			$("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).css('white-space', 'nowrap')
 		}
 	}
 
@@ -291,14 +268,35 @@
 				});
 				// add level
 				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
-				$("#level_button_group").children().eq(level).removeClass("up");
-				$("#level_button_group").children().eq(level).addClass("down");
-				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
-				// add work type
-				work = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
-				$("#level_button_group").children().eq(level).removeClass("up");
-				$("#level_button_group").children().eq(level).addClass("down");
-				selectedWType = $("#level_button_group").children().eq(level).attr("grouptype_id")
+				$("#level_button_group").children().eq(level).click();
+
+				// add expectation
+				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
+				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
+				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
+				if(expectationType == 0) {
+					expectationsAdded[expectationId] = expectationText
+				} else if(expectationType == 1) {
+					expectationsAdded[expectationId] = expectationText;
+				}
+				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				// get comments
+				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html()
+				commentKeys = $(comments);
+				commentText = comments.substr(comments.indexOf(":") + 1);
+				// "Comments:"
+				if(commentText.lastIndexOf("</key>") > -1) {// if keys are present
+					commentText = comments.substr(comments.lastIndexOf("</key>") + 6);
+				}
+				for(var i = 0; i < commentKeys.length; i++) {
+					keyLevel = $(commentKeys[i]).attr('type_id');
+					if($(commentKeys[i]).attr("type") == "ac") {
+						$("#acButtonGroup").children().eq(keyLevel).click()
+					} else if($(commentKeys[i]).attr("type") == "work") {
+						$("#workButtonGroup").children().eq(keyLevel).click()
+					}
+				}
+				$("#comments_area").html(commentText);
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -313,12 +311,49 @@
 				}
 			});
 		} else if($("div #record_" + id).attr("type_id") == 2) {
+			$("#dialog").load("editConversation.html", function() {
+				$("#student_list option:selected").each(function() {// add student
+					studentsAdded[$(this).attr("id")] = ($(this).html());
+					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+				});
+				// add level
+				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
+				$("#level_button_group").children().eq(level).click()
 
+				// add expectation
+				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
+				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
+				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
+				if(expectationType == 0) {
+					expectationsAdded[expectationId] = expectationText
+				} else if(expectationType == 1) {
+					expectationsAdded[expectationId] = expectationText;
+				}
+				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
+				commentText = comments.substr(comments.indexOf(":") + 1);
+				$("#comments_area").html(commentText);
+			});
+			$("#dialog").dialog({
+				show : "blind",
+				hide : "explode",
+				position : 'center',
+				modal : true,
+				height : $(window).height() - 200,
+				width : $(window).width() - 300,
+				resizable : false,
+				close : function(ev, ui) {
+					$(this).html("");
+				}
+			});
 		} else {//products
 
 		}
 	}
-	$(document).ready(function(){
+
+
+	$(document).ready(function() {
 		getCommunications();
 	})
 </script>
