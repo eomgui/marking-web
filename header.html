@@ -90,7 +90,9 @@
 	$("#help").click(function(){
 		$("#dialog").load("help.html");
 		$("#dialog").dialog({
-			modal:true
+			modal:true,
+			height:"auto",
+			width:"auto"
 		});
 	})
 	function logout() {

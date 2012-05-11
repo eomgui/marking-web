@@ -247,9 +247,6 @@
 	 * when stdLink button is pressed, the add_studentDialog is loaded
 	 */
 	$("#stdLink").click(function(e) {
-		$("#add_container").load('add_studentsDialog.html?int=' + Math.random(), function() {
-			//$("#add_container").children().find('#students');
-		});
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
@@ -266,7 +263,7 @@
 		$("#add_container").dialog({
 			resizable : false,
 			close : function(ev, ui) {
-				$(this).destroy();
+				$(this).html("");
 			},
 			position : [e.pageX, e.pageY]
 		});
