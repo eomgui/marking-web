@@ -187,11 +187,11 @@
 				<div class='activity_types' id='actityTypeContainer'>
 					<span class='button_header' id='activityTypeLabel'>Activity Type</span>
 					<div class='button_group' style='display:inline; float:left'>
-						<a class='up toggle_button'>Demonstrate</a>
-						<a class='up toggle_button'>Explain</a>
+						<a class='up toggle_button' buttongroup = '2' grouptype_id='0'>Demonstrate</a>
+						<a class='up toggle_button' buttongroup = '2' grouptype_id='1'>Explain</a>
 					</div>
 				</div>
-				<div class='activity_types'>
+				<div class='activity_types' id = 'workTypeContainer'>
 					<span class='button_header' id='workTypeLabel'>Work Type</span>
 					<div class='button_group' style='display:inline; float:left'>
 						<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
@@ -218,7 +218,7 @@
 			</div>
 		</div>
 		<div id='submit'>
-			<input type="button" value='submit' id="addObsButton"/>
+			<input type="button" value='submit' id="addObsButton" onclick="save()"/>
 		</div>
 	</div>
 </div>
@@ -322,4 +322,58 @@
 			$(this).parent().parent().remove();
 		}
 	})
+	
+	var finalObs = {}; //final result of save method
+	function save()
+	{
+		finalObs.stid = $(".selectedName").attr("id");
+		finalObs.date = new Date($("#observation_dateField").val());
+		finalObs.timestamp = finalObs.date / 1000;
+		finalObs.expectation = $(".selectedExp").attr("id");
+		finalObs.activity = $("#actityTypeContainer").find(".down").text(); //find element with class down
+		finalObs.workType = $("#workTypeContainer").find(".down").text(); //in the relevant div and store
+		finalObs.level = $("#level_button_group").find(".down").index(); //text or index in object
+		finalObs.text = $("#comments_area").val();
+		console.log(finalObs.date.valueOf());
+		console.log(finalObs.timestamp);
+		if(finalObs.expectation.indexOf("lrn_") != -1)
+		{
+			finalObs.flag = 1;
+			finalObs.expectation = finalObs.expectation.substr(4);
+		}
+		else finalObs.flag = 0;
+		
+		//Probably not the most efficient way to do this. Will edit later if there is time.
+		if(finalObs.workType == "Individual")
+			finalObs.text = "<key type=\"work\" type_id=\"0\">Individual</key> ".concat(finalObs.text);
+		else if(finalObs.workType == "Group")
+			finalObs.text = "<key type=\"work\" type_id=\"1\">Group</key> ".concat(finalObs.text);
+		else
+			finalObs.text = "<key type=\"work\" type_id=\"2\">Class</key> ".concat(finalObs.text);
+		
+		if(finalObs.activity == "Demonstrate")
+			finalObs.text = "<key type=\"ac\" type_id=\"0\">Demonstrate</key> ".concat(finalObs.text);
+		else
+			finalObs.text = "<key type=\"ac\" type_id=\"1\">Explain</key> ".concat(finalObs.text);
+		
+		params.fcn = "addObservation";
+		params.params = {
+			0 : finalObs.stid,					//student ID
+			1 : finalObs.timestamp,	//date
+			2 : finalObs.flag,					//0 = expectation, 1 = learning skill
+			3 : finalObs.expectation,			//expectation/learning skill ID
+			4 : finalObs.level,					//level
+			5 : finalObs.text					//comments
+		};
+		
+		jQuery.getJSON(IP+"/mark/model/communications-model.php?callback=?", params, function(data) {
+			if(!data[0]) {
+				$("#error_text").html(data[1][0]);
+				$("#error_msg").show();
+				$("#msg").hide();
+			}else {
+				//close new observation window?
+			}
+		});
+	}
 </script>
