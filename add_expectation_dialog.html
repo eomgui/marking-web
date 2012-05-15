@@ -153,7 +153,9 @@
 		$("#addExp").click(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
-				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				delete expectationsAdded[$("#expList .selectedExp").attr('id')];
+				$("#expList .selectedExp").parent().remove();
+				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "</span></li>");
 			});
 			$("#add_container").dialog('close');
 		});
