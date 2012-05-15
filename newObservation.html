@@ -315,7 +315,7 @@
 			delete expectationsAdded[$(this).parent().attr('id')];
 			$(this).parent().parent().remove();
 		}
-	})
+	});
 	
 	var finalObs = {}; //final result of save method
 	function save()
@@ -353,7 +353,7 @@
 		params.fcn = "addObservation";
 		params.params = {
 			0 : finalObs.stid,					//student ID
-			1 : finalObs.timestamp,	//date
+			1 : finalObs.timestamp,				//date
 			2 : finalObs.flag,					//0 = expectation, 1 = learning skill
 			3 : finalObs.expectation,			//expectation/learning skill ID
 			4 : finalObs.level,					//level
