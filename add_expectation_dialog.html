@@ -32,12 +32,12 @@
 			border-width: 1px;
 			border-color: white;
 			color: gray;
-			width: 75%;
+			width: 85%;
 			margin: 0px;
 			padding: 5px 5px;
 		}
 		#add_expectation_wrapper {
-			width: 100%;
+			width: 99%;
 			border-style: solid;
 			border-width: 1px;
 			border-color: rgb(198,141,195);
@@ -58,11 +58,11 @@
 		#addExp {
 			font-size: 12px;
 			font-weight: bold;
-			padding: 5px 20px;
+			padding: 5px 113px;
 			background-color: rgb(81,0,77);
 			border-width: 0px;
 			color: white;
-			margin-left: 0px;
+			margin:0px;
 		}
 		#addExp:hover {
 			cursor: pointer;
@@ -153,7 +153,9 @@
 		$("#addExp").click(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
-				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				delete expectationsAdded[$("#expList .selectedExp").attr('id')];
+				$("#expList .selectedExp").parent().remove();
+				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "</span></li>");
 			});
 			$("#add_container").dialog('close');
 		});
