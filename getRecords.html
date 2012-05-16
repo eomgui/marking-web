@@ -359,38 +359,25 @@
 			});
 		} else {//products
 
-		}
+	}
 	}
 
-	/*function deleteRecord(id)
-	{
-	params.fcn = deleteRecord;
-	params.params = {
-	record : id
+	function deleteRecord(id) {
+		params.fcn = "deleteRecord";
+		params.params = {
+			record : id
+		}
+		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+			if(!data[0]) {
+				$("#error_text").html(data[1][0]);
+				$("#error_msg").show();
+				$("#msg").hide();
+			} else {
+				$("#record_" + id).remove();
+			}
+		});
 	}
-	jQuery.getJSON(IP+"/mark/model/communications-model.php?callback=?", params, function(data) {
-	if(!data[0]) {
-	$("#error_text").html(data[1][0]);
-	$("#error_msg").show();
-	$("#msg").hide();
-	}else {
-	//record deleted
-	}
-	});
-	}*/ //possible deleteRecord method; right now it gives
-	/* Uncaught RangeError: Maximum call stack size exceeded
-	* e.extend.isPlainObject
-	* e.extend.e.fn.extend
-	* b_
-	* f.extend.ajaxSetup
-	* f.extend.ajax
-	* f.each.f.(anonymous function)
-	* f.extend.getJSON
-	* deleteRecord
-	* f.extend.param.e
-	* ca
-	* f.extend.param
-	* */ //and repeats the part from f.extend.ajax to f.extend.param indefinitely
+
 
 	$(document).ready(function() {
 		getCommunications();
