@@ -1,5 +1,5 @@
-var IP = "http://10.178.30.78";
-//var IP = "http://192.168.192.35";
+//var IP = "http://10.178.30.78";
+var IP = "http://192.168.192.35";
 function str(str) {
 	return JSON.stringify(str);
 }
@@ -41,6 +41,31 @@ function generateWindow(page) {
 		resizable : false,
 		close : function(ev, ui) {
 			$(this).html("");
+		}
+	});
+}
+
+function selectClasses() {
+	var staffID = QueryString.id;
+	params = {};
+	params.fcn = 'selectClasses';
+	params.params = {
+		staffID : staffID
+	}
+	jQuery.getJSON(IP + "/mark/model/classes-model.php?callback=?", params, function(data) {
+		if(!data[0]) {
+			$("#error_text").html(data[1]);
+			$("#error_msg").show();
+		} else {
+			x = data;
+			var list = "";
+			for(var i = 0; i < data[1].length; i++) {
+				$("#selectClasses_sem" + data[1][i][4]).append('<li class="pureCssMenui"><a class="pureCssMenui" class_button="true" id="' + data[1][i][0] + '" href="#">' + data[1][i][1] + '</a></li>');
+			}
+			selectedClass = $("#selectClasses_sem1").children().eq(0).children().eq(0).attr('id');
+			$("#menu_visible_class,#title_class_name").html($("#selectClasses_sem1").children().eq(0).children().eq(0).html());
+			$("#menu_visible_class").attr("class_id", selectedClass);
+			buildStudents("student_list");
 		}
 	});
 }

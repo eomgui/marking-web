@@ -16,17 +16,32 @@
 				height: 38px;
 				width: 100%;
 			}
+			#options {
+				display: inline-block;
+				width: 70%;
+			}
+			#main_entry {
+				margin-top: 60px;
+				width: 100%;
+				float: left;
+			}
+			#new_entryMenu {
+				display: inline-block;
+				width: 70%;
+			}
 		</style>
 		<div id='header'></div>
-		<div id='content'></div>
+		<div id='content'>
+		</div>
 		<script type="text/javascript" charset="utf-8">
-		/*
-		 * when this page is done loading, loads header and main_entryDiv
-		 */
+			/*
+			 * when this page is done loading, loads header and main_entryDiv
+			 */
 			$(document).ready(function() {
-				$("#content").load("main_entryDiv.html",function(){
-					$("#header").load("header.html");
+				$("#header").load("header.html",function(){
+					selectClasses();
 				});
+				$("#content").load("main_entryDiv.html");
 			})
 		</script>
 		<div id='add_container'></div>

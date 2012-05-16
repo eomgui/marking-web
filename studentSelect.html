@@ -42,7 +42,7 @@
 		border-width: 0px;
 		border-color: white;
 		color: gray;
-		margin:0px;
+		margin: 0px;
 		width: 70%;
 		padding: 5px 5px;
 	}	#search_container {
@@ -163,8 +163,8 @@
 	 * when a student is selected, the user is directed to getRecords
 	 */
 	$("#student_list").change(function() {
+		$("#new_entryMenu").load("getRecords.html");
 		$("#student_list option:selected").each(function() {
-			$("#new_entryMenu").load("getRecords.html");
 			//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 		});
 	})
