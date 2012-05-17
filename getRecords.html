@@ -305,6 +305,7 @@
 				//date
 				date = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(1).attr('date_string');
 				$("#observation_dateField").datepicker("setDate", date);
+				$("#addObsButton").attr("onclick", "save(" + id + ")"); //add onclick with record id to button
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -344,6 +345,7 @@
 				$("#comments_area").html(commentText);
 				date = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(1).attr('date_string');
 				$("#observation_dateField").datepicker("setDate", date);
+				$("#addObsButton").attr("onclick", "save(" + id + ")"); //add onclick with record id to button
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -373,7 +375,7 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
-				$("#record_" + id).remove();
+				$("#record_" + id).remove(); //get rid of the record on the page so they don't have to refresh
 			}
 		});
 	}

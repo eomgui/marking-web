@@ -333,9 +333,8 @@
 		}
 	})
 	
-	var finalObs = {};
-	//final result of save method
-	function save() {
+	var finalObs = {}; //final result of save method
+	function save(id) {
 		dateInField = $("#observation_dateField").val();
 		finalObs.stid = $(".selectedName").attr("id");
 		finalObs.expectation = $(".selectedExp").attr("id");
@@ -357,28 +356,28 @@
 			finalObs.expectation = finalObs.expectation.substr(4);
 		} else
 			finalObs.flag = 0;
-		params.fcn = "addObservation";
+		params.fcn = "updateRecord";
 		params.params = {
-			0 : finalObs.stid, //student ID
+			0 : id, //student ID
 			1 : finalObs.timestamp, //date
 			2 : finalObs.flag, //0 = expectation, 1 = learning skill
 			3 : finalObs.expectation, //expectation/learning skill ID
 			4 : finalObs.level, //level
 			5 : finalObs.text //comments
 		};
-		// if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
-			// $(".selectedName").each(function(){
-				// finalObs.stid = $(this).attr("id");
-			// })
-			// jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-				// if(!data[0]) {
-					// $("#error_text").html(data[1][0]);
-					// $("#error_msg").show();
-					// $("#msg").hide();
-				// } else {
-					// $("#dialog").dialog("close");
-				// }
-			// });
-		// }
+		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
+			$(".selectedName").each(function(){
+				finalObs.stid = $(this).attr("id");
+			})
+			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+				if(!data[0]) {
+					$("#error_text").html(data[1][0]);
+					$("#error_msg").show();
+					$("#msg").hide();
+				} else {
+					$("#dialog").dialog("close");
+				}
+			});
+		}
 	}
 </script>
