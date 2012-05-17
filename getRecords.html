@@ -284,7 +284,7 @@
 				} else if(expectationType == 1) {
 					expectationsAdded[expectationId] = expectationText;
 				}
-				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 				// get comments
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html()
 				commentKeys = $(comments);
@@ -338,7 +338,7 @@
 				} else if(expectationType == 1) {
 					expectationsAdded[expectationId] = expectationText;
 				}
-				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "<a class='remove_link' link_type='exp' href='#'>Remove</a></span></li>");
+				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				$("#comments_area").html(commentText);
