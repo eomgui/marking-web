@@ -30,8 +30,7 @@ var QueryString = function() {
  * generates a dialog
  */
 function generateWindow(page) {
-	$("#dialog").load(page);
-	$("#dialog").dialog({
+	$("#dialog").load(page).dialog({
 		show : "blind",
 		hide : "explode",
 		position : 'center',
