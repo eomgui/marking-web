@@ -220,6 +220,7 @@
 			$("#student_list option:selected").each(function() {
 				studentsAdded[$(this).attr("id")] = ($(this).html());
 				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+				$("input[value=submit]").after('<span style="display:none" id="shouldTry" try_id="1"></span>')
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -265,8 +266,7 @@
 		if($("div #record_" + id).attr("type_id") == 1) {
 			$("#dialog").load("editObservation.html", function() {
 				$("#student_list option:selected").each(function() {// add student
-					studentsAdded[$(this).attr("id")] = ($(this).html());
-					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '</span>');
 					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 				});
 				// add level
@@ -300,10 +300,12 @@
 					}
 				}
 				$("#comments_area").html(commentText);
+				$("#remainingChars").html(500 - commentText.length);
 				//date
 				date = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(1).attr('date_string');
 				$("#observation_dateField").datepicker("setDate", date);
-				$("#addObsButton").attr("onclick", "save(" + id + ")"); //add onclick with record id to button
+				$("#addObsButton").attr("onclick", "save(" + id + ")");
+				//add onclick with record id to button
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -320,8 +322,7 @@
 		} else if($("div #record_" + id).attr("type_id") == 2) {
 			$("#dialog").load("editConversation.html", function() {
 				$("#student_list option:selected").each(function() {// add student
-					studentsAdded[$(this).attr("id")] = ($(this).html());
-					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '</span>');
 					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 				});
 				// add level
@@ -341,9 +342,11 @@
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				$("#comments_area").html(commentText);
+				$("#remainingChars").html(500 - commentText.length);
 				date = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(1).attr('date_string');
 				$("#observation_dateField").datepicker("setDate", date);
-				$("#addObsButton").attr("onclick", "save(" + id + ")"); //add onclick with record id to button
+				$("#addObsButton").attr("onclick", "save(" + id + ")");
+				//add onclick with record id to button
 			});
 			$("#dialog").dialog({
 				show : "blind",
@@ -359,7 +362,7 @@
 			});
 		} else {//products
 
-	}
+		}
 	}
 
 	function deleteRecord(id) {
@@ -373,7 +376,8 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
-				$("#record_" + id).remove(); //get rid of the record on the page so they don't have to refresh
+				$("#record_" + id).remove();
+				//get rid of the record on the page so they don't have to refresh
 			}
 		});
 	}
