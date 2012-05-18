@@ -80,8 +80,8 @@
 		width: 100%;
 		color: rgb(51,51,51);
 		padding: 3px;
-		border-style:solid;
-		border-width:1px;
+		border-style: solid;
+		border-width: 1px;
 		border-color: rgb(198,141,195);
 	}
 	#expectation {
@@ -164,8 +164,8 @@
 		font-size: 13px !important;
 		padding-left: 3px;
 		color: rgb(102,102,102);
-		border-style:solid;
-		border-width:1px;
+		border-style: solid;
+		border-width: 1px;
 		border-color: rgb(198,141,195);
 	}
 	#date_header {
@@ -249,6 +249,7 @@
 		$("#add_container").load('add_studentsDialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
+			modal : true,
 			close : function(ev, ui) {
 				$(this).html("");
 			},
@@ -262,6 +263,7 @@
 		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
+			modal : true,
 			close : function(ev, ui) {
 				$(this).html("");
 			},
@@ -315,42 +317,42 @@
 			$(this).parent().parent().remove();
 		}
 	});
-	
-	var finalConv = {}; //final result of save method
-	function save()
-	{
+	var finalConv = {};
+	//final result of save method
+	function save() {
 		finalConv.stid = $(".selectedName").attr("id");
 		finalConv.date = new Date($("#conversation_dateField").val());
 		finalConv.timestamp = finalConv.date / 1000;
 		finalConv.expectation = $(".selectedExp").attr("id");
 		finalConv.level = $("#level_button_group").find(".down").index();
-		finalConv.text = $("#comments_area").val();
+		finalConv.text = $.trim($("#comments_area").val())
 		console.log(finalConv.date.valueOf());
 		console.log(finalConv.timestamp);
-		if(finalConv.expectation.indexOf("lrn_") != -1)
-		{
+		if(finalConv.expectation.indexOf("lrn_") != -1) {
 			finalConv.flag = 1;
 			finalConv.expectation = finalConv.expectation.substr(4);
-		}
-		else finalConv.flag = 0;
-		
+		} else
+			finalConv.flag = 0;
+
 		params.fcn = "addConversation";
 		params.params = {
-			0 : finalConv.stid,					//student ID
-			1 : finalConv.timestamp,			//date
-			2 : finalConv.flag,					//0 = expectation, 1 = learning skill
-			3 : finalConv.expectation,			//expectation/learning skill ID
-			4 : finalConv.level,				//level
+			0 : finalConv.stid, //student ID
+			1 : finalConv.timestamp, //date
+			2 : finalConv.flag, //0 = expectation, 1 = learning skill
+			3 : finalConv.expectation, //expectation/learning skill ID
+			4 : finalConv.level, //level
 			5 : finalConv.text					//comments
 		};
-		
-		jQuery.getJSON(IP+"/mark/model/communications-model.php?callback=?", params, function(data) {
+
+		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
 				$("#error_text").html(data[1][0]);
 				$("#error_msg").show();
 				$("#msg").hide();
-			}else {
-				//close new observation window?
+			} else {
+				if($("#shouldTry").attr("try_id") !== undefined){
+					$("#new_entryMenu").load("getRecords.html");
+				}
 				$("#dialog").dialog("close");
 			}
 		});

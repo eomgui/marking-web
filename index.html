@@ -13,11 +13,11 @@
 				display: block;
 			}
 			.login_field {
-				color:rgb(51,51,51);
+				color: rgb(51,51,51);
 				border-style: solid;
 				border-width: 1px;
 				border-color: rgb(198,141,195);
-				padding:3px;
+				padding: 3px;
 			}
 			#content_wrapper {
 				-moz-border-radius: 15px;
@@ -48,15 +48,14 @@
 				color: white;
 			}
 			#submit_button > input:hover {
-				cursor:pointer;
+				cursor: pointer;
 			}
-			
 			#logo_wrapper {
 				text-align: center;
 				margin-right: auto;
 				margin-left: auto;
 				margin-bottom: 10px;
-				margin-top:10px;
+				margin-top: 10px;
 			}
 			img.helper {
 				width: 15px;
@@ -72,43 +71,50 @@
 			#sucess_icon {
 				margin-right: 5px;
 			}
-			#msg{
-				display:none;
-				padding-bottom:10px;
+			#msg {
+				display: none;
+				padding-bottom: 10px;
 			}
 			#error_msg {
 				display: none;
-				padding-bottom:10px;
+				padding-bottom: 10px;
 			}
 			#msg_text {
 				display: inline;
 				color: green;
 			}
-			body{
+			body {
 				background-color: rgb(232,232,232);
 			}
 		</style>
 	</head>
 	<body>
 		<script type='text/javascript'>
+			$(document).ready(function() {
+				$("#login_pass, #login_user").keyup(function(event) {
+					if(event.keyCode == 13) {
+						$("#login_button").click();
+					}
+				});
+			})
 			tried = false;
 			/*
 			 * checks if username is valid stucture wise
-			 * 
+			 *
 			 * if so, user will be directed to main.html
 			 * if not, error message will be displayed
 			 */
 			function login(user, pass) {
-				/* 
+				/*
 				 * checks if username has exactly 5 character
-				 * 
+				 *
 				 * if so, checks if username begins with 'c'
 				 * if not, error message will be displayed
 				 */
 				if(user.length > 5) {
-					/* 
+					/*
 					 * checks if username begins with 'c'; case does not matter
-					 * 
+					 *
 					 * if so, user will be directed to main.html
 					 * if not, error message will be displayed
 					 */
@@ -121,12 +127,12 @@
 							user : user,
 							pass : pass
 						}
-						jQuery.getJSON(IP+"/mark/model/staff-model.php?callback=?", params, function(data) {
+						jQuery.getJSON(IP + "/mark/model/staff-model.php?callback=?", params, function(data) {
 							if(!data[0]) {
 								$("#error_text").html(data[1][0]);
 								$("#error_msg").show();
 								$("#msg").hide();
-							}else {
+							} else {
 								window.location.href = "main.html?id=" + data[1][1] + "";
 							}
 						});
@@ -141,11 +147,12 @@
 					$("#msg").hide();
 				}
 			}
+
 			/*
 			 * shows logout message if the user have already logged in before being directed to index.html
 			 */
-			$(document).ready(function(){
-				if(QueryString.msg !== undefined){
+			$(document).ready(function() {
+				if(QueryString.msg !== undefined) {
 					$("#msg_text").html(unescape(QueryString.msg));
 					$("#msg").show();
 				}
@@ -169,10 +176,10 @@
 			</div>
 			<div class='input_wrapper'>
 				<label class='login_label' for="login_pass">Password</label>
-				<input class='login_field' type="text" name="login_pass" value="" id="login_pass"/>
+				<input class='login_field' type="password" name="login_pass" value="" id="login_pass"/>
 			</div>
 			<div id='submit_button'>
-				<input type='button' value='Login' onclick='login($("#login_user").val(),$("#login_pass").val())'/>
+				<input type='button' value='Login' id='login_button'onclick='login($("#login_user").val(),$("#login_pass").val())'/>
 			</div>
 		</div>
 	</body>
