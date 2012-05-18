@@ -360,7 +360,7 @@
 			5 : finalObs.text					//comments
 		};
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
-			$(".selectedName").each(function(){
+			$(".selectedName").each(function() {
 				finalObs.stid = $(this).attr("id");
 			})
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
@@ -369,7 +369,7 @@
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
-					$("#dialog").dialog("close");
+					$("#dialog").dialog('close');
 				}
 			});
 		}
