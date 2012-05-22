@@ -336,9 +336,9 @@
 	var finalObs = {}; //final result of save method
 	function save(id) {
 		dateInField = $("#observation_dateField").val();
-		finalObs.stid = $(".selectedName").attr("id");
-		finalObs.expectation = $(".selectedExp").attr("id");
-		finalObs.date = new Date($("#observation_dateField").val());
+		finalObs.stid = $(".selectedName").attr("id"); 
+		finalObs.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalObs.date = new Date($("#observation_dateField").val()); //get date object from date field
 		finalObs.timestamp = finalObs.date / 1000;
 		
 		//find element with class down in the relevant div and store text and/or index in object
@@ -348,12 +348,13 @@
 		finalObs.workTypeId = $("#workButtonGroup").find(".down").index();
 		finalObs.level = $("#level_button_group").find(".down").index();
 		
+		//insert keys based on activity and work type
 		finalObs.text = '<key type="work" type_id="' + finalObs.workTypeId + '">' + finalObs.workType + '</key> ';
 		finalObs.text += '<key type="ac" type_id="' + finalObs.activityId + '">' + finalObs.activity + '</key> ';
 		finalObs.text += $.trim($("#comments_area").val());
-		if(finalObs.expectation.indexOf("lrn_") != -1) {
-			finalObs.flag = 1;
-			finalObs.expectation = finalObs.expectation.substr(4);
+		if(finalObs.expectation.indexOf("lrn_") != -1) { //if there is lrn_ in the expectation id
+			finalObs.flag = 1; //lrn means learning skill, so the learning skill flag is on
+			finalObs.expectation = finalObs.expectation.substr(4); //but lrn_ isn't actually part of the id
 		} else
 			finalObs.flag = 0;
 		params.fcn = "updateRecord";
@@ -366,16 +367,16 @@
 			5 : finalObs.text //comments
 		};
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
-			$(".selectedName").each(function(){
+			$(".selectedName").each(function(){ //loop through each name selected
 				finalObs.stid = $(this).attr("id");
 			})
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-				if(!data[0]) {
+				if(!data[0]) {//standard data transfer and error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
-					$("#dialog").dialog("close");
+					$("#dialog").dialog("close"); //close the box when they hit submit
 				}
 			});
 		}

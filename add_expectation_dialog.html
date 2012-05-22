@@ -107,7 +107,7 @@
 		})
 		var add_expectations = {};
 		var add_expectations_deleted = {};
-		var expectations = {};
+		var expectations = {}; //result of getExpectations()
 
 		function add_buildexpectations(id) {
 			for(expectation in add_expectations) {
@@ -117,19 +117,19 @@
 			}
 		}
 		
-		function getExpectations(id) {
+		function getExpectations(id) { //begin function
 			params.fcn = 'selectExpectationsByCourse';
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-				if(!data[0]) {
+				if(!data[0]) { //standard error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
 					for(i in data[1]) {
-						expectations[data[1][i][0]] = data[1][i][1];
+						expectations[data[1][i][0]] = data[1][i][1]; //parameter name is number, parameter value is name
 					}
 					add_expectations = expectations;
-					for(expectation in add_expectations) {
+					for(expectation in add_expectations) { //add expectation options to menu in HTML
 						if(!( expectation in expectationsAdded)) {
 							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
 						}
@@ -144,7 +144,7 @@
 				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 			});
 		})
-		$(document).ready(function() {
+		$(document).ready(function() { //call getExpectations when the page loads
 			getExpectations("add_expectation_list");
 		})
 		/*
