@@ -146,14 +146,19 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
-				for(i in data[1]) {
-					var jInt = parseInt(data[1][i][0]);
-					var j = eval("\'" + jInt + "\'");
-					var name = data[1][i][1] + " " + data[1][i][2];
-					students[j] = name;
-				}
-				for(student in students) {
-					$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");
+				data[1].sort(function(a, b) {
+					if(a[1] + a[2] < b[1] + b[2])
+						return -1;
+					if(a[1] + a[2] > b[1] + b[2])
+						return 1;
+					return 0;
+				})
+				data = data[1];
+				for(student in data) {
+					var std_id = parseInt(data[student][0]);
+					var name = data[student][1] + " " + data[student][2];
+					students[std_id] = name;
+					$("#" + id).append("<option class = 'std_opt'id='" + std_id + "'>" + name + "</option>");
 				}
 			}
 		});
@@ -173,4 +178,5 @@
 	$(document).ready(function() {
 		buildStudents("student_list");
 	})
+</script>
 </script>
