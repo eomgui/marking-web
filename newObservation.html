@@ -370,14 +370,13 @@
 						$("#error_msg").show();
 						$("#msg").hide();
 					} else {
-					if($("#shouldTry").attr("try_id") !== undefined) {
-						$("#new_entryMenu").load("getRecords.html");
-					}
 						$("#dialog").dialog('close');
 					}
 				});
-
 			});
+			if($("#shouldTry").attr("try_id") !== undefined) {
+				$("#new_entryMenu").load("getRecords.html");
+			}
 		}
 	}
 </script>
