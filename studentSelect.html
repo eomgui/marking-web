@@ -133,12 +133,12 @@
 	 * get student list
 	 */
 	function buildStudents(id) {
-		students = {};
-		$("#" + id).html("");
-		params = {};
-		params.fcn = 'selectStudentsByCourse';
+		students = {}; //final object result
+		$("#" + id).html(""); //delete existing contents of student list box
+		params = {}; //clear parameters
+		params.fcn = 'selectStudentsByCourse'; //fcn name
 		params.params = {
-			course : $("#menu_visible_class").attr("class_id")
+			course : $("#menu_visible_class").attr("class_id") //get course id from menu
 		};
 		jQuery.getJSON(IP + "/mark/model/student-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
@@ -147,10 +147,8 @@
 				$("#msg").hide();
 			} else {
 				for(i in data[1]) {
-					var jInt = parseInt(data[1][i][0]);
-					var j = eval("\'" + jInt + "\'");
-					var name = data[1][i][1] + " " + data[1][i][2];
-					students[j] = name;
+					var name = data[1][i][1] + " " + data[1][i][2]; //assemble full name
+					students[data[1][i][0]] = name; //param name is student id, param value is student name
 				}
 				for(student in students) {
 					$("#" + id).append("<option class = 'std_opt'id='" + student + "'>" + students[student] + "</option>");

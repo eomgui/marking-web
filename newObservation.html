@@ -330,31 +330,33 @@
 	var finalObs = {};
 	//final result of save method
 	function save() {
-		dateInField = $("#observation_dateField").val();
-		finalObs.stid = $(".selectedName").attr("id");
-		finalObs.expectation = $(".selectedExp").attr("id");
-		finalObs.date = new Date($("#observation_dateField").val());
+		dateInField = $("#observation_dateField").val(); //get from field
+		finalObs.stid = $(".selectedName").attr("id"); //get from field
+		finalObs.expectation = $(".selectedExp").attr("id"); //get from field
+		finalObs.date = new Date(dateInField); //get from field
 		finalObs.timestamp = finalObs.date / 1000;
+		
+		//find element with class down in the relevant div and store text or index in object
 		finalObs.activity = $("#actityTypeContainer").find(".down").text();
 		finalObs.activityId = $("#actityTypeContainer").find(".down").index();
-		//find element with class down
 		finalObs.workType = $("#workTypeContainer").find(".down").text();
 		finalObs.workTypeId = $("#workTypeContainer").find(".down").index();
-
-		//in the relevant div and store
 		finalObs.level = $("#level_button_group").find(".down").index();
-		//text or index in object
+		
+		//add keys to comments
 		finalObs.text = '<key type="work" type_id="' + finalObs.workTypeId + '">' + finalObs.workType + '</key> ';
 		finalObs.text += '<key type="ac" type_id="' + finalObs.activityId + '">' + finalObs.activity + '</key> ';
 		finalObs.text += $.trim($("#comments_area").val());
+		
+		//check expectation vs learning skill
 		if(finalObs.expectation.indexOf("lrn_") != -1) {
 			finalObs.flag = 1;
 			finalObs.expectation = finalObs.expectation.substr(4);
 		} else
 			finalObs.flag = 0;
-		params.fcn = "addObservation";
+			
+		params.fcn = "addObservation"; //fcn name
 		params.params = {
-			a : finalObs.stid, //student ID
 			b : finalObs.timestamp, //date
 			c : finalObs.flag, //0 = expectation, 1 = learning skill
 			d : finalObs.expectation, //expectation/learning skill ID
@@ -362,8 +364,8 @@
 			f : finalObs.text //comments
 		};
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
-			$(".selectedName").each(function() {
-				params.params.a = $(this).attr("id");
+			$(".selectedName").each(function() {//check all fields and cycle through students
+				params.params.a = $(this).attr("id");//set student ID
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(!data[0]) {
 						$("#error_text").html(data[1][0]);
