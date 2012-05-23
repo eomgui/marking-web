@@ -323,22 +323,22 @@
 	var finalConv = {}; //final result of save method
 	function save(id)
 	{
-		finalConv.stid = $(".selectedName").attr("id");
-		finalConv.date = new Date($("#observation_dateField").val());
-		finalConv.timestamp = finalConv.date / 1000;
-		finalConv.expectation = $(".selectedExp").attr("id");
-		finalConv.level = $("#level_button_group").find(".down").index();
-		finalConv.text = $("#comments_area").val();
-		console.log(finalConv.date.valueOf());
+		finalConv.stid = $(".selectedName").attr("id"); //get student id from field
+		finalConv.date = new Date($("#observation_dateField").val()); //get date object from date field
+		finalConv.timestamp = finalConv.date / 1000; 
+		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalConv.level = $("#level_button_group").find(".down").index(); //get level from button index (0 is the first button, etc)
+		finalConv.text = $("#comments_area").val(); //get text from comments area value
+		console.log(finalConv.date.valueOf()); //testing
 		console.log(finalConv.timestamp);
-		if(finalConv.expectation.indexOf("lrn_") != -1)
+		if(finalConv.expectation.indexOf("lrn_") != -1) //if there is lrn_ in the expectation id
 		{
-			finalConv.flag = 1;
-			finalConv.expectation = finalConv.expectation.substr(4);
+			finalConv.flag = 1; //lrn means learning skill, so the learning skill flag is on
+			finalConv.expectation = finalConv.expectation.substr(4); //but lrn_ isn't actually part of the id
 		}
 		else finalConv.flag = 0;
 		
-		params.fcn = "updateRecord";
+		params.fcn = "updateRecord"; 
 		params.params = {
 			0 : id			,					//record ID
 			1 : finalConv.timestamp,			//date

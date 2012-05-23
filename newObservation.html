@@ -352,25 +352,25 @@
 			finalObs.flag = 0;
 		params.fcn = "addObservation";
 		params.params = {
-			0 : finalObs.stid, //student ID
-			1 : finalObs.timestamp, //date
-			2 : finalObs.flag, //0 = expectation, 1 = learning skill
-			3 : finalObs.expectation, //expectation/learning skill ID
-			4 : finalObs.level, //level
-			5 : finalObs.text //comments
+			a : finalObs.stid, //student ID
+			b : finalObs.timestamp, //date
+			c : finalObs.flag, //0 = expectation, 1 = learning skill
+			d : finalObs.expectation, //expectation/learning skill ID
+			e : finalObs.level, //level
+			f : finalObs.text //comments
 		};
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
 			$(".selectedName").each(function() {
-				finalObs.stid = $(this).attr("id");
-			})
-			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-				if(!data[0]) {
-					$("#error_text").html(data[1][0]);
-					$("#error_msg").show();
-					$("#msg").hide();
-				} else {
-					$("#dialog").dialog('close');
-				}
+				params.params.a = $(this).attr("id");
+				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+					if(!data[0]) {
+						$("#error_text").html(data[1][0]);
+						$("#error_msg").show();
+						$("#msg").hide();
+					} else {
+						$("#dialog").dialog('close');
+					}
+				});
 			});
 		}
 	}
