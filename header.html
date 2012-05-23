@@ -40,7 +40,7 @@
 </ul>
 <ul class="pureCssMenu pureCssMenum" id ='right_header'>
 	<li class="pureCssMenui0" id='right'>
-		<a class = 'currentClassBar'>Settings</a>
+		<a id='settings' class = 'currentClassBar'>Settings</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
 		<a id='help' class = 'currentClassBar'>Help</a>
@@ -55,8 +55,6 @@
 	/*
 	 * when the header is done loading, loads the classes the current user is teaching
 	 */
-	
-
 
 	$("a[class_button='true']").live('click', function() {
 		$("#menu_visible_class,#title_class_name").html($(this).html());
@@ -68,6 +66,14 @@
 	 */
 	$("#help").click(function() {
 		$("#dialog").load("help.html");
+		$("#dialog").dialog({
+			modal : true,
+			height : "auto",
+			width : "auto"
+		});
+	})
+	$("#settings").click(function() {
+		$("#dialog").load("settings.html");
 		$("#dialog").dialog({
 			modal : true,
 			height : "auto",
