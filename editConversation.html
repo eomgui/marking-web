@@ -55,7 +55,7 @@
 	}
 	#expButton {
 		margin-top: -2px;
-		margin-left:26px;
+		margin-left: 26px;
 	}
 	#expList {
 		clear: both;
@@ -80,8 +80,8 @@
 		width: 100%;
 		color: rgb(51,51,51);
 		padding: 3px;
-		border-style:solid;
-		border-width:1px;
+		border-style: solid;
+		border-width: 1px;
 		border-color: rgb(198,141,195);
 	}
 	#expectation {
@@ -163,8 +163,8 @@
 		font-size: 13px !important;
 		padding-left: 3px;
 		color: rgb(102,102,102);
-		border-style:solid;
-		border-width:1px;
+		border-style: solid;
+		border-width: 1px;
 		border-color: rgb(198,141,195);
 	}
 	#date_header {
@@ -189,7 +189,7 @@
 					<img id='calendar_show' src = 'css/images/calender_icon.png' width='18' height='15'/>
 				</div>
 			</div>
-			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
+			<span class='button_header'>Students Applied:</span>
 			<div id='selectedNames'></div>
 			<div id='expectation'>
 				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span id='expButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='expLink' class='button_link'href='#'>Select</a></span>
@@ -245,27 +245,13 @@
 		$("#observation_dateField").datepicker("show");
 	})
 	/*
-	 * when stdLink button is pressed, the add_studentDialog is loaded
-	 */
-	$("#stdLink").click(function(e) {
-		$("#add_container").load('add_studentsDialog.html?int=' + Math.random());
-		$("#add_container").dialog({
-			resizable : false,
-			close : function(ev, ui) {
-				$(this).html("");
-			},
-			position : [e.pageX, e.pageY]
-		});
-	});
-	/*
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
 	$("#expLink").click(function(e) {
-		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random(), function() {
-			//$("#add_container").children().find('#students');
-		});
+		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
+			modal : true,
 			close : function(ev, ui) {
 				$(this).html("");
 			},
@@ -276,6 +262,7 @@
 	/*
 	 * obtains length of the user comment and compare it to the character limit
 	 *
+	 * if the length of user comment exceeds the limit,
 	 * if the length of user comment exceeds the limit,
 	 * only the first 500 characters of the user comment will be shown
 	 */
@@ -319,10 +306,9 @@
 			$(this).parent().parent().remove();
 		}
 	})
-	
-	var finalConv = {}; //final result of save method
-	function save(id)
-	{
+	var finalConv = {};
+	//final result of save method
+	function save(id) {
 		finalConv.stid = $(".selectedName").attr("id"); //get student id from field
 		finalConv.date = new Date($("#observation_dateField").val()); //get date object from date field
 		finalConv.timestamp = finalConv.date / 1000; 
@@ -335,26 +321,27 @@
 		{
 			finalConv.flag = 1; //lrn means learning skill, so the learning skill flag is on
 			finalConv.expectation = finalConv.expectation.substr(4); //but lrn_ isn't actually part of the id
-		}
-		else finalConv.flag = 0;
-		
+		} else
+			finalConv.flag = 0;
+
 		params.fcn = "updateRecord"; 
 		params.params = {
-			0 : id			,					//record ID
-			1 : finalConv.timestamp,			//date
-			2 : finalConv.flag,					//0 = expectation, 1 = learning skill
-			3 : finalConv.expectation,			//expectation/learning skill ID
-			4 : finalConv.level,				//level
+			0 : id, //record ID
+			1 : finalConv.timestamp, //date
+			2 : finalConv.flag, //0 = expectation, 1 = learning skill
+			3 : finalConv.expectation, //expectation/learning skill ID
+			4 : finalConv.level, //level
 			5 : finalConv.text					//comments
 		};
-		
-		jQuery.getJSON(IP+"/mark/model/communications-model.php?callback=?", params, function(data) {
+
+		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 			if(!data[0]) {
 				$("#error_text").html(data[1][0]);
 				$("#error_msg").show();
 				$("#msg").hide();
-			}else {
-				//close new observation window?
+			} else {
+				$("#dialog").dialog("close");
+				$("#new_entryMenu").load("getRecords.html");
 			}
 		});
 	}
