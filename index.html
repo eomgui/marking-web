@@ -93,7 +93,7 @@
 			$(document).ready(function() {
 				$("#login_pass, #login_user").keyup(function(event) {
 					if(event.keyCode == 13) {
-						$("#login_button").click();
+						$("#login_button").click(); //Starts the entire function
 					}
 				});
 			})
@@ -106,7 +106,7 @@
 			 */
 			function login(user, pass) {
 				/*
-				 * checks if username has exactly 5 character
+				 * checks if username has at least 5 characters
 				 *
 				 * if so, checks if username begins with 'c'
 				 * if not, error message will be displayed
@@ -118,14 +118,14 @@
 					 * if so, user will be directed to main.html
 					 * if not, error message will be displayed
 					 */
-					if(user.charAt(0).toString().toUpperCase() == 'C') {
+					if(user.charAt(0).toString().toUpperCase() == 'C') { //Checks if the username entered starts with C
 						user = parseInt(user.slice(1));
 						$("#error_msg").hide();
 						params = {};
-						params.fcn = 'login';
+						params.fcn = 'login'; 
 						params.params = {
 							user : user,
-							pass : pass
+							pass : pass //Login Function
 						}
 						jQuery.getJSON(IP + "/mark/model/staff-model.php?callback=?", params, function(data) {
 							if(!data[0]) {
@@ -137,12 +137,12 @@
 							}
 						});
 					} else {
-						$("#error_text").html("Username must start with C");
+						$("#error_text").html("Username must start with C"); //Displays error message if the username does not start with C
 						$("#error_msg").show();
 						$("#msg").hide();
 					}
 				} else {
-					$("#error_text").html("Username must have 6 characters or more");
+					$("#error_text").html("Username must have 6 characters or more"); //Displays error message if username is less than six characters
 					$("#error_msg").show();
 					$("#msg").hide();
 				}

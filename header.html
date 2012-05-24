@@ -75,9 +75,9 @@
 		});
 	})
 	function logout() {
-		params = {};
-		params.fcn = 'logout';
-		params.params = {};
+		params = {}; //reset parameters
+		params.fcn = 'logout'; //function name
+		params.params = {}; //no params for logout function
 		jQuery.getJSON(IP + "/mark/model/staff-model.php?callback=?", params, function(data) {
 			if(data[0])
 				window.location.href = "index.html?msg=" + data[1] + "";

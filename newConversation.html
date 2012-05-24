@@ -320,24 +320,22 @@
 	var finalConv = {};
 	//final result of save method
 	function save() {
-		dateInField = $("#conversation_dateField").val();
-		finalConv.stid = $(".selectedName").attr("id");
-		finalConv.date = new Date($("#conversation_dateField").val());
+		dateInField = $("#conversation_dateField").val(); //get date from field
+		finalConv.date = new Date(dateInField); //date object
 		finalConv.timestamp = finalConv.date / 1000;
-		finalConv.expectation = $(".selectedExp").attr("id");
-		finalConv.level = $("#level_button_group").find(".down").index();
-		finalConv.text = $.trim($("#comments_area").val())
+		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalConv.level = $("#level_button_group").find(".down").index(); //get level from field index
+		finalConv.text = $.trim($("#comments_area").val()); //get text from field
 		console.log(finalConv.date.valueOf());
 		console.log(finalConv.timestamp);
-		if(finalConv.expectation.indexOf("lrn_") != -1) {
+		if(finalConv.expectation.indexOf("lrn_") != -1) { //check if it's an expectation or learning skill
 			finalConv.flag = 1;
 			finalConv.expectation = finalConv.expectation.substr(4);
 		} else
 			finalConv.flag = 0;
 
-		params.fcn = "addConversation";
+		params.fcn = "addConversation"; //fcn name
 		params.params = {
-			a : finalConv.stid, //student ID
 			b : finalConv.timestamp, //date
 			c : finalConv.flag, //0 = expectation, 1 = learning skill
 			d : finalConv.expectation, //expectation/learning skill ID
@@ -346,8 +344,8 @@
 		};
 
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
-			$(".selectedName").each(function() {
-				params.params.a = $(this).attr("id");
+			$(".selectedName").each(function() { //check every field, loop through each student
+				params.params.a = $(this).attr("id"); //get student id from field
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(!data[0]) {
 						$("#error_text").html(data[1][0]);
@@ -357,7 +355,7 @@
 						if($("#shouldTry").attr("try_id") !== undefined) {
 							$("#new_entryMenu").load("getRecords.html");
 						}
-						$("#dialog").dialog('close');
+						$("#dialog").dialog('close'); //close dialog upon submit
 					}
 				});
 			});
