@@ -1,5 +1,5 @@
-var IP = "http://10.178.30.78";
-//var IP = "http://192.168.192.35";
+//var IP = "http://10.178.30.78";
+var IP = "http://192.168.192.35";
 function str(str) {
 	return JSON.stringify(str);
 }

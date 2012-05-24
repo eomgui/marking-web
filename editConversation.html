@@ -21,7 +21,8 @@
 	}
 	.span_button > img {
 		margin-right: 5px;
-	}	#newObs_title_wrap {
+	}
+	#newObs_title_wrap {
 		margin-bottom: 13px;
 	}
 	span.button_header {
@@ -59,13 +60,15 @@
 	#expList {
 		clear: both;
 		font-size: 13px;
-	}	.selectedExp {
+	}
+	.selectedExp {
 		margin-bottom: 10px;
 	}
 	#level_type {
 		clear: both;
 		font-size: 17px;
-	}	#comments {
+	}
+	#comments {
 		width: 100%;
 		clear: both;
 		padding-bottom: 10px;
@@ -80,7 +83,8 @@
 		border-style: solid;
 		border-width: 1px;
 		border-color: rgb(198,141,195);
-	}	#expectation {
+	}
+	#expectation {
 		margin-top: 20px;
 	}
 	#level_type {
@@ -91,7 +95,8 @@
 		float: left;
 		font-size: 17px;
 		display: inline;
-	}	#record_types {
+	}
+	#record_types {
 		float: left;
 		margin-top: 10px;
 		margin-bottom: 20px;
@@ -106,7 +111,8 @@
 	}
 	#submit {
 		text-align: center;
-	}	#newObs_mainEntry {
+	}
+	#newObs_mainEntry {
 		margin-left: 30px;
 	}
 	#remainingChars {
@@ -126,7 +132,7 @@
 		margin-top: 66px;
 	}
 	#level_button_group {
-		margin-left: 66px;
+		margin-left: 30px;
 	}
 	#actityTypeContainer {
 		margin-top: 18px;
@@ -141,17 +147,19 @@
 	}
 	#addObsButton:hover {
 		cursor: pointer;
-	}	.span_button {
+	}
+	.span_button {
 		margin-top: -7px;
-	}	#observation_date {
+	}
+	#observation_date {
 		float: left;
-	}	#full_wrapper {
+	}
+	#full_wrapper {
 		width: 100%;
 		height: 30px;
 		margin-bottom: 15px;
 	}
 	#observation_dateField {
-		margin-top: 6px;
 		font-size: 13px !important;
 		padding-left: 3px;
 		color: rgb(102,102,102);
@@ -161,15 +169,17 @@
 	}
 	#date_header {
 		margin-top: 8px;
-	}	#obs_console {
-		color: red;
-	}
+	}
+	#calendar_show {
+		margin-top: 6px;
+	}
+
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
 <div id='newObs_container'>
 	<div id='newObs_mainEntry'>
-		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/observation_icon.png' width='28' height='25'/><h1 id='newObs_title'style='display:inline'>Record New Observation</h1>
+		<div id='newObs_title_wrap'><img id='newObs_img'src ='css/images/conversation_icon.png' width='25' height='25'/><h1 id='newObs_title'style='display:inline'>Edit Conversation</h1>
 		</div>
 		<div id='scrolling_area'>
 			<div id='full_wrapper'>
@@ -179,28 +189,11 @@
 					<img id='calendar_show' src = 'css/images/calender_icon.png' width='18' height='15'/>
 				</div>
 			</div>
-			<span class='button_header'>Students Applied:</span><span id='stdButton'class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='stdLink' class='button_link'href='#'>Add</a></span>
+			<span class='button_header'>Students Applied:</span>
 			<div id='selectedNames'></div>
 			<div id='expectation'>
 				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span id='expButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='expLink' class='button_link'href='#'>Select</a></span>
 				<ul id='expList'></ul>
-			</div>
-			<div id='record_types'>
-				<div class='activity_types' id='actityTypeContainer'>
-					<span class='button_header' id='activityTypeLabel'>Activity Type</span>
-					<div class='button_group' style='display:inline; float:left'>
-						<a class='up toggle_button' buttongroup = '2' grouptype_id='0'>Demonstrate</a>
-						<a class='up toggle_button' buttongroup = '2' grouptype_id='1'>Explain</a>
-					</div>
-				</div>
-				<div class='activity_types' id = 'workTypeContainer'>
-					<span class='button_header' id='workTypeLabel'>Work Type</span>
-					<div class='button_group' style='display:inline; float:left'>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='0'>Individual</a>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='1'>Group</a>
-						<a class='up toggle_button' buttongroup = '0' grouptype_id='2'>Class</a>
-					</div>
-				</div>
 			</div>
 			<div id='level_type'>
 				<span class='button_header' id='levelTypeHeader'>Level</span>
@@ -220,10 +213,9 @@
 			</div>
 		</div>
 		<div id='submit'>
-			<input type="button" value='submit' id="addObsButton" onclick="save()"/>
+			<input type="button" value='submit' id="addObsButton"/>
 		</div>
 	</div>
-	<div id='obs_console'></div>
 </div>
 <script type="text/javascript" charset="utf-8">
 	var charLimit = 500;
@@ -253,20 +245,6 @@
 		$("#observation_dateField").datepicker("show");
 	})
 	/*
-	 * when stdLink button is pressed, the add_studentDialog is loaded
-	 */
-	$("#stdLink").click(function(e) {
-		$("#add_container").load('add_studentsDialog.html?int=' + Math.random());
-		$("#add_container").dialog({
-			resizable : false,
-			modal : true,
-			close : function(ev, ui) {
-				$(this).html("");
-			},
-			position : [e.pageX, e.pageY]
-		});
-	});
-	/*
 	 * when expLink button is pressed, the add_expectation_dialog is loaded
 	 */
 	$("#expLink").click(function(e) {
@@ -284,6 +262,7 @@
 	/*
 	 * obtains length of the user comment and compare it to the character limit
 	 *
+	 * if the length of user comment exceeds the limit,
 	 * if the length of user comment exceeds the limit,
 	 * only the first 500 characters of the user comment will be shown
 	 */
@@ -326,60 +305,47 @@
 			delete expectationsAdded[$(this).parent().attr('id')];
 			$(this).parent().parent().remove();
 		}
-	});
-	var finalObs = {};
+	})
+	var finalConv = {};
 	//final result of save method
-	function save() {
-		dateInField = $("#observation_dateField").val(); //get from field
-		finalObs.stid = $(".selectedName").attr("id"); //get from field
-		finalObs.expectation = $(".selectedExp").attr("id"); //get from field
-		finalObs.date = new Date(dateInField); //get from field
-		finalObs.timestamp = finalObs.date / 1000;
-		finalObs.stid = $(".selectedName").attr("id"); // tmp std check
-		
-		//find element with class down in the relevant div and store text or index in object
-		finalObs.activity = $("#actityTypeContainer").find(".down").text();
-		finalObs.activityId = $("#actityTypeContainer").find(".down").index();
-		finalObs.workType = $("#workTypeContainer").find(".down").text();
-		finalObs.workTypeId = $("#workTypeContainer").find(".down").index();
-		finalObs.level = $("#level_button_group").find(".down").index();
-		
-		//add keys to comments
-		finalObs.text = '<key type="work" type_id="' + finalObs.workTypeId + '">' + finalObs.workType + '</key> ';
-		finalObs.text += '<key type="ac" type_id="' + finalObs.activityId + '">' + finalObs.activity + '</key> ';
-		finalObs.text += $.trim($("#comments_area").val());
-		
-		//check expectation vs learning skill
-		if(finalObs.expectation.indexOf("lrn_") != -1) {
-			finalObs.flag = 1;
-			finalObs.expectation = finalObs.expectation.substr(4);
+	function save(id) {
+		dateInField = $("#observation_dateField").val(); //get date from field
+		finalConv.stid = $(".selectedName").attr("id"); //get student id from field
+		finalConv.date = new Date(dateInField); //get date object from date field
+		finalConv.timestamp = finalConv.date / 1000;
+		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalConv.level = $("#level_button_group").find(".down").index(); //get level from button index (0 is the first button, etc)
+		finalConv.text = $("#comments_area").val(); //get text from comments area value
+		if(finalConv.expectation.indexOf("lrn_") != -1)//if there is lrn_ in the expectation id
+		{
+			finalConv.flag = 1;
+			//lrn means learning skill, so the learning skill flag is on
+			finalConv.expectation = finalConv.expectation.substr(4);
+			//but lrn_ isn't actually part of the id
 		} else
-			finalObs.flag = 0;
-			
-		params.fcn = "addObservation"; //fcn name
+			finalConv.flag = 0;
+
+		params.fcn = "updateRecord";
 		params.params = {
-			1 : finalObs.timestamp, //date
-			2 : finalObs.flag, //0 = expectation, 1 = learning skill
-			3 : finalObs.expectation, //expectation/learning skill ID
-			4 : finalObs.level, //level
-			5 : finalObs.text //comments
+			0 : id, //record ID
+			1 : finalConv.timestamp, //date
+			2 : finalConv.flag, //0 = expectation, 1 = learning skill
+			3 : finalConv.expectation, //expectation/learning skill ID
+			4 : finalConv.level, //level
+			5 : finalConv.text					//comments
 		};
-		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
-			$(".selectedName").each(function() {//check all fields and cycle through students
-				params.params[0] = $(this).attr("id");//set student ID
-				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-					if(!data[0]) {
-						$("#error_text").html(data[1][0]);
-						$("#error_msg").show();
-						$("#msg").hide();
-					} else {
-						$("#dialog").dialog('close');
-					}
-				});
+		console.log(params);
+		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
+			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
+				if(!data[0]) {//standard data transfer and error display
+					$("#error_text").html(data[1][0]);
+					$("#error_msg").show();
+					$("#msg").hide();
+				} else {
+					$("#dialog").dialog("close"); //close the box when they hit submit
+					$("#new_entryMenu").load("getRecords.html");
+				}
 			});
-			if($("#shouldTry").attr("try_id") !== undefined) {
-				$("#new_entryMenu").load("getRecords.html");
-			}
 		}
 	}
 </script>

@@ -326,8 +326,7 @@
 		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
 		finalConv.level = $("#level_button_group").find(".down").index(); //get level from field index
 		finalConv.text = $.trim($("#comments_area").val()); //get text from field
-		console.log(finalConv.date.valueOf());
-		console.log(finalConv.timestamp);
+		finalConv.stid = $(".selectedName").attr("id"); // tmp std check
 		if(finalConv.expectation.indexOf("lrn_") != -1) { //check if it's an expectation or learning skill
 			finalConv.flag = 1;
 			finalConv.expectation = finalConv.expectation.substr(4);
@@ -336,16 +335,16 @@
 
 		params.fcn = "addConversation"; //fcn name
 		params.params = {
-			b : finalConv.timestamp, //date
-			c : finalConv.flag, //0 = expectation, 1 = learning skill
-			d : finalConv.expectation, //expectation/learning skill ID
-			e : finalConv.level, //level
-			f : finalConv.text //comments
+			1 : finalConv.timestamp, //date
+			2 : finalConv.flag, //0 = expectation, 1 = learning skill
+			3 : finalConv.expectation, //expectation/learning skill ID
+			4 : finalConv.level, //level
+			5 : finalConv.text //comments
 		};
 
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
 			$(".selectedName").each(function() { //check every field, loop through each student
-				params.params.a = $(this).attr("id"); //get student id from field
+				params.params[0] = $(this).attr("id"); //get student id from field
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(!data[0]) {
 						$("#error_text").html(data[1][0]);

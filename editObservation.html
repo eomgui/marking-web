@@ -355,9 +355,6 @@
 			5 : finalObs.text //comments
 		};
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
-			$(".selectedName").each(function(){ //loop through each name selected
-				finalObs.stid = $(this).attr("id");
-			})
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 				if(!data[0]) {//standard data transfer and error display
 					$("#error_text").html(data[1][0]);
