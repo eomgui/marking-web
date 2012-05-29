@@ -16,20 +16,23 @@
 		color: rgb(51,51,51);
 	}
 	#students {
-		float: left;
+		clear: both;
 		margin-right: 30px;
 		margin-left: 70px;
 		display: inline-block;
-		width: 15%;
 	}
 	.std_title {
+		width: 80%;
 		margin: 7px 0px;
+		padding-left: 70px;
 		font-size: 125%;
 		font-weight: normal;
 	}
 	#student_wrapper {
+		position: absolute;
 		border-style: solid;
 		border-width: 1px;
+		height: 100%;
 		border-color: rgb(198,141,195);
 	}
 	#search_icon {
@@ -51,40 +54,36 @@
 	#icon_container {
 		width: 10%;
 		display: inline;
-	}	#studentSelect_div {
-		width: 100%;
-		height: 80%;
-		border-top-style: solid;
-		border-width: 1px;
-		border-color: rgb(198,141,195);
 	}
 	.student_select_name {
 		width: 95%;
-		margin:3px 8px;
+		margin: 3px 8px;
 		background-color: white;
 		height: 18px;
-		font-size:13px;
-		color:rgb(51,51,51) !important;
-		
-	}
-	#student_select_a{
-		text-decoration: none;
+		font-size: 13px;
+		color: rgb(51,51,51) !important;
+	}	#studentSelect_div {
+		overflow-y: scroll;
+		position: relative;
+		width: 100%;
+		height: 100%;
+		border-top-style: solid;
+		border-width: 1px;
+		border-color: rgb(198,141,195);
 	}
 </style>
-<div id = "entry">
-	<div id = 'students'>
-		<h1 class='std_title'>Students</h1>
-		<div id='student_wrapper'>
-			<div id='search_header'>
-				<div id='icon_container'>
-					<img id='search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
-				</div>
-				<div id='search_container'>
-					<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
-				</div>
+<h1 class='std_title'>Students</h1>
+<div id = 'students'>
+	<div id='student_wrapper'>
+		<div id='search_header'>
+			<div id='icon_container'>
+				<img id='search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
 			</div>
-			<div id='studentSelect_div'></div>
+			<div id='search_container'>
+				<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+			</div>
 		</div>
+		<div id='studentSelect_div'></div>
 	</div>
 </div>
 <script type="text/javascript" charset="utf-8">
@@ -151,6 +150,7 @@
 	 * get student list
 	 */
 	function buildStudents(id) {
+		console.log("start");
 		students = {};
 		//final object result
 		$("#" + id).html("");
@@ -180,32 +180,27 @@
 					var std_id = parseInt(data[student][0]);
 					var name = data[student][1] + " " + data[student][2];
 					students[std_id] = name;
-					$("#" + id).append("<a id='student_select_a' href='#'><div class='student_select_name'>" + name + "</div></a>");
+					$("#" + id).append("<div id='"+std_id+"'class='student_select_name'>" + name + "</div>");
 				}
 			}
 		});
 	}
 
 	/*
-	 * when a student is selected, the user is directed to getRecords
-	 */
-	$("#student_list").change(function() {
-		$("#student_list option:selected").each(function() {
-			$("#new_entryMenu").load("getRecords.html");
-		});
-	})
-	
-	/*
 	 * when this page is done loading, loads the list of students
 	 */
 	$(document).ready(function() {
-		console.log("here")
 		buildStudents("studentSelect_div");
 	})
-	
-	$("#student_select_a").click(function() {
-		alert("aaa");
-		$("#content").load("getRecords.html");
+
+	$(".student_select_name").live('click',function() {
+		$(".student_select_name").each(function(){
+			$(this).css("background-color",'white');
+			$(this).attr("click","n");
+		})
+		$(this).css("background-color",'yellow');
+		$(this).attr("click","y");
+		$("#new_entryMenu").load("getRecords.html");
 	})
 </script>
 </script>

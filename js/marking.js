@@ -64,7 +64,7 @@ function selectClasses() {
 			selectedClass = $("#selectClasses_sem1").children().eq(0).children().eq(0).attr('id');
 			$("#menu_visible_class,#title_class_name").html($("#selectClasses_sem1").children().eq(0).children().eq(0).html());
 			$("#menu_visible_class").attr("class_id", selectedClass);
-			buildStudents("student_list");
+			buildStudents("studentSelect_div");
 		}
 	});
 }

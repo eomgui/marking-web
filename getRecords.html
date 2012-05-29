@@ -139,12 +139,20 @@
 	 * when the page is done loading, loads the selected student's name and the selected class
 	 */
 	$(document).ready(function() {
-		$("#student_list option:selected").each(function() {
-			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
+		$(".student_select_name").each(function() {
+			if($(this).attr("click") == "y") {
+				$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
+			}
 		});
 	});
 	function getCommunications() {
-		var stid = $("option.std_opt:selected").attr('id');
+		var stid = "";
+		$(".student_select_name").each(function() {
+			if($(this).attr("click") == "y") {
+				stid = $(this).attr('id');
+			}
+		});
+		console.log(stid);
 		//selected student id in the menu
 		params.fcn = 'selectAllCommunications';
 		//getting communications off server
@@ -157,6 +165,7 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
+				console.log(data);
 				data = data[1]
 				data.sort(function(a, b) {
 					return b[6] - a[6]
