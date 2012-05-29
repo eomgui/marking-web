@@ -3,6 +3,7 @@ body {
 	font-family: Tahoma, Geneva, sans-serif;
 	color:rgb(51,51,51);
 }
+html, body {height: 100%;}
 body {
 	margin: 0px;
 }
