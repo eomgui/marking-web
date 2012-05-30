@@ -16,7 +16,6 @@
 		color: rgb(51,51,51);
 	}
 	#students {
-		clear: both;
 		margin-right: 30px;
 		margin-left: 70px;
 		display: inline-block;
@@ -28,17 +27,13 @@
 		font-size: 125%;
 		font-weight: normal;
 	}
-	#student_wrapper {
-		position: absolute;
-		border-style: solid;
-		border-width: 1px;
-		height: 100%;
-		border-color: rgb(198,141,195);
-	}
 	#search_icon {
 		margin-left: 7px;
 	}	#search_header {
+		border-style: solid;
+		border-width: 1px;
 		width: 100%;
+		border-color: rgb(198,141,195);
 	}
 	#student_search_field {
 		border-style: solid;
@@ -63,89 +58,74 @@
 		font-size: 13px;
 		color: rgb(51,51,51) !important;
 	}	#studentSelect_div {
-		overflow-y: scroll;
-		position: relative;
 		width: 100%;
-		height: 100%;
 		border-top-style: solid;
 		border-width: 1px;
 		border-color: rgb(198,141,195);
+		border-top: 0px;
+	}	#master_std_wrapper {
+		overflow-y: scroll;
+		position: absolute;
+		border-style: solid;
+		border-width: 1px;
+		height: 100%;
+		width: 15%;
+		border-color: rgb(198,141,195);
+		border-top: 0px;
 	}
 </style>
 <h1 class='std_title'>Students</h1>
 <div id = 'students'>
-	<div id='student_wrapper'>
-		<div id='search_header'>
-			<div id='icon_container'>
-				<img id='search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
-			</div>
-			<div id='search_container'>
-				<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
-			</div>
+	<div id='search_header'>
+		<div id='icon_container'>
+			<img id='search_icon' src='css/images/search_icon.png' width='15' height='15' style='display:inline;'/>
 		</div>
+		<div id='search_container'>
+			<input type='text' id='student_search_field' value='Search' onblur = 'if(this.value==""){this.value="Search"}' onfocus = 'if(this.value==""){this.value="Search"}else if(this.value=="Search"){this.value=""}'/>
+		</div>
+	</div>
+	<div id ='master_std_wrapper'>
 		<div id='studentSelect_div'></div>
 	</div>
 </div>
 <script type="text/javascript" charset="utf-8">
 	/*
 	 * searches students' names that include the keyword typed in search field
-	 *
+	 *z
 	 * names that do not include the keyword will be removed from list
 	 */
 	$("#student_search_field").keyup(function() {
 		searchNames = $("#student_search_field").val().toString().toUpperCase().split(" ");
 		if(searchNames.length == 1) {
-			$("#student_list").children().each(function(iter) {
+			$("#studentSelect_div").children().each(function(iter) {
 				names = $(this).html().toString().toUpperCase()
 				if((names.indexOf(searchNames[0]) == -1)) {
-					students_deleted[$(this).attr('id')] = $(this).val();
-					$(this).remove();
+					$(this).hide();
+				} else {
+					$(this).show();
 				}
 			})
-			for(student in students_deleted) {
-				names = students_deleted[student].toUpperCase()
-				if((names.indexOf(searchNames[0]) != -1)) {
-					$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
-					delete students_deleted[student];
-				}
-			}
 		} else {
-			$("#student_list").children().each(function(iter) {
+			$("#studentSelect_div").children().each(function(iter) {
 				names = $(this).html().toString().toUpperCase().split(" ");
 				if(searchNames[1] !== undefined) {
 					if((names[0].indexOf(searchNames[0]) == -1) || (names[1].indexOf(searchNames[1]) == -1)) {
-						students_deleted[$(this).attr('id')] = $(this).val();
-						$(this).remove();
+						$(this).hide();
+					} else {
+						$(this).show()
 					}
 				} else {
 					if((names[0].indexOf(searchNames[0]) == -1)) {
 						students_deleted[$(this).attr('id')] = $(this).val();
-						$(this).remove();
+						$(this).hide();
+					} else {
+						$(this).show()
 					}
 				}
 			})
-			//if name was previously removed but can be searched with the new keyword, the name will be added back to list
-			for(student in students_deleted) {
-				names = students_deleted[student].toUpperCase().split(" ");
-				if(searchNames[1] !== undefined) {
-					if((names[0].indexOf(searchNames[0]) != -1) && (names[1].indexOf(searchNames[1]) != -1)) {
-						$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
-						delete students_deleted[student];
-					}
-				} else {
-					if((names[0].indexOf(searchNames[0]) != -1)) {
-						$("#student_list").append("<option class = 'std_opt' id='" + student + "'>" + students[student] + "</option>");
-						delete students_deleted[student];
-					}
-				}
-			}
 		}
 	})
-	var students = {
-		//0 : "test"
-	};
-
-	var students_deleted = {};
+	var students = {};
 	/*
 	 * get student list
 	 */
@@ -180,7 +160,7 @@
 					var std_id = parseInt(data[student][0]);
 					var name = data[student][1] + " " + data[student][2];
 					students[std_id] = name;
-					$("#" + id).append("<div id='"+std_id+"'class='student_select_name'>" + name + "</div>");
+					$("#" + id).append("<div id='" + std_id + "'class='student_select_name'>" + name + "</div>");
 				}
 			}
 		});
@@ -193,13 +173,13 @@
 		buildStudents("studentSelect_div");
 	})
 
-	$(".student_select_name").live('click',function() {
-		$(".student_select_name").each(function(){
-			$(this).css("background-color",'white');
-			$(this).attr("click","n");
+	$(".student_select_name").live('click', function() {
+		$(".student_select_name").each(function() {
+			$(this).css("background-color", 'white');
+			$(this).attr("click", "n");
 		})
-		$(this).css("background-color",'yellow');
-		$(this).attr("click","y");
+		$(this).css("background-color", 'yellow');
+		$(this).attr("click", "y");
 		$("#new_entryMenu").load("getRecords.html");
 	})
 </script>
