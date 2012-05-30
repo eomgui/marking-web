@@ -60,6 +60,7 @@
 	#expList {
 		clear: both;
 		font-size: 13px;
+		margin:0px;
 	}
 	.selectedExp {
 		margin-bottom: 10px;
@@ -67,6 +68,7 @@
 	#level_type {
 		clear: both;
 		font-size: 17px;
+		margin-top:18px;
 	}
 	#comments {
 		width: 100%;
@@ -173,6 +175,20 @@
 	#calendar_show {
 		margin-top: 6px;
 	}
+	#learningLabel{
+		margin-bottom: 5px;
+	}
+	#learningButton{
+		margin-top: -2px;
+		margin-left: 85px;
+	}
+	#learning{
+		margin-top:15px;
+	}
+	#learningList{
+		clear: both;
+		font-size: 13px;
+	}
 
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
@@ -194,6 +210,10 @@
 			<div id='expectation'>
 				<span class='button_header' id='expectationLabel'>Academic Expectation:</span><span id='expButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='expLink' class='button_link'href='#'>Select</a></span>
 				<ul id='expList'></ul>
+			</div>
+			<div id='learning'>
+				<span class='button_header' id='learningLabel'>Learning Skill:</span><span id='learningButton' class='span_button'><img src ='css/images/add_icon.png' width='11' width='11'/><a id='learningLink' class='button_link'href='#'>Select</a></span>
+				<ul id='learningList'></ul>
 			</div>
 			<div id='level_type'>
 				<span class='button_header' id='levelTypeHeader'>Level</span>
@@ -249,6 +269,17 @@
 	 */
 	$("#expLink").click(function(e) {
 		$("#add_container").load('add_expectation_dialog.html?int=' + Math.random());
+		$("#add_container").dialog({
+			resizable : false,
+			modal : true,
+			close : function(ev, ui) {
+				$(this).html("");
+			},
+			position : [e.pageX, e.pageY]
+		});
+	});
+	$("#learningLink").click(function(e) {
+		$("#add_container").load('add_learning_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
 			resizable : false,
 			modal : true,
