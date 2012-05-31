@@ -93,27 +93,27 @@
 		$("#add_expectation_search_field").keyup(function() {
 			$("#add_expectation_list").children().each(function(iter) {
 				if($(this).html().toString().toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) == -1) {
-					add_expectations_deleted[$(this).attr('id')] = $(this).val();
+					add_skills_deleted[$(this).attr('id')] = $(this).val();
 					$(this).remove();
 				}
 			})
 			//if expectation was previously removed but can be searched with the new keyword, the name will be added back to list
-			for(expectation in add_expectations_deleted) {
-				if((add_expectations_deleted[expectation].toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) != -1)) {
-					$("#add_expectation_list").append("<option class = 'add_std_opt' id='" + expectation + "'>" + expectations[expectation] + "</option>");
-					delete add_expectations_deleted[expectation];
+			for(expectation in add_skills_deleted) {
+				if((add_skills_deleted[expectation].toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) != -1)) {
+					$("#add_expectation_list").append("<option class = 'add_std_opt' id='" + expectation + "'>" + skills[expectation] + "</option>");
+					delete add_skills_deleted[expectation];
 				}
 			}
 		})
-		var add_expectations = {};
-		var add_expectations_deleted = {};
-		var expectations = {};
+		var add_skills = {};
+		var add_skills_deleted = {};
+		var skills = {};
 		//result of getExpectations()
 
 		function add_buildexpectations(id) {
-			for(expectation in add_expectations) {
-				if(!( expectation in expectationsAdded)) {
-					$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
+			for(expectation in add_skills) {
+				if(!( expectation in skillsAdded)) {
+					$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_skills[expectation] + "</option>");
 				}
 			}
 		}
@@ -127,15 +127,15 @@
 					$("#msg").hide();
 				} else {
 					for(i in data[1]) {
-						if(data[1][i][0].indexOf("lrn_") == -1) {
-							expectations[data[1][i][0]] = data[1][i][1];
-							//parameter name is number, parameter value is name
+						if(data[1][i][0].indexOf("lrn_") > -1) {
+							skills[data[1][i][0]] = data[1][i][1];
 						}
+						//parameter name is number, parameter value is name
 					}
-					add_expectations = expectations;
-					for(expectation in add_expectations) {//add expectation options to menu in HTML
-						if(!( expectation in expectationsAdded)) {
-							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
+					add_skills = skills;
+					for(expectation in add_skills) {//add expectation options to menu in HTML
+						if(!( expectation in skillsAdded)) {
+							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_skills[expectation] + "</option>");
 						}
 					}
 				}
@@ -156,13 +156,13 @@
 		 * when add button is pressed, adds the selected expectations to its corriponding entry dialog
 		 */
 		$("#addExp").click(function() {
-			$("#add_expectation_list option:selected").each(function() {	
-				expectationsAdded[$(this).attr('id')] = ($(this).html());
+			$("#add_expectation_list option:selected").each(function() {
+				skillsAdded[$(this).attr('id')] = ($(this).html());
 				delete skillsAdded[$("#learningList .selectedLearning").attr('id')];
 				delete expectationsAdded[$("#expList .selectedExp").attr('id')];
 				clearExpAndLrn();
-				$("#expList").append("<li><span type='lrnandexp' class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "</span></li>");
-				$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+				$("#learningList").append("<li><span type='lrnandexp' class='selectedLearning' id='" + $(this).attr('id') + "'>" + $(this).html() + "</span></li>");
+				$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 			});
 			$("#add_container").dialog('close');
 		});

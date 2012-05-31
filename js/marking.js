@@ -1,5 +1,5 @@
-//var IP = "http://10.178.30.78";
-var IP = "http://192.168.192.35";
+var IP = "http://10.178.30.78";
+//var IP = "http://192.168.192.35";
 function str(str) {
 	return JSON.stringify(str);
 }
@@ -64,7 +64,18 @@ function selectClasses() {
 			selectedClass = $("#selectClasses_sem1").children().eq(0).children().eq(0).attr('id');
 			$("#menu_visible_class,#title_class_name").html($("#selectClasses_sem1").children().eq(0).children().eq(0).html());
 			$("#menu_visible_class").attr("class_id", selectedClass);
-			buildStudents("student_list");
+			try {
+				buildStudents("studentSelect_div");
+			} catch(err) {
+			}
 		}
 	});
+}
+function clearExpAndLrn(){
+	$("#learningList").children().each(function(){
+		$(this).remove();
+	})
+	$("#expList").children().each(function(){
+		$(this).remove();
+	})
 }

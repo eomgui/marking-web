@@ -87,6 +87,11 @@
 		display: inline;
 		font-size: 12px;
 	}
+	#right_header {
+		margin-right: 60px;
+	}	.grey {
+		background-color: rgb(200,200,200) !important;
+	}
 
 </style>
 <div id='record_wrapper'>
@@ -105,7 +110,7 @@
 					<a class="pureCssMenui prevRecords_menu" href="#" onclick = 'getRecords_generateWindow("newConversation.html")'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu grey" href="#"><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 			</ul>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -123,7 +128,7 @@
 					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(2)'><span class='nobgimg_menu'>Conversation</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 				<li class="pureCssMenui">
-					<a class="pureCssMenui prevRecords_menu" href="#" onclick='toggleCommunicationsById(3)'><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
+					<a class="pureCssMenui prevRecords_menu grey" href="#" onclick='toggleCommunicationsById(3)'><span class='nobgimg_menu'>Product</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 				</li>
 			</ul>
 			<!--[if lte IE 6]></td></tr></table></a><![endif]-->
@@ -133,18 +138,26 @@
 		</li>
 	</ul>
 </div>
-</div> <div id='record_data_fields'></div>
+<div id='record_data_fields'></div>
+<div id="dialog-confirm"></div>
 <script type="text/javascript" charset="utf-8">
 	/*
 	 * when the page is done loading, loads the selected student's name and the selected class
 	 */
 	$(document).ready(function() {
-		$("#student_list option:selected").each(function() {
-			$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
+		$(".student_select_name").each(function() {
+			if($(this).attr("click") == "y") {
+				$("#record_header").html($(this).html() + "----------" + $("#menu_visible_class").html());
+			}
 		});
 	});
 	function getCommunications() {
-		var stid = $("option.std_opt:selected").attr('id');
+		var stid = "";
+		$(".student_select_name").each(function() {
+			if($(this).attr("click") == "y") {
+				stid = $(this).attr('id');
+			}
+		});
 		//selected student id in the menu
 		params.fcn = 'selectAllCommunications';
 		//getting communications off server
@@ -198,7 +211,7 @@
 					html += "<div class = 'record_options'>";
 					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link'id='record_expander_" + comId + "' onclick='expandRecord(" + comId + ")'>Expand</a></div>";
 					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='editRecord(" + comId + ")'>Edit</a></div>";
-					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='deleteRecord(" + comId + ")'>Delete</a></div>";
+					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='deleteRecordConfirm(" + comId + ")'>Delete</a></div>";
 					html += "</div>";
 					$("#record_" + comId + "").append(html);
 				}
@@ -217,10 +230,13 @@
 	 */
 	function getRecords_generateWindow(page) {
 		$("#dialog").load(page, function() {
-			$("#student_list option:selected").each(function() {
-				studentsAdded[$(this).attr("id")] = ($(this).html());
-				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
-				$("input[value=submit]").after('<span style="display:none" id="shouldTry" try_id="1"></span>')
+			$(".student_select_name").each(function() {
+				if($(this).attr("click") == "y") {
+					studentsAdded[$(this).attr("id")] = ($(this).html());
+					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
+					$("input[value=submit]").after('<span style="display:none" id="shouldTry" try_id="1"></span>')
+
+				}
 			});
 		});
 		$("#dialog").dialog({
@@ -265,9 +281,10 @@
 		// type of record (1 = obs 2 = conv)
 		if($("div #record_" + id).attr("type_id") == 1) {
 			$("#dialog").load("editObservation.html", function() {
-				$("#student_list option:selected").each(function() {// add student
-					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '</span>');
-					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+				$(".student_select_name").each(function() {
+					if($(this).attr("click") == "y") {
+						$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '</span>');
+					}
 				});
 				// add level
 				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
@@ -277,12 +294,27 @@
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
 				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
 				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
-				if(expectationType == 0) {
-					expectationsAdded[expectationId] = expectationText
-				} else if(expectationType == 1) {
-					expectationsAdded[expectationId] = expectationText;
+				
+				if(expectationId.indexOf("lrn_") > -1) {
+					if(expectationType == 0) {
+						skillsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						skillsAdded[expectationId] = expectationText;
+					}
+				}else{
+					if(expectationType == 0) {
+						expectationsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						expectationsAdded[expectationId] = expectationText;
+					}
 				}
-				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+				if(expectationId.indexOf("lrn_") > -1) {
+					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
+				} else {
+					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+				}
 				// get comments
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html()
 				commentKeys = $(comments);
@@ -321,9 +353,10 @@
 			});
 		} else if($("div #record_" + id).attr("type_id") == 2) {
 			$("#dialog").load("editConversation.html", function() {
-				$("#student_list option:selected").each(function() {// add student
-					$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '</span>');
-					//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
+				$(".student_select_name").each(function() {
+					if($(this).attr("click") == "y") {
+						$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '</span>');
+					}
 				});
 				// add level
 				level = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(3).attr("level_id");
@@ -333,12 +366,26 @@
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
 				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
 				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
-				if(expectationType == 0) {
-					expectationsAdded[expectationId] = expectationText
-				} else if(expectationType == 1) {
-					expectationsAdded[expectationId] = expectationText;
+				if(expectationId.indexOf("lrn_") > -1) {
+					if(expectationType == 0) {
+						skillsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						skillsAdded[expectationId] = expectationText;
+					}
+				}else{
+					if(expectationType == 0) {
+						expectationsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						expectationsAdded[expectationId] = expectationText;
+					}
 				}
-				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+				if(expectationId.indexOf("lrn_") > -1) {
+					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//	$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
+				} else {
+					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+				}
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				$("#comments_area").html(commentText);
@@ -363,6 +410,30 @@
 		} else {//products
 
 		}
+	}
+
+	function deleteRecordConfirm(id) {
+		$("#dialog-confirm").html("Are you sure you want to delete the record?");
+		$("#dialog-confirm").dialog({
+			resizable : false,
+			height : 200,
+			width : 300,
+			modal : true,
+			close : function() {
+				$(this).html("");
+			},
+			buttons : {
+				"Delete Record" : function() {
+					deleteRecord(id);
+					$(this).html("");
+					$(this).dialog("close");
+				},
+				Cancel : function() {
+					$(this).html("");
+					$(this).dialog("close");
+				}
+			}
+		});
 	}
 
 	function deleteRecord(id) {
