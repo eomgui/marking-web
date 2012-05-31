@@ -243,6 +243,7 @@
 	var selectedWType = null;
 	var addedStudents = {};
 	var expectationsAdded = {};
+	var skillsAdded = {};
 	/*
 	 * when this dialog is done loading, the current date is displayed on the dateField
 	 */
@@ -365,7 +366,6 @@
 			4 : finalConv.level, //level
 			5 : finalConv.text					//comments
 		};
-		console.log(params);
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 				if(!data[0]) {//standard data transfer and error display

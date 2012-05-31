@@ -60,7 +60,7 @@
 	#expList {
 		clear: both;
 		font-size: 13px;
-		margin:0px;
+		margin: 0px;
 	}
 	.selectedExp {
 		margin-bottom: 10px;
@@ -172,20 +172,20 @@
 	#date_header {
 		margin-top: 8px;
 	}
-	#learningLabel{
+	#learningLabel {
 		margin-bottom: 5px;
 	}
-	#learningButton{
+	#learningButton {
 		margin-top: -2px;
 		margin-left: 85px;
 	}
-	#learning{
-		margin-top:15px;
+	#learning {
+		margin-top: 15px;
 	}
-	#learningList{
+	#learningList {
 		clear: both;
 		font-size: 13px;
-	}
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -256,6 +256,7 @@
 	var selectedWType = null;
 	var addedStudents = {};
 	var expectationsAdded = {};
+	var skillsAdded = {};
 	/*
 	 * when this dialog is done loading, the current date is displayed on the dateField
 	 */
@@ -353,9 +354,11 @@
 	//final result of save method
 	function save(id) {
 		dateInField = $("#observation_dateField").val();
-		finalObs.stid = $(".selectedName").attr("id"); 
-		finalObs.expectation = $(".selectedExp").attr("id"); //get expectation id from field
-		finalObs.date = new Date($("#observation_dateField").val()); //get date object from date field
+		finalObs.stid = $(".selectedName").attr("id");
+		finalObs.expectation = $(".selectedExp").attr("id");
+		//get expectation id from field
+		finalObs.date = new Date($("#observation_dateField").val());
+		//get date object from date field
 		finalObs.timestamp = finalObs.date / 1000;
 
 		//find element with class down in the relevant div and store text and/or index in object
@@ -369,9 +372,11 @@
 		finalObs.text = '<key type="work" type_id="' + finalObs.workTypeId + '">' + finalObs.workType + '</key> ';
 		finalObs.text += '<key type="ac" type_id="' + finalObs.activityId + '">' + finalObs.activity + '</key> ';
 		finalObs.text += $.trim($("#comments_area").val());
-		if(finalObs.expectation.indexOf("lrn_") != -1) { //if there is lrn_ in the expectation id
-			finalObs.flag = 1; //lrn means learning skill, so the learning skill flag is on
-			finalObs.expectation = finalObs.expectation.substr(4); //but lrn_ isn't actually part of the id
+		if(finalObs.expectation.indexOf("lrn_") != -1) {//if there is lrn_ in the expectation id
+			finalObs.flag = 1;
+			//lrn means learning skill, so the learning skill flag is on
+			finalObs.expectation = finalObs.expectation.substr(4);
+			//but lrn_ isn't actually part of the id
 		} else
 			finalObs.flag = 0;
 		params.fcn = "updateRecord";
@@ -390,7 +395,8 @@
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
-					$("#dialog").dialog("close"); //close the box when they hit submit
+					$("#dialog").dialog("close");
+					//close the box when they hit submit
 					$("#new_entryMenu").load("getRecords.html");
 				}
 			});

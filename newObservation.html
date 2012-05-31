@@ -59,7 +59,7 @@
 	#expList {
 		clear: both;
 		font-size: 13px;
-		margin:0px;
+		margin: 0px;
 	}	.selectedExp {
 		margin-bottom: 10px;
 	}
@@ -165,17 +165,17 @@
 	}	#obs_console {
 		color: red;
 	}
-	#learningLabel{
+	#learningLabel {
 		margin-bottom: 5px;
 	}
-	#learningButton{
+	#learningButton {
 		margin-top: -2px;
 		margin-left: 85px;
 	}
-	#learning{
-		margin-top:15px;
+	#learning {
+		margin-top: 15px;
 	}
-	#learningList{
+	#learningList {
 		clear: both;
 		font-size: 13px;
 	}
@@ -250,6 +250,7 @@
 	var selectedWType = null;
 	var addedStudents = {};
 	var expectationsAdded = {};
+	var skillsAdded = {};
 	/*
 	 * when this dialog is done loading, the current date is displayed on the dateField
 	 */
@@ -310,7 +311,6 @@
 			position : [e.pageX, e.pageY]
 		});
 	});
-	
 	var studentsAdded = {};
 	/*
 	 * obtains length of the user comment and compare it to the character limit
@@ -361,33 +361,39 @@
 	var finalObs = {};
 	//final result of save method
 	function save() {
-		dateInField = $("#observation_dateField").val(); //get from field
-		finalObs.stid = $(".selectedName").attr("id"); //get from field
-		finalObs.expectation = $(".selectedExp").attr("id"); //get from field
-		finalObs.date = new Date(dateInField); //get from field
+		dateInField = $("#observation_dateField").val();
+		//get from field
+		finalObs.stid = $(".selectedName").attr("id");
+		//get from field
+		finalObs.expectation = $("[type=lrnandexp]").attr("id");
+		//get from field
+		finalObs.date = new Date(dateInField);
+		//get from field
 		finalObs.timestamp = finalObs.date / 1000;
-		finalObs.stid = $(".selectedName").attr("id"); // tmp std check
-		
+		finalObs.stid = $(".selectedName").attr("id");
+		// tmp std check
+
 		//find element with class down in the relevant div and store text or index in object
 		finalObs.activity = $("#actityTypeContainer").find(".down").text();
 		finalObs.activityId = $("#actityTypeContainer").find(".down").index();
 		finalObs.workType = $("#workTypeContainer").find(".down").text();
 		finalObs.workTypeId = $("#workTypeContainer").find(".down").index();
 		finalObs.level = $("#level_button_group").find(".down").index();
-		
+
 		//add keys to comments
 		finalObs.text = '<key type="work" type_id="' + finalObs.workTypeId + '">' + finalObs.workType + '</key> ';
 		finalObs.text += '<key type="ac" type_id="' + finalObs.activityId + '">' + finalObs.activity + '</key> ';
 		finalObs.text += $.trim($("#comments_area").val());
-		
+
 		//check expectation vs learning skill
 		if(finalObs.expectation.indexOf("lrn_") != -1) {
 			finalObs.flag = 1;
 			finalObs.expectation = finalObs.expectation.substr(4);
 		} else
 			finalObs.flag = 0;
-			
-		params.fcn = "addObservation"; //fcn name
+
+		params.fcn = "addObservation";
+		//fcn name
 		params.params = {
 			1 : finalObs.timestamp, //date
 			2 : finalObs.flag, //0 = expectation, 1 = learning skill
@@ -397,7 +403,8 @@
 		};
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
 			$(".selectedName").each(function() {//check all fields and cycle through students
-				params.params[0] = $(this).attr("id");//set student ID
+				params.params[0] = $(this).attr("id");
+				//set student ID
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(!data[0]) {
 						$("#error_text").html(data[1][0]);

@@ -62,7 +62,7 @@
 			background-color: rgb(81,0,77);
 			border-width: 0px;
 			color: white;
-			margin:0px;
+			margin: 0px;
 		}
 		#addExp:hover {
 			cursor: pointer;
@@ -87,7 +87,7 @@
 	<script type="text/javascript" charset="utf-8">
 		/*
 		 * searches expectation that include the keyword typed in search field
-		 * 
+		 *
 		 * expectations that do not include the keyword will be removed from list
 		 */
 		$("#add_expectation_search_field").keyup(function() {
@@ -107,7 +107,8 @@
 		})
 		var add_expectations = {};
 		var add_expectations_deleted = {};
-		var expectations = {}; //result of getExpectations()
+		var expectations = {};
+		//result of getExpectations()
 
 		function add_buildexpectations(id) {
 			for(expectation in add_expectations) {
@@ -116,20 +117,23 @@
 				}
 			}
 		}
-		
-		function getExpectations(id) { //begin function
+
+		function getExpectations(id) {//begin function
 			params.fcn = 'selectExpectationsByCourse';
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-				if(!data[0]) { //standard error display
+				if(!data[0]) {//standard error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
 					for(i in data[1]) {
-						expectations[data[1][i][0]] = data[1][i][1]; //parameter name is number, parameter value is name
+						if(data[1][i][0].indexOf("lrn_") == -1) {
+							expectations[data[1][i][0]] = data[1][i][1];
+							//parameter name is number, parameter value is name
+						}
 					}
 					add_expectations = expectations;
-					for(expectation in add_expectations) { //add expectation options to menu in HTML
+					for(expectation in add_expectations) {//add expectation options to menu in HTML
 						if(!( expectation in expectationsAdded)) {
 							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
 						}
@@ -137,25 +141,28 @@
 				}
 			});
 		}
-		
+
+
 		$("#add_expectation_list").change(function() {
 			$("#add_expectation_list option:selected").each(function() {
 				//$("#content").load("getRecords.html");
 				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
 			});
 		})
-		$(document).ready(function() { //call getExpectations when the page loads
+		$(document).ready(function() {//call getExpectations when the page loads
 			getExpectations("add_expectation_list");
 		})
 		/*
 		 * when add button is pressed, adds the selected expectations to its corriponding entry dialog
 		 */
 		$("#addExp").click(function() {
-			$("#add_expectation_list option:selected").each(function() {
+			$("#add_expectation_list option:selected").each(function() {	
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
+				delete skillsAdded[$("#learningList .selectedLearning").attr('id')];
 				delete expectationsAdded[$("#expList .selectedExp").attr('id')];
-				$("#expList .selectedExp").parent().remove();
-				$("#expList").append("<li><span class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "</span></li>");
+				clearExpAndLrn();
+				$("#expList").append("<li><span type='lrnandexp' class='selectedExp' id='" + $(this).attr('id') + "'>" + $(this).html() + "</span></li>");
+				$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 			});
 			$("#add_container").dialog('close');
 		});

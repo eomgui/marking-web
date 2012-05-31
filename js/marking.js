@@ -64,7 +64,18 @@ function selectClasses() {
 			selectedClass = $("#selectClasses_sem1").children().eq(0).children().eq(0).attr('id');
 			$("#menu_visible_class,#title_class_name").html($("#selectClasses_sem1").children().eq(0).children().eq(0).html());
 			$("#menu_visible_class").attr("class_id", selectedClass);
-			buildStudents("studentSelect_div");
+			try {
+				buildStudents("studentSelect_div");
+			} catch(err) {
+			}
 		}
 	});
+}
+function clearExpAndLrn(){
+	$("#learningList").children().each(function(){
+		$(this).remove();
+	})
+	$("#expList").children().each(function(){
+		$(this).remove();
+	})
 }

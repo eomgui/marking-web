@@ -240,6 +240,7 @@
 	var selectedWType = null;
 	var addedStudents = {};
 	var expectationsAdded = {};
+	var skillsAdded ={};
 	/*
 	 * when this dialog is done loading, the current date is displayed on the dateField
 	 */
@@ -354,7 +355,7 @@
 		dateInField = $("#conversation_dateField").val(); //get date from field
 		finalConv.date = new Date(dateInField); //date object
 		finalConv.timestamp = finalConv.date / 1000;
-		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalConv.expectation = $("[type=lrnandexp]").attr("id"); //get expectation id from field
 		finalConv.level = $("#level_button_group").find(".down").index(); //get level from field index
 		finalConv.text = $.trim($("#comments_area").val()); //get text from field
 		finalConv.stid = $(".selectedName").attr("id"); // tmp std check

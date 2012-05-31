@@ -87,12 +87,12 @@
 		display: inline;
 		font-size: 12px;
 	}
-	#right_header{
-		margin-right:60px;	
-	}	.grey{
+	#right_header {
+		margin-right: 60px;
+	}	.grey {
 		background-color: rgb(200,200,200) !important;
 	}
-
+
 </style>
 <div id='record_wrapper'>
 	<div id='record_top_wrapper'>
@@ -138,7 +138,8 @@
 		</li>
 	</ul>
 </div>
-</div> <div id='record_data_fields'></div>
+<div id='record_data_fields'></div>
+<div id="dialog-confirm"></div>
 <script type="text/javascript" charset="utf-8">
 	/*
 	 * when the page is done loading, loads the selected student's name and the selected class
@@ -157,7 +158,6 @@
 				stid = $(this).attr('id');
 			}
 		});
-		console.log(stid);
 		//selected student id in the menu
 		params.fcn = 'selectAllCommunications';
 		//getting communications off server
@@ -170,7 +170,6 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
-				console.log(data);
 				data = data[1]
 				data.sort(function(a, b) {
 					return b[6] - a[6]
@@ -212,7 +211,7 @@
 					html += "<div class = 'record_options'>";
 					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link'id='record_expander_" + comId + "' onclick='expandRecord(" + comId + ")'>Expand</a></div>";
 					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='editRecord(" + comId + ")'>Edit</a></div>";
-					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='deleteRecord(" + comId + ")'>Delete</a></div>";
+					html += "<div class='record_tool_link_wrapper'><a href='#' class='record_tool_link' editing='0' id='record_editor_" + comId + "'onclick='deleteRecordConfirm(" + comId + ")'>Delete</a></div>";
 					html += "</div>";
 					$("#record_" + comId + "").append(html);
 				}
@@ -295,12 +294,27 @@
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
 				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
 				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
-				if(expectationType == 0) {
-					expectationsAdded[expectationId] = expectationText
-				} else if(expectationType == 1) {
-					expectationsAdded[expectationId] = expectationText;
+				
+				if(expectationId.indexOf("lrn_") > -1) {
+					if(expectationType == 0) {
+						skillsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						skillsAdded[expectationId] = expectationText;
+					}
+				}else{
+					if(expectationType == 0) {
+						expectationsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						expectationsAdded[expectationId] = expectationText;
+					}
 				}
-				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+				if(expectationId.indexOf("lrn_") > -1) {
+					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
+				} else {
+					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+				}
 				// get comments
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html()
 				commentKeys = $(comments);
@@ -352,12 +366,26 @@
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
 				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
 				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
-				if(expectationType == 0) {
-					expectationsAdded[expectationId] = expectationText
-				} else if(expectationType == 1) {
-					expectationsAdded[expectationId] = expectationText;
+				if(expectationId.indexOf("lrn_") > -1) {
+					if(expectationType == 0) {
+						skillsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						skillsAdded[expectationId] = expectationText;
+					}
+				}else{
+					if(expectationType == 0) {
+						expectationsAdded[expectationId] = expectationText
+					} else if(expectationType == 1) {
+						expectationsAdded[expectationId] = expectationText;
+					}
 				}
-				$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+				if(expectationId.indexOf("lrn_") > -1) {
+					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//	$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
+				} else {
+					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					//$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+				}
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				$("#comments_area").html(commentText);
@@ -382,6 +410,30 @@
 		} else {//products
 
 		}
+	}
+
+	function deleteRecordConfirm(id) {
+		$("#dialog-confirm").html("Are you sure you want to delete the record?");
+		$("#dialog-confirm").dialog({
+			resizable : false,
+			height : 200,
+			width : 300,
+			modal : true,
+			close : function() {
+				$(this).html("");
+			},
+			buttons : {
+				"Delete Record" : function() {
+					deleteRecord(id);
+					$(this).html("");
+					$(this).dialog("close");
+				},
+				Cancel : function() {
+					$(this).html("");
+					$(this).dialog("close");
+				}
+			}
+		});
 	}
 
 	function deleteRecord(id) {
