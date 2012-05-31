@@ -355,7 +355,7 @@
 	function save(id) {
 		dateInField = $("#observation_dateField").val();
 		finalObs.stid = $(".selectedName").attr("id"); 
-		finalObs.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalObs.expectation = $("[type=lrnandexp]").attr("id"); //get expectation id from field
 		finalObs.timestamp = new Date(dateInField) / 1000; ///get date object from date field
 
 		//find element with class down in the relevant div and store text and/or index in object

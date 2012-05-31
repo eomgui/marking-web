@@ -130,7 +130,10 @@
 					$("#msg").hide();
 				} else {
 					for(expectation in data[1]) {
-						expectations[data[1][expectation][0]] = data[1][expectation][1]; //parameter name is number, parameter value is name
+						if(data[1][expectation][0].indexOf("lrn_") == -1) {
+							expectations[data[1][expectation][0]] = data[1][expectation][1];
+							//parameter name is number, parameter value is name
+						}
 					}
 					add_expectations = expectations;
 					for(expectation in add_expectations) {//add expectation options to menu in HTML
@@ -156,7 +159,7 @@
 		 * when add button is pressed, adds the selected expectations to its corriponding entry dialog
 		 */
 		$("#addExp").click(function() {
-			$("#add_expectation_list option:selected").each(function() {	
+			$("#add_expectation_list option:selected").each(function() {
 				expectationsAdded[$(this).attr('id')] = ($(this).html());
 				delete skillsAdded[$("#learningList .selectedLearning").attr('id')];
 				delete expectationsAdded[$("#expList .selectedExp").attr('id')];

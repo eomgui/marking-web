@@ -344,7 +344,7 @@
 		dateInField = $("#observation_dateField").val(); //get date from field
 		finalConv.stid = $(".selectedName").attr("id"); //get student id from field 
 		finalConv.timestamp = new Date(dateInField) / 1000; ///get date object from date field
-		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
+		finalConv.expectation = $("[type=lrnandexp]").attr("id"); //get expectation id from field
 		finalConv.level = $("#level_button_group").find(".down").index(); //get level from button index (0 is the first button, etc)
 		finalConv.text = $("#comments_area").val(); //get text from comments area value
 		if(finalConv.expectation.indexOf("lrn_") != -1)//if there is lrn_ in the expectation id

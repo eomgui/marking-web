@@ -48,7 +48,7 @@
 	#record_data_fields {
 		width: 90%;
 		margin: 0px auto;
-		height: 560px;
+		height: 300px;
 	}
 	#view_menu {
 		padding-left: 25px !important;
@@ -310,10 +310,10 @@
 				}
 				if(expectationId.indexOf("lrn_") > -1) {
 					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
-					//$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
+					$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 				} else {
 					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
-					//$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+					$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 				}
 				// get comments
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html()
@@ -381,10 +381,10 @@
 				}
 				if(expectationId.indexOf("lrn_") > -1) {
 					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
-					//	$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
+					$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 				} else {
 					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
-					//$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
+					$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 				}
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
 				commentText = comments.substr(comments.indexOf(":") + 1);
