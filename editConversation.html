@@ -342,9 +342,8 @@
 	//final result of save method
 	function save(id) {
 		dateInField = $("#observation_dateField").val(); //get date from field
-		finalConv.stid = $(".selectedName").attr("id"); //get student id from field
-		finalConv.date = new Date(dateInField); //get date object from date field
-		finalConv.timestamp = finalConv.date / 1000;
+		finalConv.stid = $(".selectedName").attr("id"); //get student id from field 
+		finalConv.timestamp = new Date(dateInField) / 1000; ///get date object from date field
 		finalConv.expectation = $(".selectedExp").attr("id"); //get expectation id from field
 		finalConv.level = $("#level_button_group").find(".down").index(); //get level from button index (0 is the first button, etc)
 		finalConv.text = $("#comments_area").val(); //get text from comments area value
@@ -358,14 +357,14 @@
 			finalConv.flag = 0;
 
 		params.fcn = "updateRecord";
-		params.params = {
-			0 : id, //record ID
-			1 : finalConv.timestamp, //date
-			2 : finalConv.flag, //0 = expectation, 1 = learning skill
-			3 : finalConv.expectation, //expectation/learning skill ID
-			4 : finalConv.level, //level
-			5 : finalConv.text					//comments
-		};
+		params.params = [
+			id, //record ID
+			finalConv.timestamp, //date
+			finalConv.flag, //0 = expectation, 1 = learning skill
+			finalConv.expectation, //expectation/learning skill ID
+			finalConv.level, //level
+			finalConv.text //comments
+		];
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 				if(!data[0]) {//standard data transfer and error display
