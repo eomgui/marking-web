@@ -119,6 +119,9 @@
 		
 		function getExpectations(id) { //begin function
 			params.fcn = 'selectExpectationsByCourse';
+			params.params = {
+				section : $("#menu_visible_class").attr("class_id") //get section id from bar up top
+			};
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
 				if(!data[0]) { //standard error display
 					$("#error_text").html(data[1][0]);
