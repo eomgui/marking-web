@@ -59,7 +59,8 @@
 	$("a[class_button='true']").live('click', function() {
 		$("#menu_visible_class,#title_class_name").html($(this).html());
 		$("#menu_visible_class").attr("class_id", $(this).attr('id'))
-		$("#content").load("main_entryDiv.html");
+		buildStudents("studentSelect_div");
+		$("#new_entryMenu").load("new_entryMenu.html");
 	})
 	/*
 	 * logs user out
@@ -81,9 +82,12 @@
 		});
 	})
 	function logout() {
-		params = {}; //reset parameters
-		params.fcn = 'logout'; //function name
-		params.params = {}; //no params for logout function
+		params = {};
+		//reset parameters
+		params.fcn = 'logout';
+		//function name
+		params.params = {};
+		//no params for logout function
 		jQuery.getJSON(IP + "/mark/model/staff-model.php?callback=?", params, function(data) {
 			if(data[0])
 				window.location.href = "index.html?msg=" + data[1] + "";
