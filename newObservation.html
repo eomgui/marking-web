@@ -416,7 +416,9 @@
 				});
 			});
 			if($("#shouldTry").attr("try_id") !== undefined) {
-				$("#new_entryMenu").load("getRecords.html");
+				$("#new_entryMenu").load("getRecords.html", function() {
+					getCommunications();
+				});
 			}
 		}
 	}

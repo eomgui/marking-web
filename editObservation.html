@@ -354,9 +354,11 @@
 	//final result of save method
 	function save(id) {
 		dateInField = $("#observation_dateField").val();
-		finalObs.stid = $(".selectedName").attr("id"); 
-		finalObs.expectation = $("[type=lrnandexp]").attr("id"); //get expectation id from field
-		finalObs.timestamp = new Date(dateInField) / 1000; ///get date object from date field
+		finalObs.stid = $(".selectedName").attr("id");
+		finalObs.expectation = $("[type=lrnandexp]").attr("id");
+		//get expectation id from field
+		finalObs.timestamp = new Date(dateInField) / 1000;
+		///get date object from date field
 
 		//find element with class down in the relevant div and store text and/or index in object
 		finalObs.activity = $("#acButtonGroup").find(".down").text();
@@ -377,13 +379,12 @@
 		} else
 			finalObs.flag = 0;
 		params.fcn = "updateRecord";
-		params.params = [
-			id, //student ID
-			finalObs.timestamp, //date
-			finalObs.flag, //0 = expectation, 1 = learning skill
-			finalObs.expectation, //expectation/learning skill ID
-			finalObs.level, //level
-			finalObs.text //comments
+		params.params = [id, //student ID
+		finalObs.timestamp, //date
+		finalObs.flag, //0 = expectation, 1 = learning skill
+		finalObs.expectation, //expectation/learning skill ID
+		finalObs.level, //level
+		finalObs.text //comments
 		];
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
@@ -394,7 +395,9 @@
 				} else {
 					$("#dialog").dialog("close");
 					//close the box when they hit submit
-					$("#new_entryMenu").load("getRecords.html");
+					$("#new_entryMenu").load("getRecords.html", function() {
+						getCommunications();
+					});
 				}
 			});
 		}

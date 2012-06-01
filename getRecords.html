@@ -44,10 +44,7 @@
 		clear: both;
 		overflow-y: scroll;
 		overflow-x: hidden;
-		position: absolute;
-		width: 66.5%;
 		margin: 0px auto;
-		height: 73.5%;
 	}
 	#view_menu {
 		padding-left: 25px !important;
@@ -91,7 +88,7 @@
 	#small_header{
 		margin-left: 45%;
 		margin-top: 1%;
-	}
+	}
 </style>
 <div id='record_wrapper'>
 	<div id='record_top_wrapper'>
@@ -308,10 +305,10 @@
 					}
 				}
 				if(expectationId.indexOf("lrn_") > -1) {
-					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#learningList").append("<li><span type='lrnandexp' class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 				} else {
-					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#expList").append("<li><span class='selectedExp' type='lrnandexp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 				}
 				// get comments
@@ -379,10 +376,10 @@
 					}
 				}
 				if(expectationId.indexOf("lrn_") > -1) {
-					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#learningList").append("<li><span type='lrnandexp' class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 				} else {
-					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#expList").append("<li><span type='lrnandexp' class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 				}
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
@@ -451,4 +448,9 @@
 			}
 		});
 	}
+	$(document).ready(function(){
+		topRecord = $("#record_data_fields").position().top;
+		bottomX = $("#master_std_wrapper").height() + $("#master_std_wrapper").position().top;
+		$("#record_data_fields").height(bottomX-topRecord);
+	});
 </script>
