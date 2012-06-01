@@ -52,7 +52,9 @@
 	}
 	.student_select_name {
 		width: 95%;
-		margin: 3px 8px;
+		margin: 0px;
+		padding-top: 3px;
+		padding-left: 8px;
 		background-color: white;
 		height: 18px;
 		font-size: 13px;
@@ -177,7 +179,7 @@
 			$(this).css("background-color", 'white');
 			$(this).attr("click", "n");
 		})
-		$(this).css("background-color", 'yellow');
+		$(this).css("background-color", '#C68DC3');
 		$(this).attr("click", "y");
 		$("#new_entryMenu").load("getRecords.html");
 	})
