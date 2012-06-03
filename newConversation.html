@@ -60,7 +60,7 @@
 	#expList {
 		clear: both;
 		font-size: 13px;
-		margin:0px;
+		margin: 0px;
 	}
 	.selectedExp {
 		margin-bottom: 10px;
@@ -68,7 +68,7 @@
 	#level_type {
 		clear: both;
 		font-size: 17px;
-		margin-top:18px;
+		margin-top: 18px;
 	}
 	#comments {
 		width: 100%;
@@ -173,20 +173,20 @@
 	#date_header {
 		margin-top: 8px;
 	}
-	#learningLabel{
+	#learningLabel {
 		margin-bottom: 5px;
 	}
-	#learningButton{
+	#learningButton {
 		margin-top: -2px;
 		margin-left: 85px;
 	}
-	#learning{
-		margin-top:15px;
+	#learning {
+		margin-top: 15px;
 	}
-	#learningList{
+	#learningList {
 		clear: both;
 		font-size: 13px;
-	}
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -240,7 +240,7 @@
 	var selectedWType = null;
 	var addedStudents = {};
 	var expectationsAdded = {};
-	var skillsAdded ={};
+	var skillsAdded = {};
 	/*
 	 * when this dialog is done loading, the current date is displayed on the dateField
 	 */
@@ -301,7 +301,6 @@
 			position : [e.pageX, e.pageY]
 		});
 	});
-	
 	var studentsAdded = {};
 	/*
 	 * obtains length of the user comment and compare it to the character limit
@@ -352,20 +351,27 @@
 	var finalConv = {};
 	//final result of save method
 	function save() {
-		dateInField = $("#conversation_dateField").val(); //get date from field
-		finalConv.date = new Date(dateInField); //date object
+		dateInField = $("#conversation_dateField").val();
+		//get date from field
+		finalConv.date = new Date(dateInField);
+		//date object
 		finalConv.timestamp = finalConv.date / 1000;
-		finalConv.expectation = $("[type=lrnandexp]").attr("id"); //get expectation id from field
-		finalConv.level = $("#level_button_group").find(".down").index(); //get level from field index
-		finalConv.text = $.trim($("#comments_area").val()); //get text from field
-		finalConv.stid = $(".selectedName").attr("id"); // tmp std check
-		if(finalConv.expectation.indexOf("lrn_") != -1) { //check if it's an expectation or learning skill
+		finalConv.expectation = $("[type=lrnandexp]").attr("id");
+		//get expectation id from field
+		finalConv.level = $("#level_button_group").find(".down").index();
+		//get level from field index
+		finalConv.text = $.trim($("#comments_area").val());
+		//get text from field
+		finalConv.stid = $(".selectedName").attr("id");
+		// tmp std check
+		if(finalConv.expectation.indexOf("lrn_") != -1) {//check if it's an expectation or learning skill
 			finalConv.flag = 1;
 			finalConv.expectation = finalConv.expectation.substr(4);
 		} else
 			finalConv.flag = 0;
 
-		params.fcn = "addConversation"; //fcn name
+		params.fcn = "addConversation";
+		//fcn name
 		params.params = {
 			1 : finalConv.timestamp, //date
 			2 : finalConv.flag, //0 = expectation, 1 = learning skill
@@ -375,8 +381,9 @@
 		};
 
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
-			$(".selectedName").each(function() { //check every field, loop through each student
-				params.params[0] = $(this).attr("id"); //get student id from field
+			$(".selectedName").each(function() {//check every field, loop through each student
+				params.params[0] = $(this).attr("id");
+				//get student id from field
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(!data[0]) {
 						$("#error_text").html(data[1][0]);
@@ -384,9 +391,13 @@
 						$("#msg").hide();
 					} else {
 						if($("#shouldTry").attr("try_id") !== undefined) {
-							$("#new_entryMenu").load("getRecords.html"); //reload the getRecords page
+							$("#new_entryMenu").load("getRecords.html", function() {
+								getCommunications();
+							});
+							//reload the getRecords page
 						}
-						$("#dialog").dialog('close'); //close dialog upon submit
+						$("#dialog").dialog('close');
+						//close dialog upon submit
 					}
 				});
 			});

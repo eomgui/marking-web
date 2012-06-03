@@ -18,16 +18,11 @@
 		display: block;
 		font-size: 125%;
 		margin-top: 5px;
-		margin-left: 30px;
+		margin-left: 2%;
 	}
 	#record_wrapper {
 		width: 100%;
 		height: 100px;
-	}
-	#record_data_fields {
-		clear: both;
-		overflow-y: scroll;
-		overflow-x: hidden;
 	}
 	.record_data {
 		-o-text-overflow: ellipsis;   /* Opera */
@@ -46,9 +41,10 @@
 		font-size: 14px;
 	}
 	#record_data_fields {
-		width: 90%;
+		clear: both;
+		overflow-y: scroll;
+		overflow-x: hidden;
 		margin: 0px auto;
-		height: 300px;
 	}
 	#view_menu {
 		padding-left: 25px !important;
@@ -86,19 +82,19 @@
 	.small_data {
 		display: inline;
 		font-size: 12px;
-	}
-	#right_header {
-		margin-right: 60px;
 	}	.grey {
 		background-color: rgb(200,200,200) !important;
 	}
-
+	#small_header{
+		margin-left: 45%;
+		margin-top: 1%;
+	}
 </style>
 <div id='record_wrapper'>
 	<div id='record_top_wrapper'>
 		<div id ='record_header'></div>
 	</div>
-	<ul class="pureCssMenu pureCssMenum" id='right_header'>
+	<ul class="pureCssMenu pureCssMenum" id='small_header'>
 		<li id='class_main_menu' class="pureCssMenui0">
 			<a class="prevRecords_menu" href="#"><img src="css/images/record_icon.png" width="12px" height='12px'/><span>Record New</span><![if gt IE 6]></a><![endif]><!--[if lte IE 6]><table><tr><td><![endif]-->
 			<ul class="pureCssMenum smaller_submenuRecord">
@@ -294,14 +290,14 @@
 				expectationType = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expectype");
 				expectationId = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).attr("expec_id");
 				expectationText = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().substr($("div #record_" + id).children().eq(0).children().eq(0).children().eq(2).html().indexOf(":") + 1);
-				
+
 				if(expectationId.indexOf("lrn_") > -1) {
 					if(expectationType == 0) {
 						skillsAdded[expectationId] = expectationText
 					} else if(expectationType == 1) {
 						skillsAdded[expectationId] = expectationText;
 					}
-				}else{
+				} else {
 					if(expectationType == 0) {
 						expectationsAdded[expectationId] = expectationText
 					} else if(expectationType == 1) {
@@ -309,10 +305,10 @@
 					}
 				}
 				if(expectationId.indexOf("lrn_") > -1) {
-					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#learningList").append("<li><span type='lrnandexp' class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 				} else {
-					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#expList").append("<li><span class='selectedExp' type='lrnandexp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 				}
 				// get comments
@@ -372,7 +368,7 @@
 					} else if(expectationType == 1) {
 						skillsAdded[expectationId] = expectationText;
 					}
-				}else{
+				} else {
 					if(expectationType == 0) {
 						expectationsAdded[expectationId] = expectationText
 					} else if(expectationType == 1) {
@@ -380,10 +376,10 @@
 					}
 				}
 				if(expectationId.indexOf("lrn_") > -1) {
-					$("#learningList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#learningList").append("<li><span type='lrnandexp' class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#expList").append('<span type="fake" class="selectedLearning" id="fake">Skill Selected</span>');
 				} else {
-					$("#expList").append("<li><span class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
+					$("#expList").append("<li><span type='lrnandexp' class='selectedExp' id='" + expectationId + "'>" + expectationText + "</span></li>");
 					$("#learningList").append('<span type="fake" class="selectedLearning" id="fake">Expectation Selected</span>');
 				}
 				comments = $("div #record_" + id).children().eq(0).children().eq(0).children().eq(4).children().eq(0).html();
@@ -452,9 +448,9 @@
 			}
 		});
 	}
-
-
-	$(document).ready(function() {
-		getCommunications();
-	})
+	$(document).ready(function(){
+		topRecord = $("#record_data_fields").position().top;
+		bottomX = $("#master_std_wrapper").height() + $("#master_std_wrapper").position().top;
+		$("#record_data_fields").height(bottomX-topRecord);
+	});
 </script>

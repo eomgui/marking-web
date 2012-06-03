@@ -60,7 +60,7 @@
 	#expList {
 		clear: both;
 		font-size: 13px;
-		margin:0px;
+		margin: 0px;
 	}
 	.selectedExp {
 		margin-bottom: 10px;
@@ -68,7 +68,7 @@
 	#level_type {
 		clear: both;
 		font-size: 17px;
-		margin-top:18px;
+		margin-top: 18px;
 	}
 	#comments {
 		width: 100%;
@@ -175,17 +175,17 @@
 	#calendar_show {
 		margin-top: 6px;
 	}
-	#learningLabel{
+	#learningLabel {
 		margin-bottom: 5px;
 	}
-	#learningButton{
+	#learningButton {
 		margin-top: -2px;
 		margin-left: 85px;
 	}
-	#learning{
-		margin-top:15px;
+	#learning {
+		margin-top: 15px;
 	}
-	#learningList{
+	#learningList {
 		clear: both;
 		font-size: 13px;
 	}
@@ -341,12 +341,18 @@
 	var finalConv = {};
 	//final result of save method
 	function save(id) {
-		dateInField = $("#observation_dateField").val(); //get date from field
-		finalConv.stid = $(".selectedName").attr("id"); //get student id from field 
-		finalConv.timestamp = new Date(dateInField) / 1000; ///get date object from date field
-		finalConv.expectation = $("[type=lrnandexp]").attr("id"); //get expectation id from field
-		finalConv.level = $("#level_button_group").find(".down").index(); //get level from button index (0 is the first button, etc)
-		finalConv.text = $("#comments_area").val(); //get text from comments area value
+		dateInField = $("#observation_dateField").val();
+		//get date from field
+		finalConv.stid = $(".selectedName").attr("id");
+		//get student id from field
+		finalConv.timestamp = new Date(dateInField) / 1000;
+		///get date object from date field
+		finalConv.expectation = $("[type=lrnandexp]").attr("id");
+		//get expectation id from field
+		finalConv.level = $("#level_button_group").find(".down").index();
+		//get level from button index (0 is the first button, etc)
+		finalConv.text = $("#comments_area").val();
+		//get text from comments area value
 		if(finalConv.expectation.indexOf("lrn_") != -1)//if there is lrn_ in the expectation id
 		{
 			finalConv.flag = 1;
@@ -357,13 +363,12 @@
 			finalConv.flag = 0;
 
 		params.fcn = "updateRecord";
-		params.params = [
-			id, //record ID
-			finalConv.timestamp, //date
-			finalConv.flag, //0 = expectation, 1 = learning skill
-			finalConv.expectation, //expectation/learning skill ID
-			finalConv.level, //level
-			finalConv.text //comments
+		params.params = [id, //record ID
+		finalConv.timestamp, //date
+		finalConv.flag, //0 = expectation, 1 = learning skill
+		finalConv.expectation, //expectation/learning skill ID
+		finalConv.level, //level
+		finalConv.text //comments
 		];
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
@@ -372,8 +377,11 @@
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
-					$("#dialog").dialog("close"); //close the box when they hit submit
-					$("#new_entryMenu").load("getRecords.html");
+					$("#dialog").dialog("close");
+					//close the box when they hit submit
+					$("#new_entryMenu").load("getRecords.html", function() {
+						getCommunications();
+					});
 				}
 			});
 		}

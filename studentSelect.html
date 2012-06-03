@@ -32,7 +32,7 @@
 	}	#search_header {
 		border-style: solid;
 		border-width: 1px;
-		width: 100%;
+		width: 200px;
 		border-color: rgb(198,141,195);
 	}
 	#student_search_field {
@@ -52,7 +52,9 @@
 	}
 	.student_select_name {
 		width: 95%;
-		margin: 3px 8px;
+		margin: 0px;
+		padding-top: 3px;
+		padding-left: 8px;
 		background-color: white;
 		height: 18px;
 		font-size: 13px;
@@ -69,7 +71,7 @@
 		border-style: solid;
 		border-width: 1px;
 		height: 80%;
-		width: 15%;
+		width: 200px;
 		border-color: rgb(198,141,195);
 		border-top: 0px;
 	}
@@ -130,6 +132,9 @@
 	 * get student list
 	 */
 	function buildStudents(id) {
+		$("#"+id).children().each(function(){
+			$(this).remove();
+		})
 		students = {};
 		//final object result
 		$("#" + id).html("");
@@ -177,9 +182,14 @@
 			$(this).css("background-color", 'white');
 			$(this).attr("click", "n");
 		})
-		$(this).css("background-color", 'yellow');
+		$(this).css("background-color", '#C68DC3');
 		$(this).attr("click", "y");
-		$("#new_entryMenu").load("getRecords.html");
+		$("#new_entryMenu").children().each(function(){
+			$(this).remove();
+		});
+		$("#new_entryMenu").load("getRecords.html", function() {
+			getCommunications();
+		});
 	})
 </script>
 </script>
