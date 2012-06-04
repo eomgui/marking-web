@@ -29,6 +29,21 @@
 				display: inline-block;
 				width: 70%;
 			}
+			#error_msg{
+				width:100%;
+				position:absolute;
+				bottom:10px;
+				text-align: center;
+			}
+			img.helper {
+				width: 15px;
+				height: 15px;
+			}
+			#error_text {
+				display: inline;
+				color: red;
+			}
+			
 		</style>
 		<div id='header'></div>
 		<div id='content'>
@@ -46,5 +61,9 @@
 		</script>
 		<div id='add_container'></div>
 		<div id='dialog'></div>
+		<div id='error_msg'>
+			<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+			<div id='error_text'></div>
+	</div>
 	</body>
 </html>

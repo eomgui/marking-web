@@ -178,7 +178,21 @@
 	#learningList {
 		clear: both;
 		font-size: 13px;
-	}
+	}
+	#newObs_error_msg{
+		width:100%;
+		text-align: center;
+		display: none;
+		margin-bottom: 5px;
+	}
+	img.helper {
+		width: 15px;
+		height: 15px;
+	}
+	#error_text {
+		display: inline;
+		color: red;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -241,6 +255,9 @@
 		<div id='submit'>
 			<input type="button" value='submit' id="addObsButton" onclick="save()"/>
 		</div>
+		<div id='newObs_error_msg'>
+			<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+			<div id='error_text'></div>
 	</div>
 	<div id='obs_console'></div>
 </div>
