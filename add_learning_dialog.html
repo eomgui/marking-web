@@ -121,11 +121,11 @@
 		function getExpectations(id) {//begin function
 			params.fcn = 'selectExpectationsByCourse';
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-				if(!data[0]) {//standard error display
+				if(data[0] == 0) {//standard error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
-				} else {
+				} else if(data[0] == 1) {
 					for(i in data[1]) {
 						if(data[1][i][0].indexOf("lrn_") > -1) {
 							skills[data[1][i][0]] = data[1][i][1];
@@ -138,6 +138,8 @@
 							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_skills[expectation] + "</option>");
 						}
 					}
+				} else if(data[0] == -1) {
+					window.location.href = "index.html?err=" + data[1] + "";
 				}
 			});
 		}

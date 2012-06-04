@@ -85,10 +85,10 @@
 	}	.grey {
 		background-color: rgb(200,200,200) !important;
 	}
-	#small_header{
+	#small_header {
 		margin-left: 45%;
 		margin-top: 1%;
-	}
+	}
 </style>
 <div id='record_wrapper'>
 	<div id='record_top_wrapper'>
@@ -438,19 +438,24 @@
 			record : id
 		}
 		jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-			if(!data[0]) {
+			if(data[0] == 0) {
 				$("#error_text").html(data[1][0]);
 				$("#error_msg").show();
 				$("#msg").hide();
-			} else {
+			} else if(data[0] == 1) {
 				$("#record_" + id).remove();
 				//get rid of the record on the page so they don't have to refresh
+			} else if(data[0] == -1) {
+				window.location.href = "index.html?err=" + data[1] + "";
 			}
 		});
 	}
-	$(document).ready(function(){
+
+
+	$(document).ready(function() {
 		topRecord = $("#record_data_fields").position().top;
 		bottomX = $("#master_std_wrapper").height() + $("#master_std_wrapper").position().top;
-		$("#record_data_fields").height(bottomX-topRecord);
+		$("#record_data_fields").height(bottomX - topRecord);
 	});
+
 </script>

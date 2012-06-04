@@ -406,12 +406,14 @@
 				params.params[0] = $(this).attr("id");
 				//set student ID
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-					if(!data[0]) {
+					if(data[0] == 0) {
 						$("#error_text").html(data[1][0]);
 						$("#error_msg").show();
 						$("#msg").hide();
-					} else {
+					} else if(data[0] == 1) {
 						$("#dialog").dialog('close');
+					} else if(data[0] == -1) {
+						window.location.href = "index.html?err=" + data[1] + "";
 					}
 				});
 			});

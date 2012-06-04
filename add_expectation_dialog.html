@@ -124,11 +124,11 @@
 				section : $("#menu_visible_class").attr("class_id") //get section id from bar up top
 			};
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-				if(!data[0]) {//standard error display
+				if(data[0] == 0) {//standard error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
-				} else {
+				} else if(data[0] == 1) {
 					for(expectation in data[1]) {
 						if(data[1][expectation][0].indexOf("lrn_") == -1) {
 							expectations[data[1][expectation][0]] = data[1][expectation][1];
@@ -141,6 +141,8 @@
 							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
 						}
 					}
+				} else if(data[0] == -1) {
+					window.location.href = "index.html?err=" + data[1] + "";
 				}
 			});
 		}

@@ -132,7 +132,7 @@
 	 * get student list
 	 */
 	function buildStudents(id) {
-		$("#"+id).children().each(function(){
+		$("#" + id).children().each(function() {
 			$(this).remove();
 		})
 		students = {};
@@ -147,11 +147,11 @@
 			course : $("#menu_visible_class").attr("class_id") //get course id from menu
 		};
 		jQuery.getJSON(IP + "/mark/model/student-model.php?callback=?", params, function(data) {
-			if(!data[0]) {
+			if(data[0] == 0) {
 				$("#error_text").html(data[1][0]);
 				$("#error_msg").show();
 				$("#msg").hide();
-			} else {
+			} else if(data[0] == 1) {
 				data[1].sort(function(a, b) {
 					if(a[1] + a[2] < b[1] + b[2])
 						return -1;
@@ -166,6 +166,8 @@
 					students[std_id] = name;
 					$("#" + id).append("<div id='" + std_id + "'class='student_select_name'>" + name + "</div>");
 				}
+			} else if(data[0] == -1) {
+				window.location.href = "index.html?err=" + data[1] + "";
 			}
 		});
 	}
@@ -184,7 +186,7 @@
 		})
 		$(this).css("background-color", '#C68DC3');
 		$(this).attr("click", "y");
-		$("#new_entryMenu").children().each(function(){
+		$("#new_entryMenu").children().each(function() {
 			$(this).remove();
 		});
 		$("#new_entryMenu").load("getRecords.html", function() {
