@@ -52,10 +52,10 @@ function selectClasses() {
 		staffID : staffID
 	}
 	jQuery.getJSON(IP + "/mark/model/classes-model.php?callback=?", params, function(data) {
-		if(!data[0]) {
+		if(data[0] == 0) {
 			$("#error_text").html(data[1]);
 			$("#error_msg").show();
-		} else {
+		} else if(data[0] == 1){
 			x = data;
 			var list = "";
 			for(var i = 0; i < data[1].length; i++) {
@@ -68,6 +68,8 @@ function selectClasses() {
 				buildStudents("studentSelect_div");
 			} catch(err) {
 			}
+		}else if (data[0] == -1){
+			window.location.href = "index.html?err=" + data[1] + "";
 		}
 	});
 }

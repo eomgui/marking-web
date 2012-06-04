@@ -385,11 +385,11 @@
 				params.params[0] = $(this).attr("id");
 				//get student id from field
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-					if(!data[0]) {
+					if(data[0] == 0) {
 						$("#error_text").html(data[1][0]);
 						$("#error_msg").show();
 						$("#msg").hide();
-					} else {
+					} else if(data[0] == 1) {
 						if($("#shouldTry").attr("try_id") !== undefined) {
 							$("#new_entryMenu").load("getRecords.html", function() {
 								getCommunications();
@@ -398,6 +398,8 @@
 						}
 						$("#dialog").dialog('close');
 						//close dialog upon submit
+					} else if(data[0] == -1) {
+						window.location.href = "index.html?err=" + data[1] + "";
 					}
 				});
 			});

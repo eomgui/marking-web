@@ -388,16 +388,18 @@
 		];
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
-				if(!data[0]) {//standard data transfer and error display
+				if(data[0] == 0) {//standard data transfer and error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
-				} else {
+				} else if(data[0] == 1) {
 					$("#dialog").dialog("close");
 					//close the box when they hit submit
 					$("#new_entryMenu").load("getRecords.html", function() {
 						getCommunications();
 					});
+				} else if(data[0] == -1) {
+					window.location.href = "index.html?err=" + data[1] + "";
 				}
 			});
 		}

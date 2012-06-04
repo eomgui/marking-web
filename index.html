@@ -152,7 +152,12 @@
 			 * shows logout message if the user have already logged in before being directed to index.html
 			 */
 			$(document).ready(function() {
-				if(QueryString.msg !== undefined) {
+				if(QueryString.err !== undefined) {
+					$("#error_text").html(unescape(QueryString.err)); //Displays error message if username is less than six characters
+					$("#error_msg").show();
+					$("#msg").hide();
+				}
+				else if(QueryString.msg !== undefined) {
 					$("#msg_text").html(unescape(QueryString.msg));
 					$("#msg").show();
 				}
