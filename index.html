@@ -90,6 +90,11 @@
 	</head>
 	<body>
 		<script type='text/javascript'>
+			/*
+			 * after the page is done loading
+			 * if the user presses enter key while typing in userId or password field
+			 * it is equavalent to pressing the login button
+			 */
 			$(document).ready(function() {
 				$("#login_pass, #login_user").keyup(function(event) {
 					if(event.keyCode == 13) {
@@ -147,7 +152,6 @@
 					$("#msg").hide();
 				}
 			}
-
 			/*
 			 * shows logout message if the user have already logged in before being directed to index.html
 			 */

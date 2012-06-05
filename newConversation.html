@@ -290,6 +290,9 @@
 			position : [e.pageX, e.pageY]
 		});
 	});
+	/*
+	 * when learningLink button is pressed, the add_learning_dialog is loaded
+	 */
 	$("#learningLink").click(function(e) {
 		$("#add_container").load('add_learning_dialog.html?int=' + Math.random());
 		$("#add_container").dialog({
@@ -317,6 +320,9 @@
 		}
 		$("#remainingChars").html(charsRemaining);
 	})
+	/*
+	 * controls the toggle buttons of worktype, activitytype, and level
+	 */
 	$('a.toggle_button').click(function() {
 		if($(this).attr("grouptype_id") !== undefined) {
 			var buttonGroup = $(this).attr("buttongroup");
@@ -324,11 +330,9 @@
 				selectedWType = $(this).attr("grouptype_id")
 			} else {
 				$("a.toggle_button[buttongroup=" + buttonGroup + "]").each(function() {
-					if($(this).attr("grouptype_id") !== undefined) {
-						$(this).removeClass("down")
-						$(this).removeClass("up");
-						$(this).addClass("up");
-					}
+					$(this).removeClass("down")
+					$(this).removeClass("up");
+					$(this).addClass("up");
 				})
 			}
 		}
@@ -336,20 +340,18 @@
 		$(this).toggleClass("down");
 	});
 	/*
-	 * removes a selected student or expectation
+	 * removes a selected student
 	 */
 	$("a.remove_link").live('click', function() {
 		if($(this).attr("link_type") == "std") {
 			delete studentsAdded[$(this).parent().attr('id')];
 			$(this).parent().remove();
-		} else if($(this).attr("link_type") == "exp") {
-			//delete studentsAdded[$(this).parent().attr('id')];
-			delete expectationsAdded[$(this).parent().attr('id')];
-			$(this).parent().parent().remove();
 		}
 	});
 	var finalConv = {};
-	//final result of save method
+	/*
+	 * saves the user input data to server
+	 */
 	function save() {
 		dateInField = $("#conversation_dateField").val();
 		//get date from field
