@@ -351,7 +351,11 @@
 		}
 	})
 	var finalObs = {};
-	//final result of save method
+	
+	/*
+	 * update the observation
+	 * id: the id of the record to update
+	 */
 	function save(id) {
 		dateInField = $("#observation_dateField").val();
 		finalObs.stid = $(".selectedName").attr("id");

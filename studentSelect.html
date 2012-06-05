@@ -178,20 +178,21 @@
 	$(document).ready(function() {
 		buildStudents("studentSelect_div");
 	})
-
 	$(".student_select_name").live('click', function() {
-		$(".student_select_name").each(function() {
-			$(this).css("background-color", 'white');
-			$(this).attr("click", "n");
-		})
-		$(this).css("background-color", '#C68DC3');
-		$(this).attr("click", "y");
-		$("#new_entryMenu").children().each(function() {
-			$(this).remove();
-		});
-		$("#new_entryMenu").load("getRecords.html", function() {
-			getCommunications();
-		});
+		if($(this).attr("click") != "y") {
+			$(".student_select_name").each(function() {
+				$(this).css("background-color", 'white');
+				$(this).attr("click", "n");
+			})
+			$(this).css("background-color", '#C68DC3');
+			$(this).attr("click", "y");
+			$("#new_entryMenu").children().each(function() {
+				$(this).remove();
+			});
+			$("#new_entryMenu").load("getRecords.html", function() {
+				getCommunications();
+			});
+		}
 	})
 </script>
 </script>
