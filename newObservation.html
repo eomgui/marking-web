@@ -183,13 +183,13 @@
 		width:100%;
 		text-align: center;
 		display: none;
-		margin-bottom: 5px;
+		margin-top: 10px;
 	}
 	img.helper {
 		width: 15px;
 		height: 15px;
 	}
-	#error_text {
+	#newObs_error_text {
 		display: inline;
 		color: red;
 	}
@@ -254,11 +254,11 @@
 		</div>
 		<div id='submit'>
 			<input type="button" value='submit' id="addObsButton" onclick="save()"/>
+			<div id='newObs_error_msg'>
+				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+				<div id='newObs_error_text'></div>
+			</div>
 		</div>
-		<div id='newObs_error_msg'>
-			<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
-			<div id='error_text'></div>
-	</div>
 	<div id='obs_console'></div>
 </div>
 <script type="text/javascript" charset="utf-8">
@@ -378,6 +378,7 @@
 	var finalObs = {};
 	//final result of save method
 	function save() {
+		try {
 		dateInField = $("#observation_dateField").val();
 		//get from field
 		finalObs.stid = $(".selectedName").attr("id");
@@ -424,9 +425,8 @@
 				//set student ID
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(!data[0]) {
-						$("#error_text").html(data[1][0]);
-						$("#error_msg").show();
-						$("#msg").hide();
+						$("#newObs_error_text").html(data[1]);
+						$("#newObs_error_msg").show();
 					} else {
 						$("#dialog").dialog('close');
 					}
@@ -438,5 +438,16 @@
 				});
 			}
 		}
+		else formNotComplete();
+		}
+		catch (err)
+		{
+		formNotComplete();
+		}
+	}
+	
+	function formNotComplete() {
+		$("#newObs_error_text").html("Please fill in the entire form");
+		$("#newObs_error_msg").show();
 	}
 </script>

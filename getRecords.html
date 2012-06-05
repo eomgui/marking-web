@@ -134,7 +134,11 @@
 		</li>
 	</ul>
 </div>
-<div id='record_data_fields'></div>
+<div id='record_data_fields'>
+	<div id='error_msg'>
+		<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+		<div id='error_text'></div>
+</div>
 <div id="dialog-confirm"></div>
 <script type="text/javascript" charset="utf-8">
 	/*
@@ -162,10 +166,11 @@
 		}
 		$.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 			if(!data[0]) {//standard error checking, etc
-				$("#error_text").html(data[1][0]);
+				$("#error_text").html(data[1]);
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else {
+				$("#error_msg").hide();
 				data = data[1]
 				data.sort(function(a, b) {
 					return b[6] - a[6]

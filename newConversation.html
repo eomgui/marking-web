@@ -186,7 +186,20 @@
 	#learningList {
 		clear: both;
 		font-size: 13px;
-	}
+	}	#newConv_error_msg{
+		width:100%;
+		text-align: center;
+		display: none;
+		margin-top: 10px;
+	}
+	img.helper {
+		width: 15px;
+		height: 15px;
+	}
+	#newConv_error_text {
+		display: inline;
+		color: red;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -231,6 +244,9 @@
 		</div>
 		<div id='submit'>
 			<input type="button" value='submit' id="addConvButton" onclick = "save()"/>
+			<div id='newConv_error_msg'>
+				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+				<div id='newConv_error_text'></div>
 		</div>
 	</div>
 </div>
@@ -351,6 +367,7 @@
 	var finalConv = {};
 	//final result of save method
 	function save() {
+		try{
 		dateInField = $("#conversation_dateField").val();
 		//get date from field
 		finalConv.date = new Date(dateInField);
@@ -380,7 +397,7 @@
 			5 : finalConv.text //comments
 		};
 
-		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1 && finalConv.text != "") {
+		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.level != -1 && finalConv.text != "") {
 			$(".selectedName").each(function() {//check every field, loop through each student
 				params.params[0] = $(this).attr("id");
 				//get student id from field
@@ -402,5 +419,16 @@
 				});
 			});
 		}
+		else formNotComplete();
+	}
+	catch(err)
+	{
+		formNotComplete();
+	}
+	}
+	
+	function formNotComplete() {
+		$("#newConv_error_text").html("Please fill in the entire form");
+		$("#newConv_error_msg").show();
 	}
 </script>
