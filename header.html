@@ -16,7 +16,7 @@
 </style>
 <ul class="pureCssMenu pureCssMenum">
 	<li class="pureCssMenui0">
-		<a class="logoBar" id='header_logo'><img src='css/images/small_ocdsb_icon.png'/>OCDSB</a>
+		<a class="logoBar" id='header_logo'><img src='css/images/small_ocdsb_icon.png'/>eMarking</a>
 	</li>
 	<li class="pureCssMenui0">
 		<a id='menu_visible_class' class="currentClassBar noclick" href="#">No Class Selected</a>
@@ -43,6 +43,9 @@
 		<a id='settings' class = 'currentClassBar'>Settings</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
+		<a id='about' class = 'currentClassBar'>About</a>
+	</li>
+	<li class="pureCssMenui0" id='right'>
 		<a id='help' class = 'currentClassBar'>Help</a>
 	</li>
 	<li class="pureCssMenui0" id='right'>
@@ -61,14 +64,21 @@
 		$("#new_entryMenu").load("new_entryMenu.html");
 	})
 	/*
-	 * logs user out
+	 * show the help dialog when the user hits the help div
 	 */
 	$("#help").click(function() {
 		$("#dialog").load("help.html");
 		$("#dialog").dialog({
-			modal : true,
-			height : "auto",
-			width : "auto"
+			modal : true
+		});
+	})
+	/*
+	 * show the about dialog when the user hits the about div
+	 */
+	$("#about").click(function() {
+		$("#dialog").load("about.html");
+		$("#dialog").dialog({
+			modal : true
 		});
 	})
 	/*
@@ -77,9 +87,7 @@
 	$("#settings").click(function() {
 		$("#dialog").load("settings.html");
 		$("#dialog").dialog({
-			modal : true,
-			height : "auto",
-			width : "auto"
+			modal : true
 		});
 	})
 	/*
