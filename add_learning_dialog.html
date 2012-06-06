@@ -133,7 +133,7 @@
 					$("#msg").hide();
 				} else if(data[0] == 1) {
 					data = data[1];
-					for(skill in data[1]) {
+					for(skill in data) {
 						if(data[skill][0].indexOf("lrn_") > -1) { // only selects learning skills
 							skills[data[skill][0]] = data[skill][1];
 						}
