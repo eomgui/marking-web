@@ -56,6 +56,7 @@ function selectClasses() {
 			$("#error_text").html(data[1]);
 			$("#error_msg").show();
 		} else {
+			$("#error_text").hide();
 			x = data;
 			var list = "";
 			for(var i = 0; i < data[1].length; i++) {

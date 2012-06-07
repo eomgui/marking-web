@@ -69,9 +69,27 @@
 		#tip_msg{
 			margin-top:145px;
 		}
-		
+		#dialog_error_msg{
+			width:100%;
+			text-align: center;
+			display: none;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		img.helper {
+			width: 15px;
+			height: 15px;
+		}
+		#dialog_error_text {
+			display: inline;
+			color: red;
+	}
 	</style>
 	<div id = "add_entry">
+		<div id='dialog_error_msg'>
+			<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+			<div id='dialog_error_text'></div>
+		</div>
 		<div id = 'add_students'>
 			<div id='add_student_wrapper'>
 				<div id='add_search_header'>

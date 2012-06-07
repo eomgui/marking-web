@@ -67,8 +67,26 @@
 		#addExp:hover {
 			cursor: pointer;
 		}
+		#dialog_error_msg{
+			width:100%;
+			text-align: center;
+			display: none;
+			margin-top: 10px;
+			margin-bottom: 10px;
+		}
+		img.helper {
+			width: 15px;
+			height: 15px;
+		}
+		#dialog_error_text {
+			display: inline;
+			color: red;
 	</style>
 	<div id = "add_entry">
+		<div id='dialog_error_msg'>
+			<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+			<div id='dialog_error_text'></div>
+		</div>
 		<div id = 'add_expectation'>
 			<div id='add_expectation_wrapper'>
 				<div id='add_search_header'>
@@ -125,8 +143,8 @@
 			};
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
 				if(!data[0]) {//standard error display
-					$("#error_text").html(data[1][0]);
-					$("#error_msg").show();
+					$("#dialog_error_text").html(data[1]);
+					$("#dialog_error_msg").show();
 					$("#msg").hide();
 				} else {
 					for(expectation in data[1]) {

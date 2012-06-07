@@ -264,6 +264,7 @@
 			<div id='editObs_error_msg'>
 				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
 				<div id='editObs_error_text'></div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -406,7 +407,7 @@
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 				if(!data[0]) {//standard data transfer and error display
-					$("#error_text").html(data[1][0]);
+					$("#error_text").html(data[1]);
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else {
