@@ -246,7 +246,8 @@
 	 */
 	$(document).ready(function() {
 		$("#conversation_dateField").datepicker({
-			showOn : "none"
+			showOn : "none",
+			maxDate: "+0"
 		});
 		date = new Date();
 		day = date.getDate();

@@ -256,7 +256,8 @@
 	 */
 	$(document).ready(function() {
 		$("#observation_dateField").datepicker({
-			showOn : "none"
+			showOn : "none",
+			maxDate: "+0"
 		});
 		date = new Date();
 		day = date.getDate();
