@@ -53,8 +53,7 @@ function selectClasses() {
 	}
 	jQuery.getJSON(IP + "/mark/model/classes-model.php?callback=?", params, function(data) {
 		if(!data[0]) {
-			$("#error_text").html(data[1]);
-			$("#error_msg").show();
+			alert(data[1]);
 		} else {
 			$("#error_text").hide();
 			x = data;

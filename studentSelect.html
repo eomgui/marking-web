@@ -156,20 +156,20 @@
 					$("#dialog_error_msg").show();
 				}
 			} else {
-				$("#error_msg").hide();
 				data[1].sort(function(a, b) {
 					if(a[1] + a[2] < b[1] + b[2])
 						return -1;
 					if(a[1] + a[2] > b[1] + b[2])
 						return 1;
 					return 0;
-				})
+				});
 				data = data[1];
 				for(student in data) {
 					var std_id = parseInt(data[student][0]);
 					var name = data[student][1] + " " + data[student][2];
 					students[std_id] = name;
 					$("#" + id).append("<div id='" + std_id + "'class='student_select_name'>" + name + "</div>");
+					$("#error_msg").hide();
 				}
 			}
 		});
