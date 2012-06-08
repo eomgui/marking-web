@@ -87,17 +87,16 @@
 	<script type="text/javascript" charset="utf-8">
 		/*
 		 * searches expectation that include the keyword typed in search field
-		 *
 		 * expectations that do not include the keyword will be removed from list
 		 */
 		$("#add_expectation_search_field").keyup(function() {
 			$("#add_expectation_list").children().each(function(iter) {
 				if($(this).html().toString().toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) == -1) {
 					add_expectations_deleted[$(this).attr('id')] = $(this).val();
-					$(this).remove();
+					$(this).remove(); // remove non fitting expectation
 				}
 			})
-			//if expectation was previously removed but can be searched with the new keyword, the name will be added back to list
+			//if expectation was previously removed but fits new search, the name will be added back to list
 			for(expectation in add_expectations_deleted) {
 				if((add_expectations_deleted[expectation].toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) != -1)) {
 					$("#add_expectation_list").append("<option class = 'add_std_opt' id='" + expectation + "'>" + expectations[expectation] + "</option>");
@@ -108,8 +107,11 @@
 		var add_expectations = {};
 		var add_expectations_deleted = {};
 		var expectations = {};
-		//result of getExpectations()
-
+		var titles = {};
+		
+		/*
+		 * generate list of expectations in the DOM
+		 */
 		function add_buildexpectations(id) {
 			for(expectation in add_expectations) {
 				if(!( expectation in expectationsAdded)) {
@@ -117,46 +119,45 @@
 				}
 			}
 		}
-
-		function getExpectations(id) {//begin function
+		
+		/*
+		 * Get expectations for the server
+		 * id: the id of the select DOM element to populate
+		 */
+		function getExpectations(id) {
 			params.fcn = 'selectExpectationsByCourse';
 			params.params = {
 				section : $("#menu_visible_class").attr("class_id") //get section id from bar up top
 			};
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-				if(!data[0]) {//standard error display
+				if(data[0] == 0) {//standard error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
-				} else {
-					for(expectation in data[1]) {
-						if(data[1][expectation][0].indexOf("lrn_") == -1) {
-							expectations[data[1][expectation][0]] = data[1][expectation][1];
-							//parameter name is number, parameter value is name
+				} else if(data[0] == 1) {
+					data = data[1];
+					for(expectation in data) {
+						if(data[expectation][0].indexOf("lrn_") == -1) {
+							expectations[data[expectation][0]] = data[expectation][1];
+							titles[data[expectation][0]] = data[expectation][2];
 						}
 					}
 					add_expectations = expectations;
 					for(expectation in add_expectations) {//add expectation options to menu in HTML
 						if(!( expectation in expectationsAdded)) {
-							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_expectations[expectation] + "</option>");
+							$("#" + id).append("<option title = '"+add_expectations[expectation]+"' class = 'add_std_opt'id='" + expectation + "'>" + titles[expectation] + "</option>");
 						}
 					}
+				} else if(data[0] == -1) { // not logged in
+					window.location.href = "index.html?err=" + data[1] + "";
 				}
 			});
 		}
-
-
-		$("#add_expectation_list").change(function() {
-			$("#add_expectation_list option:selected").each(function() {
-				//$("#content").load("getRecords.html");
-				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
-			});
-		})
 		$(document).ready(function() {//call getExpectations when the page loads
 			getExpectations("add_expectation_list");
 		})
 		/*
-		 * when add button is pressed, adds the selected expectations to its corriponding entry dialog
+		 * when add button is pressed, adds the selected expectations to its corresponding entry dialog
 		 */
 		$("#addExp").click(function() {
 			$("#add_expectation_list option:selected").each(function() {

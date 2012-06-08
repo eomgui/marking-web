@@ -87,7 +87,6 @@
 	<script type="text/javascript" charset="utf-8">
 		/*
 		 * searches expectation that include the keyword typed in search field
-		 *
 		 * expectations that do not include the keyword will be removed from list
 		 */
 		$("#add_expectation_search_field").keyup(function() {
@@ -97,6 +96,7 @@
 					$(this).remove();
 				}
 			})
+			
 			//if expectation was previously removed but can be searched with the new keyword, the name will be added back to list
 			for(expectation in add_skills_deleted) {
 				if((add_skills_deleted[expectation].toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) != -1)) {
@@ -108,8 +108,10 @@
 		var add_skills = {};
 		var add_skills_deleted = {};
 		var skills = {};
-		//result of getExpectations()
-
+		
+		/*
+		 * generate list of expectations in the DOM
+		 */
 		function add_buildexpectations(id) {
 			for(expectation in add_skills) {
 				if(!( expectation in skillsAdded)) {
@@ -117,43 +119,43 @@
 				}
 			}
 		}
-
-		function getExpectations(id) {//begin function
+		
+		/*
+		 * Get expectations for the server
+		 * id: the id of the select DOM element to populate
+		 */
+		function getExpectations(id) {
 			params.fcn = 'selectExpectationsByCourse';
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
-				if(!data[0]) {//standard error display
+				if(data[0] == 0) {//standard error display
 					$("#error_text").html(data[1][0]);
 					$("#error_msg").show();
 					$("#msg").hide();
-				} else {
-					for(i in data[1]) {
-						if(data[1][i][0].indexOf("lrn_") > -1) {
-							skills[data[1][i][0]] = data[1][i][1];
+				} else if(data[0] == 1) {
+					data = data[1];
+					for(skill in data) {
+						if(data[skill][0].indexOf("lrn_") > -1) { // only selects learning skills
+							skills[data[skill][0]] = data[skill][1];
 						}
-						//parameter name is number, parameter value is name
 					}
 					add_skills = skills;
-					for(expectation in add_skills) {//add expectation options to menu in HTML
+					for(expectation in add_skills) {//add expectation options to menu in DON
 						if(!( expectation in skillsAdded)) {
 							$("#" + id).append("<option class = 'add_std_opt'id='" + expectation + "'>" + add_skills[expectation] + "</option>");
 						}
 					}
+				} else if(data[0] == -1) {
+					window.location.href = "index.html?err=" + data[1] + "";
 				}
 			});
 		}
-
-
-		$("#add_expectation_list").change(function() {
-			$("#add_expectation_list option:selected").each(function() {
-				//$("#content").load("getRecords.html");
-				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
-			});
-		})
+		
 		$(document).ready(function() {//call getExpectations when the page loads
 			getExpectations("add_expectation_list");
 		})
+		
 		/*
-		 * when add button is pressed, adds the selected expectations to its corriponding entry dialog
+		 * when add button is pressed, adds the selected expectations to its corresponding entry dialog
 		 */
 		$("#addExp").click(function() {
 			$("#add_expectation_list option:selected").each(function() {

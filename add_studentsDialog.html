@@ -92,9 +92,9 @@
 		</div>
 	</div>
 	<script type="text/javascript" charset="utf-8">
+		
 		/*
 		 * searches students' names that include the keyword typed in search field
-		 * 
 		 * names that do not include the keyword will be removed from list
 		 */
 		$("#add_student_search_field").keyup(function() {
@@ -104,6 +104,7 @@
 					$(this).remove();
 				}
 			})
+			
 			//if name was previously removed but can be searched with the new keyword, the name will be added back to list
 			for(student in add_students_deleted) {
 				if((add_students_deleted[student].toUpperCase().indexOf($("#add_student_search_field").val().toString().toUpperCase()) != -1)) {
@@ -114,8 +115,10 @@
 		})
 		var add_students = students;
 		var add_students_deleted = {};
+		
 		/*
-		 * get student list
+		 * generate student list
+		 * id: the id of the select in the DOM to populate 
 		 */
 		function add_buildStudents(id) {
 			add_students = students;
@@ -125,13 +128,6 @@
 				}
 			}
 		}
-
-		$("#add_student_list").change(function() {
-			$("#add_student_list option:selected").each(function() {
-				//$("#content").load("getRecords.html");
-				//window.location.href = 'getRecords.html?classId='+$("#menu_visible_class").attr("class_id")+'&id='+QueryString.id+'&stdId='+$(this).attr('id');
-			});
-		})
 		/*
 		 * when this page is done loading, loads the list of students
 		 */
@@ -146,7 +142,6 @@
 				studentsAdded[$(this).attr('id')] = ($(this).html());
 				$("#selectedNames").append('<span class="selectedName" id="' + $(this).attr('id') + '">' + $(this).html() + '<a class="remove_link" link_type="std" href="#">Remove</a></span>');
 			});
-			//add_students dialog is closed
 			$("#add_container").dialog("close");
 		});
 
