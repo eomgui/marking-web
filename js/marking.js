@@ -1,9 +1,15 @@
-var IP = "http://10.178.30.78";
-//var IP = "http://192.168.192.35";
+//var IP = "http://10.178.30.78";
+var IP = "http://192.168.192.35";
 function str(str) {
 	return JSON.stringify(str);
 }
-
+Object.size = function(obj) {
+    var size = 0, key;
+    for (key in obj) {
+        if (obj.hasOwnProperty(key)) size++;
+    }
+    return size;
+};
 var QueryString = function() {
 	// This function is anonymous, is executed immediately and
 	// the return value is assigned to QueryString!
@@ -53,9 +59,9 @@ function selectClasses() {
 	}
 	jQuery.getJSON(IP + "/mark/model/classes-model.php?callback=?", params, function(data) {
 		if(data[0] == 0) {
-			$("#error_text").html(data[1]);
-			$("#error_msg").show();
+			alert(data[1]);
 		} else if(data[0] == 1){
+			$("#error_text").hide();
 			x = data;
 			var list = "";
 			for(var i = 0; i < data[1].length; i++) {

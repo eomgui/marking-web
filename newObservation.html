@@ -178,7 +178,20 @@
 	#learningList {
 		clear: both;
 		font-size: 13px;
-	}
+	}	#newObs_error_msg{
+		width:100%;
+		text-align: center;
+		display: none;
+		margin-top: 10px;
+	}
+	img.helper {
+		width: 15px;
+		height: 15px;
+	}
+	#newObs_error_text {
+		display: inline;
+		color: red;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -240,8 +253,11 @@
 		</div>
 		<div id='submit'>
 			<input type="button" value='submit' id="addObsButton" onclick="save()"/>
+			<div id='newObs_error_msg'>
+				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+				<div id='newObs_error_text'></div>
+			</div>
 		</div>
-	</div>
 	<div id='obs_console'></div>
 </div>
 <script type="text/javascript" charset="utf-8">
@@ -364,6 +380,7 @@
 	 * saves the user input data to server
 	 */
 	function save() {
+		try {
 		dateInField = $("#observation_dateField").val();
 		//get from field
 		finalObs.stid = $(".selectedName").attr("id");
@@ -410,9 +427,8 @@
 				//set student ID
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(data[0] == 0) {
-						$("#error_text").html(data[1][0]);
-						$("#error_msg").show();
-						$("#msg").hide();
+						$("#newObs_error_text").html(data[1]);
+						$("#newObs_error_msg").show();
 					} else if(data[0] == 1) {
 						$("#dialog").dialog('close');
 					} else if(data[0] == -1) {
@@ -426,5 +442,16 @@
 				});
 			}
 		}
+		else formNotComplete();
+		}
+		catch (err)
+		{
+		formNotComplete();
+		}
+	}
+	
+	function formNotComplete() {
+		$("#newObs_error_text").html("Please fill in the entire form");
+		$("#newObs_error_msg").show();
 	}
 </script>

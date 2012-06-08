@@ -148,23 +148,26 @@
 		};
 		jQuery.getJSON(IP + "/mark/model/student-model.php?callback=?", params, function(data) {
 			if(data[0] == 0) {
-				$("#error_text").html(data[1][0]);
-				$("#error_msg").show();
-				$("#msg").hide();
+					$("#error_text").html(data[1]);
+					$("#error_text").show();
+					$("#error_msg").show();
+					$("#add_wrapper").hide();
 			} else if(data[0] == 1) {
+				$("#add_wrapper").show();
 				data[1].sort(function(a, b) {
 					if(a[1] + a[2] < b[1] + b[2])
 						return -1;
 					if(a[1] + a[2] > b[1] + b[2])
 						return 1;
 					return 0;
-				})
+				});
 				data = data[1];
 				for(student in data) {
 					var std_id = parseInt(data[student][0]);
 					var name = data[student][1] + " " + data[student][2];
 					students[std_id] = name;
 					$("#" + id).append("<div id='" + std_id + "'class='student_select_name'>" + name + "</div>");
+					$("#error_msg").hide();
 				}
 			} else if(data[0] == -1) {
 				window.location.href = "index.html?err=" + data[1] + "";
