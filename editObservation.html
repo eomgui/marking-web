@@ -185,7 +185,20 @@
 	#learningList {
 		clear: both;
 		font-size: 13px;
-	}
+	}	#editObs_error_msg{
+		width:100%;
+		text-align: center;
+		display: none;
+		margin-top: 10px;
+	}
+	img.helper {
+		width: 15px;
+		height: 15px;
+	}
+	#editObs_error_text {
+		display: inline;
+		color: red;
+	}
 </style>
 <link rel="stylesheet" type="text/css" media="all" href="css/jScrollPane.css" />
 <script type="text/javascript" src="js/jScrollPane.js"></script>
@@ -247,6 +260,10 @@
 		</div>
 		<div id='submit'>
 			<input type="button" value='submit' id="addObsButton"/>
+			<div id='editObs_error_msg'>
+				<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+				<div id='editObs_error_text'></div>
+			</div>
 		</div>
 	</div>
 </div>
@@ -394,7 +411,7 @@
 		if(finalObs.stid != undefined && finalObs.expectation != undefined && dateInField != "" && finalObs.activity != "" && finalObs.activityId != -1 && finalObs.workType != "" && finalObs.workTypeId != -1 && finalObs.level != -1 && finalObs.text != "") {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 				if(data[0] == 0) {//standard data transfer and error display
-					$("#error_text").html(data[1][0]);
+					$("#error_text").html(data[1]);
 					$("#error_msg").show();
 					$("#msg").hide();
 				} else if(data[0] == 1) {

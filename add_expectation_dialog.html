@@ -1,74 +1,92 @@
 <div id='addexpectationToObs'>
 	<style type="text/css" media="screen">
 		#add_expectation_list, #add_expectation_search_field, #add_entry {
-			font-size: 13px !important;
+		font-size: 13px !important;
 		}
 		#addexpectationToObs {
-			float: left;
+		float: left;
 		}
 		#add_expectation_list {
-			clear: both;
-			width: 100%;
-			margin: 0px;
-			border-style: solid;
-			border-width: 1px;
-			border-color: white;
-			border-top-color: rgb(198,141,195);
-			border-top-style: solid;
-			border-top-width: 1px;
-			padding-top: 3px;
-			padding-bottom: 3px;
-			padding-left: 5px;
-			color: rgb(51,51,51);
+		clear: both;
+		width: 100%;
+		margin: 0px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: white;
+		border-top-color: rgb(198,141,195);
+		border-top-style: solid;
+		border-top-width: 1px;
+		padding-top: 3px;
+		padding-bottom: 3px;
+		padding-left: 5px;
+		color: rgb(51,51,51);
 		}
 		#add_expectations {
-			float: left;
-			margin: 0px auto;
-			display: inline-block;
-			width: 100%;
+		float: left;
+		margin: 0px auto;
+		display: inline-block;
+		width: 100%;
 		}
 		#add_expectation_search_field {
-			border-style: solid;
-			border-width: 1px;
-			border-color: white;
-			color: gray;
-			width: 85%;
-			margin: 0px;
-			padding: 5px 5px;
+		border-style: solid;
+		border-width: 1px;
+		border-color: white;
+		color: gray;
+		width: 85%;
+		margin: 0px;
+		padding: 5px 5px;
 		}
 		#add_expectation_wrapper {
-			width: 99%;
-			border-style: solid;
-			border-width: 1px;
-			border-color: rgb(198,141,195);
+		width: 99%;
+		border-style: solid;
+		border-width: 1px;
+		border-color: rgb(198,141,195);
 		}
 		#add_search_icon {
-			margin-left: 7px;
+		margin-left: 7px;
 		}
 		#add_entry {
-			float: left;
+		float: left;
 		}
 		#add_search_container {
-			display: inline;
+		display: inline;
 		}
 		#add_icon_container {
-			width: 10%;
-			display: inline;
+		width: 10%;
+		display: inline;
 		}
 		#addExp {
-			font-size: 12px;
-			font-weight: bold;
-			padding: 5px 113px;
-			background-color: rgb(81,0,77);
-			border-width: 0px;
-			color: white;
-			margin: 0px;
+		font-size: 12px;
+		font-weight: bold;
+		padding: 5px 113px;
+		background-color: rgb(81,0,77);
+		border-width: 0px;
+		color: white;
+		margin: 0px;
 		}
 		#addExp:hover {
-			cursor: pointer;
+		cursor: pointer;
+		}s
+		#dialog_error_msg{
+		width:100%;
+		text-align: center;
+		display: none;
+		margin-top: 10px;
+		margin-bottom: 10px;
 		}
+		img.helper {
+		width: 15px;
+		height: 15px;
+		}
+		#dialog_error_text {
+		display: inline;
+		color: red;
 	</style>
 	<div id = "add_entry">
+		<div id='dialog_error_msg'>
+			<span id='error_icon'><img class='helper'src='css/images/error_icon.png' /></span>
+			<div id='dialog_error_text'></div>
+		</div>
 		<div id = 'add_expectation'>
 			<div id='add_expectation_wrapper'>
 				<div id='add_search_header'>
@@ -93,7 +111,8 @@
 			$("#add_expectation_list").children().each(function(iter) {
 				if($(this).html().toString().toUpperCase().indexOf($("#add_expectation_search_field").val().toString().toUpperCase()) == -1) {
 					add_expectations_deleted[$(this).attr('id')] = $(this).val();
-					$(this).remove(); // remove non fitting expectation
+					$(this).remove();
+					// remove non fitting expectation
 				}
 			})
 			//if expectation was previously removed but fits new search, the name will be added back to list
@@ -108,7 +127,7 @@
 		var add_expectations_deleted = {};
 		var expectations = {};
 		var titles = {};
-		
+
 		/*
 		 * generate list of expectations in the DOM
 		 */
@@ -119,7 +138,7 @@
 				}
 			}
 		}
-		
+
 		/*
 		 * Get expectations for the server
 		 * id: the id of the select DOM element to populate
@@ -131,8 +150,9 @@
 			};
 			jQuery.getJSON(IP + "/mark/model/expectations-model.php?callback=?", params, function(data) {
 				if(data[0] == 0) {//standard error display
-					$("#error_text").html(data[1][0]);
-					$("#error_msg").show();
+					$("#dialog_error_text").html(data[1]);
+					$("#dialog_error_msg").show();
+					$("#dialog_error_text").show();
 					$("#msg").hide();
 				} else if(data[0] == 1) {
 					data = data[1];
@@ -143,16 +163,24 @@
 						}
 					}
 					add_expectations = expectations;
+					if(Object.size(add_expectations) == 0) {
+						$("#dialog_error_text").html("No Expectections Available for This Class");
+						$("#dialog_error_msg").show();
+						$("#dialog_error_text").show();
+						$("#msg").hide();
+					}
 					for(expectation in add_expectations) {//add expectation options to menu in HTML
 						if(!( expectation in expectationsAdded)) {
-							$("#" + id).append("<option title = '"+add_expectations[expectation]+"' class = 'add_std_opt'id='" + expectation + "'>" + titles[expectation] + "</option>");
+							$("#" + id).append("<option title = '" + add_expectations[expectation] + "' class = 'add_std_opt'id='" + expectation + "'>" + titles[expectation] + "</option>");
 						}
 					}
-				} else if(data[0] == -1) { // not logged in
+				} else if(data[0] == -1) {// not logged in
 					window.location.href = "index.html?err=" + data[1] + "";
 				}
 			});
 		}
+
+
 		$(document).ready(function() {//call getExpectations when the page loads
 			getExpectations("add_expectation_list");
 		})
