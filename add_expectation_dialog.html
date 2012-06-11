@@ -144,6 +144,7 @@
 		 * id: the id of the select DOM element to populate
 		 */
 		function getExpectations(id) {
+			$("#dialog_error_msg").hide();
 			params.fcn = 'selectExpectationsByCourse';
 			params.params = {
 				section : $("#menu_visible_class").attr("class_id") //get section id from bar up top
@@ -153,7 +154,6 @@
 					$("#dialog_error_text").html(data[1]);
 					$("#dialog_error_msg").show();
 					$("#dialog_error_text").show();
-					$("#msg").hide();
 				} else if(data[0] == 1) {
 					data = data[1];
 					for(expectation in data) {
