@@ -258,6 +258,7 @@
 	function toggleCommunicationsById(id) {
 		$("#record_data_fields").children().each(function() {
 			if(id == 0) {
+				if($(this).attr("id") != "error_msg")
 				$(this).show();
 			} else {
 				if($(this).attr("type_id") != id)

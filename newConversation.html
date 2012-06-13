@@ -401,7 +401,7 @@
 			5 : finalConv.text //comments
 		};
 
-		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.level != -1 && finalConv.text != "") {
+		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.level != -1) {
 			$(".selectedName").each(function() {//check every field, loop through each student
 				params.params[0] = $(this).attr("id");
 				//get student id from field
