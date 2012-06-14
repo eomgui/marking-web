@@ -408,7 +408,7 @@
 				jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 					if(data[0] == 0) {
 						$("#error_text").html(data[1]);
-						$("#error_msg").show();
+						$("#error_msg").show().css("display","inline");
 						$("#msg").hide();
 					} else if(data[0] == 1) {
 						$("#dialog").dialog('close');

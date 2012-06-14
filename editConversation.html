@@ -395,8 +395,8 @@
 		if(finalConv.stid != undefined && finalConv.expectation != undefined && dateInField != "" && finalConv.activity != "" && finalConv.activityId != -1 && finalConv.workType != "" && finalConv.workTypeId != -1 && finalConv.level != -1) {
 			jQuery.getJSON(IP + "/mark/model/communications-model.php?callback=?", params, function(data) {
 				if(data[0] == 0) {//standard data transfer and error display
-					$("#error_text").html(data[1][0]);
-					$("#error_msg").show();
+					$("#editConv_error_text").html(data[1]);
+					$("#editConv_error_msg").show().css("display","inline");
 					$("#msg").hide();
 				} else if(data[0] == 1) {
 					$("#dialog").dialog("close");

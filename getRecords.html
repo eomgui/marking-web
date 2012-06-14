@@ -324,7 +324,7 @@
 				commentText = comments.substr(comments.indexOf(":") + 1);
 				// "Comments:"
 				if(commentText.lastIndexOf("</key>") > -1) {// if keys are present
-					commentText = comments.substr(comments.lastIndexOf("</key>") + 6);
+					commentText = comments.substr(comments.lastIndexOf("</key>") + 7);
 				}
 				for(var i = 0; i < commentKeys.length; i++) {
 					keyLevel = $(commentKeys[i]).attr('type_id');
@@ -450,8 +450,9 @@
 				$("#error_msg").show();
 				$("#msg").hide();
 			} else if(data[0] == 1) {
-				$("#record_" + id).remove();
-				//get rid of the record on the page so they don't have to refresh
+				$("#new_entryMenu").load("getRecords.html", function() {
+						getCommunications();
+					});
 			} else if(data[0] == -1) {
 				window.location.href = "index.html?err=" + data[1] + "";
 			}
